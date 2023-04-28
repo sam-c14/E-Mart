@@ -7,7 +7,7 @@ import SliderImg3 from "../../assets/images/SliderImg3.jpg";
 
 const Slider = () => {
   return (
-    <div className="w-3/4 bg-fuchsia-300 rounded-2xl">
+    <div className="w-3/4 rounded-2xl">
       <Carousel
         autoPlay={true}
         interval={5000}

@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 
 const App = () => {
   return (
-    <div>
+    <div className="bg-gray-200">
       <Home />
     </div>
   );
