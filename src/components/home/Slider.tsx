@@ -7,8 +7,8 @@ import SliderImg3 from "../../assets/images/SliderImg3.jpg";
 
 const Slider = () => {
   return (
-    <div>
-      <Carousel showThumbs={false}>
+    <div className="w-3/4">
+      <Carousel className="rounded-xl" showThumbs={false}>
         <div>
           <img src={SliderImg1} alt="img-1" />
           {/* <p className="legend">Legend 1</p> */}
