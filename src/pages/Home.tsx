@@ -5,6 +5,7 @@ import Categories from "../components/home/nav/Categories";
 import Slider from "../components/home/Slider";
 import ProductGrid from "../components/home/ProductGrid";
 import CurrentDeals from "../components/home/CurrentDeals";
+import SponsoredProducts from "../components/home/SponsoredProducts";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
       </div>
       <div className="px-3">
         <CurrentDeals />
+        <SponsoredProducts />
       </div>
     </div>
   );
