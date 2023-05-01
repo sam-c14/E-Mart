@@ -6,6 +6,8 @@ import Slider from "../components/home/Slider";
 import ProductGrid from "../components/home/ProductGrid";
 import CurrentDeals from "../components/home/CurrentDeals";
 import SponsoredProducts from "../components/home/SponsoredProducts";
+import Recommended from "../components/home/Recommended";
+import ShopNow from "../components/home/ShopNow";
 
 const Home = () => {
   return (
@@ -20,6 +22,8 @@ const Home = () => {
       <div className="px-3">
         <CurrentDeals />
         <SponsoredProducts />
+        <Recommended />
+        <ShopNow />
       </div>
     </div>
   );
