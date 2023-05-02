@@ -57,7 +57,7 @@ const Footer = () => {
               </h3>
               <ul>
                 {obj.arr.map((link) => (
-                  <li className="my-3 text-sm text-gray-200 hover:text-white transition-all">
+                  <li className="my-3 text-sm text-gray-300 hover:text-white transition-all">
                     <a href="www.asa.com">{link}</a>
                   </li>
                 ))}
