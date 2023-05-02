@@ -1,4 +1,5 @@
 import React from "react";
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   const aboutLinks = [
@@ -39,9 +40,15 @@ const Footer = () => {
       arr: infoLinks,
     },
   ];
+  const socialLinks = [
+    <FaFacebook />,
+    <FaInstagram />,
+    <FaTwitter />,
+    <FaYoutube />,
+  ];
   return (
     <div className="bg-gray-950 px-10">
-      <div className="flex text-gray-300 justify-between">
+      <div className="flex text-gray-300 justify-between mb-5 mt-1">
         <div className="grid grid-cols-4 w-3/4">
           {links.map((obj) => (
             <div className="link-container">
@@ -69,7 +76,26 @@ const Footer = () => {
               Subscribe
             </button>
           </form>
+          <div>
+            <h3 className="uppercase text-gray-300 mt-5">connect with us</h3>
+            <div className="flex gap-2 mt-5">
+              {socialLinks.map((link) => (
+                <div className="text-3xl p-3 rounded-full bg-gray-800">
+                  <a href="www.sac.com" className="filter">
+                    {link}
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
+      </div>
+      <div className="flex items-center pb-6">
+        <div className="border-b-2 w-2/5 border-gray-300"></div>
+        <div className="text-gray-300 text-sm whitespace-nowrap w-1/5">
+          Copyright © 2023 Konga.com. All rights reserved
+        </div>
+        <div className="border-b-2 w-2/5 border-gray-300"></div>
       </div>
     </div>
   );
