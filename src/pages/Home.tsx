@@ -8,6 +8,7 @@ import CurrentDeals from "../components/home/CurrentDeals";
 import SponsoredProducts from "../components/home/SponsoredProducts";
 import Recommended from "../components/home/Recommended";
 import ShopNow from "../components/home/ShopNow";
+import AboutUs from "../components/home/AboutUs";
 
 const Home = () => {
   return (
@@ -15,15 +16,16 @@ const Home = () => {
       <LinksHeader />
       <Navbar />
       <Categories />
-      <div className="flex justify-between my-4 px-3">
+      <div className="flex justify-between my-4 px-6">
         <Slider />
         <ProductGrid />
       </div>
-      <div className="px-3">
+      <div className="px-6">
         <CurrentDeals />
         <SponsoredProducts />
         <Recommended />
         <ShopNow />
+        <AboutUs />
       </div>
     </div>
   );

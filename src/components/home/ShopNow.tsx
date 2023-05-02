@@ -51,6 +51,9 @@ const ShopNow = () => {
             </div>
           </div>
         ))}
+        {/* <div>
+          <img src="https://imgbox.io/ib/L8s5HOVk0G.jpg" alt="sasa" />
+        </div> */}
       </div>
     </div>
   );
