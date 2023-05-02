@@ -9,6 +9,7 @@ import SponsoredProducts from "../components/home/SponsoredProducts";
 import Recommended from "../components/home/Recommended";
 import ShopNow from "../components/home/ShopNow";
 import AboutUs from "../components/home/AboutUs";
+import Footer from "../components/home/Footer";
 
 const Home = () => {
   return (
@@ -27,6 +28,7 @@ const Home = () => {
         <ShopNow />
         <AboutUs />
       </div>
+      <Footer />
     </div>
   );
 };
