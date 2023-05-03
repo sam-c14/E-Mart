@@ -91,7 +91,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex items-center pb-6">
-        <div className="border-b-2 w-2/5 border-gray-300"></div>
+        <div className="border-b-2 w-2/5 border-gray-400"></div>
         <div className="text-gray-300 text-sm whitespace-nowrap w-1/5">
           Copyright © 2023 Konga.com. All rights reserved
         </div>

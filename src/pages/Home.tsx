@@ -12,6 +12,13 @@ import AboutUs from "../components/home/AboutUs";
 import Footer from "../components/home/Footer";
 
 const Home = () => {
+  const fetchData = () => {
+    return fetch("localhost:5000/api/v1/")
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  };
+  fetchData();
   return (
     <div>
       <LinksHeader />
