@@ -2,15 +2,17 @@ import React from "react";
 import Store from "../../../assets/images/store-logo.jpg";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiCart, BiQuestionMark } from "react-icons/bi";
+// import Cart from "../../../pages/Cart";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <div className="bg-pink-500 w-full">
       <ul className="flex w-full px-10 py-3.5 text-white">
         <li className="transition-5 hover:scale-105 w-1/12">
-          <a href="/" className="w-full rounded-full">
+          <Link to="/" className="w-full rounded-full">
             <img src={Store} className="w-12 rounded-full h-10" alt="logo" />
-          </a>
+          </Link>
         </li>
         <li className="transition-5 hover:scale-105 w-1/12 flex items-center">
           <a href="/locator">Locator</a>
@@ -39,12 +41,17 @@ const Navbar = () => {
         <li className="transition-5 hover:scale-105 w-1/6 flex items-center">
           <a href="/login">Login/SignUp</a>
         </li>
-        <li className="transition-5 hover:bg-teal-700 w-1/6 py-1 rounded-sm flex text-xl items-center text-white gap-5 justify-center bg-teal-500">
-          <BiCart className="text-white text-2xl" />
-          My Cart
-          <div className="bg-white w-8 flex justify-center items-center font-semibold h-5/6 text-black rounded-sm">
-            0
-          </div>
+        <li className="transition-5 hover:bg-teal-700 w-1/6 py-1 rounded-sm flex justify-center text-white bg-teal-500">
+          <Link
+            className="flex gap-4 text-lg items-center justify-center"
+            to="/cart/overview"
+          >
+            <BiCart className="text-white text-xl" />
+            My Cart
+            <div className="bg-white w-7 flex justify-center items-center font-semibold h-5/6 text-black rounded-sm">
+              0
+            </div>
+          </Link>
         </li>
       </ul>
     </div>
