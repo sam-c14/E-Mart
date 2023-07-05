@@ -12,11 +12,16 @@ import AboutUs from "../components/home/AboutUs";
 import Footer from "../components/home/Footer";
 
 const Home = () => {
-  const fetchData = () => {
-    return fetch("localhost:5000/api/v1/")
+  const fetchData = async () => {
+    return fetch("https://e-mart-api.onrender.com/api/v1/", {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
       .then((res) => res.json())
       .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err, "err"));
   };
   fetchData();
   return (
