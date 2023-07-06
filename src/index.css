@@ -9,3 +9,8 @@
   /* border-width: 2.25px; */
   width: 11.2rem;
 }
+.active {
+  background: white;
+  /* font-weight: 500; */
+  color: black;
+}

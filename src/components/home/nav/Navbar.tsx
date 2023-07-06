@@ -7,8 +7,16 @@ import { BiCart, BiQuestionMark } from "react-icons/bi";
 import DropDown1 from "./DropDown1";
 import { Link } from "react-router-dom";
 
+type T = {
+  to: String;
+  text: String;
+};
+
 const Navbar = () => {
-  const helpItems: Array<string> = ["FAQS", "Contact Us"];
+  const helpItems: Array<T> = [
+    { text: "FAQS", to: "/help/faqs" },
+    { text: "Contact Us", to: "/help/contact-us" },
+  ];
   const [isDropDownShowing, setIsDropDownShowing] = useState(false);
   function toggleDropDown(value: boolean) {
     setIsDropDownShowing(value);
@@ -39,8 +47,7 @@ const Navbar = () => {
           </button>
         </li>
         <li className="transition-5 relative w-1/6 flex justify-center">
-          <a
-            href="/help"
+          <span
             className="flex-wrap items-center flex hover:bg-white hover:text-pink-600 px-2 py-1"
             onMouseEnter={() => toggleDropDown(!isDropDownShowing)}
             onMouseLeave={() => toggleDropDown(!isDropDownShowing)}
@@ -54,7 +61,7 @@ const Navbar = () => {
               isDropDownShowing={isDropDownShowing}
               itemArr={helpItems}
             />
-          </a>
+          </span>
         </li>
         <li className="transition-5 hover:scale-105 w-1/6 flex items-center">
           <Link to="/account/login">Login/SignUp</Link>

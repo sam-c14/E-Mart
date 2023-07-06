@@ -1,10 +1,19 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
+import { Path } from "react-router-dom";
+import { To } from "react-router-dom";
 
+type T = {
+  to: String;
+  text: String;
+};
 interface items {
-  itemArr: Array<String>;
+  itemArr: Array<T>;
   isDropDownShowing: Boolean;
   toggleDropDown: Function;
 }
+
+type Partial<T> = { [P in keyof T]?: T[P] | undefined };
 
 const DropDown1: FC<items> = (props): JSX.Element => {
   return props.isDropDownShowing ? (
@@ -15,7 +24,7 @@ const DropDown1: FC<items> = (props): JSX.Element => {
       <ul>
         {props.itemArr.map((item) => (
           <li className="py-2 pl-2 hover:text-pink-600 hover:bg-gray-100">
-            {item}
+            <Link to={item.to as To}>{item.text}</Link>
           </li>
         ))}
       </ul>
