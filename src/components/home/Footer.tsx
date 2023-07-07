@@ -47,7 +47,7 @@ const Footer = () => {
     <FaYoutube />,
   ];
   return (
-    <div className="bg-gray-950 px-10">
+    <div className="bg-gray-950 sm:block hidden px-10">
       <div className="flex text-gray-300 justify-between mb-5 mt-1">
         <div className="grid grid-cols-4 w-3/4">
           {links.map((obj) => (

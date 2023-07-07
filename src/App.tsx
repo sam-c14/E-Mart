@@ -7,11 +7,11 @@ import Help from "./pages/help/help";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import index from "./store/index";
+import store from "./store/index";
 
 const App = () => {
   return (
-    <Provider store={index}>
+    <Provider store={store}>
       <div className="bg-gray-100">
         <Router>
           <div>

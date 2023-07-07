@@ -1,8 +1,20 @@
 import React from "react";
 import faqs from "../../assets/images/question-mark-g2d25c60df_640.jpg";
 import questions from "../../assets/data/faqs.json";
+import { useAppSelector, useAppDispatch } from "../../store/hooks/hooks";
+import { increment, decrement } from "../../store/slices/couterSlice";
+// import { CounterState } from "../../store/slices/couterSlice";
 
 const Faqs = () => {
+  const count = useAppSelector((state) => state.counterReducer.value);
+  const dispatch = useAppDispatch();
+  // const increment = () => {
+  //   dispatch({ type: "INC" });
+  // };
+  // const decrement = () => {
+  //   dispatch({ type: "INC" });
+  // };
+
   const links = document.querySelectorAll(".link") as NodeListOf<HTMLElement>;
   links.forEach((link) => {
     link.addEventListener("click", (e) => {
@@ -15,7 +27,7 @@ const Faqs = () => {
   });
   return (
     <div>
-      <div className="py-5 pl-20 bg-white shadow-sm border-b mb-3">
+      <div className="py-5 pl-10 xl:pl-20 bg-white shadow-sm border-b mb-3">
         <div className="text-sm">
           Home {">"} Help {">"} <span className="text-pink-800">FAQ</span>
         </div>
@@ -23,9 +35,9 @@ const Faqs = () => {
           <h1 className="font-bold text-4xl">Frequently Asked Questions</h1>
         </div>
       </div>
-      <div className="px-20 mt-5">
-        <div className="bg-white rounded-tl-sm rounded-tr-sm flex justify-between px-2 py-10">
-          <div className="w-1/2 flex items-center pl-5 font-semibold text-lg text-gray-900">
+      <div className="md:px-0 lg:px-10 xl:px-20 mt-5">
+        <div className="bg-white rounded-tl-sm rounded-tr-sm flex sm:justify-between flex-wrap px-2 py-10">
+          <div className="sm:w-1/2 w-full flex items-center pl-5 font-semibold text-base lg:text-lg text-gray-900">
             <p>
               Get all the answers to the most frequently asked questions (FAQs)
               regarding some of our popular categories which include
@@ -35,21 +47,24 @@ const Faqs = () => {
               payment, vouchers and much, much more.
             </p>
           </div>
-          <div className="w-1/4 h-1/2">
+          <div className="sm:w-1/4 w-full h-1/2">
             <img src={faqs} alt="faqs" />
           </div>
         </div>
-        <div className="bg-sky-400 rounded-bl-sm rounded-br-sm mb-10 flex">
-          <div className="border-r w-1/5 pt-10 border-white">
+        <div className="bg-sky-400 rounded-bl-sm rounded-br-sm sm:mb-10 flex sm:flex-nowrap flex-wrap">
+          <div className="border-r w-full sm:w-1/5 sm:pt-10 border-white">
             <ul>
               {questions.faqs.map((faq) => (
-                <li className="my-5 px-5 link text-gray-200 transition-all hover:text-gray-100">
+                <li
+                  className="my-5 py-3 sm:py-1 px-5 link text-gray-200 sm:text-justify text-center transition-all sm:border-0 
+                border-b border-t border-white hover:text-gray-100"
+                >
                   {faq.question}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="px-10 w-4/5 pt-4">
+          <div className="px-10 w-full sm:w-4/5 pt-4">
             {questions.faqs.map((faq) => (
               <div className="faq my-10">
                 <h2 className="text-3xl text-white font-bold w-4/5">
@@ -60,6 +75,21 @@ const Faqs = () => {
             ))}
           </div>
         </div>
+      </div>
+      <div className="text-black bg-green-500">{count}</div>
+      <div>
+        <button
+          onClick={() => dispatch(increment())}
+          className="border px-5 mx-2 py-2"
+        >
+          INC
+        </button>
+        <button
+          onClick={() => dispatch(decrement())}
+          className="border mx-2 py-2 px-5"
+        >
+          DEC
+        </button>
       </div>
     </div>
   );
