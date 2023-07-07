@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import { Path } from "react-router-dom";
+// import { Path } from "react-router-dom";
 import { To } from "react-router-dom";
 
 type T = {
@@ -13,7 +13,7 @@ interface items {
   toggleDropDown: Function;
 }
 
-type Partial<T> = { [P in keyof T]?: T[P] | undefined };
+// type Partial<T> = { [P in keyof T]?: T[P] | undefined };
 
 const DropDown1: FC<items> = (props): JSX.Element => {
   return props.isDropDownShowing ? (

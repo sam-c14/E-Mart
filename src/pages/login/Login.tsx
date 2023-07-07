@@ -1,8 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsCart4 } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../store/hooks/hooks";
+import { setForm } from "../../store/slices/authSlice";
+// import store from "../../store/index";
+import { login } from "../../store/asyncFns/postData";
+// import { useDispatch } from "react-redux";
+
+export type loginForm = {
+  email: string;
+  password: string;
+};
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+  // const dispatch2 = useTypedDispatch();
+  let initialForm: loginForm = {
+    email: "",
+    password: "",
+  };
+  const [form, setLoginForm] = useState(initialForm);
+  const setEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginForm({
+      email: e.currentTarget.value,
+      password: form.password,
+    });
+  };
+  const setPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginForm({
+      email: form.email,
+      password: e.currentTarget.value,
+    });
+  };
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(login);
+    dispatch(setForm(form));
+  };
   return (
     <div>
       <div className=" h-screen grid place-items-center">
@@ -25,12 +59,13 @@ const Login = () => {
             </div>
             <div className="border-b-2 w-1/2 border-gray-300"></div>
           </div>
-          <form action="">
+          <form action="" onSubmit={handleLogin}>
             <div className="flex flex-wrap mb-3">
               <label className="text-sm w-full mb-2" htmlFor="email">
                 Email Address
               </label>
               <input
+                onChange={(e) => setEmail(e)}
                 placeholder="Enter Email Address"
                 className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
                 type="email"
@@ -49,6 +84,7 @@ const Login = () => {
                 </Link>
               </div>
               <input
+                onChange={(e) => setPassword(e)}
                 placeholder="Enter Password"
                 className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
                 type="password"
