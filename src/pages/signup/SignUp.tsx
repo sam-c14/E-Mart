@@ -1,8 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BsCart4 } from "react-icons/bs";
+import { useAppDispatch } from "../../store/hooks/hooks";
+import { setSignUpForm } from "../../store/slices/authSlice";
+// import store from "../../store/index";
+
+import { signUp } from "../../store/asyncFns/postData";
+
+export type signUpForm = {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
+  role: string;
+};
 
 const SignUp = () => {
+  const dispatch = useAppDispatch();
+  let initialForm: signUpForm = {
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    password: "",
+    role: "user",
+  };
+  const [form, setLoginForm] = useState(initialForm);
+  const setFirstName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginForm({
+      firstName: e.currentTarget.value,
+      lastName: form.lastName,
+      phoneNumber: form.phoneNumber,
+      email: e.currentTarget.value,
+      password: form.password,
+      role: form.role,
+    });
+  };
+  const setLastName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginForm({
+      firstName: form.firstName,
+      lastName: e.currentTarget.value,
+      phoneNumber: form.phoneNumber,
+      email: e.currentTarget.value,
+      password: form.password,
+      role: form.role,
+    });
+  };
+  const setPhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginForm({
+      firstName: form.firstName,
+      lastName: form.lastName,
+      phoneNumber: e.currentTarget.value,
+      email: e.currentTarget.value,
+      password: form.password,
+      role: form.role,
+    });
+  };
+  const setEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginForm({
+      firstName: form.firstName,
+      lastName: form.lastName,
+      phoneNumber: form.phoneNumber,
+      email: e.currentTarget.value,
+      password: form.password,
+      role: form.role,
+    });
+  };
+  const setPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginForm({
+      firstName: form.firstName,
+      lastName: form.lastName,
+      phoneNumber: form.phoneNumber,
+      email: form.email,
+      password: e.currentTarget.value,
+      role: form.role,
+    });
+  };
+  const handleSignUp = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(setSignUpForm(form));
+    dispatch(signUp);
+  };
+
   return (
     <div>
       <div className="grid place-items-center">
@@ -17,12 +97,13 @@ const SignUp = () => {
             </h3>
           </div>
           <div className="my-3 border border-gray-100"></div>
-          <form action="">
+          <form action="" onSubmit={(e) => e.preventDefault()}>
             <div className="flex flex-wrap mb-3">
               <label className="text-sm w-full mb-2" htmlFor="first-name">
                 First Name
               </label>
               <input
+                onChange={(e) => setFirstName(e)}
                 placeholder="Enter First Name"
                 className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
                 type="text"
@@ -33,6 +114,7 @@ const SignUp = () => {
                 Last Name
               </label>
               <input
+                onChange={(e) => setLastName(e)}
                 placeholder="Enter Last Name"
                 className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
                 type="text"
@@ -43,6 +125,7 @@ const SignUp = () => {
                 Email Address
               </label>
               <input
+                onChange={(e) => setEmail(e)}
                 placeholder="Enter Email Address"
                 className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
                 type="email"
@@ -53,6 +136,7 @@ const SignUp = () => {
                 Phone Number
               </label>
               <input
+                onChange={(e) => setPhoneNumber(e)}
                 placeholder="Enter Phone Number"
                 className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
                 type="email"
@@ -65,12 +149,16 @@ const SignUp = () => {
                 </label>
               </div>
               <input
+                onChange={(e) => setPassword(e)}
                 placeholder="Enter Password"
                 className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
                 type="password"
               />
             </div>
-            <button className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg">
+            <button
+              onClick={handleSignUp}
+              className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg"
+            >
               Create an Account
             </button>
           </form>

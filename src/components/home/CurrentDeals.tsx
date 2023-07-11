@@ -1,5 +1,6 @@
 import React from "react";
 import Deal1 from "../../assets/images/Deal1.webp";
+import { Link } from "react-router-dom";
 
 const CurrentDeals = () => {
   const deals = [1, 2, 3, 4, 5, 6];
@@ -8,7 +9,9 @@ const CurrentDeals = () => {
       <div className="bg-pink-800 py-2 rounded-tr-md rounded-tl-md text-white">
         <div className="flex gap-5 pl-5 items-center">
           <h1 className="text-3xl font-bold">Today's Deals</h1>
-          <p className="text-sm">See All Items</p>
+          <Link to="/deals/daily">
+            <p className="text-sm hover:underline">See All Items</p>
+          </Link>
         </div>
       </div>
       <div className="grid rounded-bl-md rounded-br-md grid-cols-3 px-2 bg-white gap-2 py-2">

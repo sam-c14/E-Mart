@@ -25,35 +25,35 @@ const Navbar = () => {
   return (
     <div className="bg-pink-500 w-full">
       <ul className="flex w-full px-10 py-3.5 text-white">
-        <li className="transition-5 hover:scale-105 w-1/12">
+        <li className="transition-5 text-sm hover:scale-105 w-1/12">
           <Link to="/" className="w-full rounded-full">
             <img src={Marjay} className="w-12 h-10" alt="logo" />
           </Link>
         </li>
-        <li className="transition-5 hover:scale-105 w-1/12 flex items-center">
+        <li className="transition-5 text-sm hover:scale-105 w-1/12 flex items-center">
           <a href="/locator">Locator</a>
         </li>
-        <li className="transition-5 hover:scale-105 w-1/12 flex items-center">
+        <li className="transition-5 text-sm hover:scale-105 w-1/12 flex items-center">
           {/* <a href="/sell-items">Sell</a> */}
         </li>
-        <li className="transition-5 flex w-1/2">
+        <li className="transition-5 text-sm flex w-1/2">
           <input
             type="text"
-            className="pl-5 py-1 w-11/12 outline-none text-black rounded-s-md"
+            className="pl-5 py-1 w-11/12 outline-none text-black rounded-s-lg"
             placeholder="Search for products, brands and categories"
           />
           <button className="text-white w-1/12 flex rounded-e-md justify-center items-center text-2xl py-2 px-4 bg-orange-500">
             <AiOutlineSearch />
           </button>
         </li>
-        <li className="transition-5 relative w-1/6 flex justify-center">
+        <li className="transition-5 text-sm relative w-1/6 flex justify-center">
           <span
             className="flex-wrap items-center flex hover:bg-white hover:text-pink-600 px-2 py-1"
             onMouseEnter={() => toggleDropDown(!isDropDownShowing)}
             onMouseLeave={() => toggleDropDown(!isDropDownShowing)}
           >
             <div className="bg-gray-300 mr-2 py-2 px-2 rounded-full bg-opacity-30 text-xl">
-              <BiQuestionMark />
+              <BiQuestionMark className="text-sm" />
             </div>
             Help
             <DropDown1
@@ -63,12 +63,12 @@ const Navbar = () => {
             />
           </span>
         </li>
-        <li className="transition-5 hover:scale-105 w-1/6 flex items-center">
+        <li className="transition-5 text-sm hover:scale-105 w-1/6 flex items-center">
           <Link to="/account/login">Login/SignUp</Link>
         </li>
-        <li className="transition-5 hover:bg-teal-700 w-1/6 py-1 rounded-sm flex justify-center text-white bg-teal-500">
+        <li className="transition-5 text-sm hover:bg-teal-700 w-48 py-1 rounded-sm flex justify-center text-white bg-teal-500">
           <Link
-            className="flex gap-4 text-lg items-center justify-center"
+            className="flex gap-4 text-sm items-center justify-center"
             to="/cart/overview"
           >
             <BiCart className="text-white text-xl" />

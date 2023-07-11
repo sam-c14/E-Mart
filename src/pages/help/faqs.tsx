@@ -1,20 +1,8 @@
 import React from "react";
 import faqs from "../../assets/images/question-mark-g2d25c60df_640.jpg";
 import questions from "../../assets/data/faqs.json";
-import { useAppSelector, useAppDispatch } from "../../store/hooks/hooks";
-import { increment, decrement } from "../../store/slices/couterSlice";
-// import { CounterState } from "../../store/slices/couterSlice";
 
 const Faqs = () => {
-  const count = useAppSelector((state) => state.counterReducer.value);
-  const dispatch = useAppDispatch();
-  // const increment = () => {
-  //   dispatch({ type: "INC" });
-  // };
-  // const decrement = () => {
-  //   dispatch({ type: "INC" });
-  // };
-
   const links = document.querySelectorAll(".link") as NodeListOf<HTMLElement>;
   links.forEach((link) => {
     link.addEventListener("click", (e) => {
@@ -75,21 +63,6 @@ const Faqs = () => {
             ))}
           </div>
         </div>
-      </div>
-      <div className="text-black bg-green-500">{count}</div>
-      <div>
-        <button
-          onClick={() => dispatch(increment())}
-          className="border px-5 mx-2 py-2"
-        >
-          INC
-        </button>
-        <button
-          onClick={() => dispatch(decrement())}
-          className="border mx-2 py-2 px-5"
-        >
-          DEC
-        </button>
       </div>
     </div>
   );

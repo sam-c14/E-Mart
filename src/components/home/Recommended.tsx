@@ -1,5 +1,6 @@
 import React from "react";
 import RecommendedImg1 from "../../assets/images/RecommendedImg1.webp";
+import { Link } from "react-router-dom";
 
 const Recommended = () => {
   const deals = [1, 2, 3, 4, 5, 6];
@@ -8,9 +9,11 @@ const Recommended = () => {
       <div className="py-2 bg-white border-b-2 rounded-tr-md rounded-tl-md text-black">
         <div className="flex gap-5 pl-5 items-center">
           <h1 className="text-xl font-bold">Recommended for you</h1>
-          <p className="text-sm hover:underline transition-all text-pink-800 ">
-            See All Items
-          </p>
+          <Link to={"/recommendations"}>
+            <p className="text-sm hover:underline transition-all text-pink-800 ">
+              See All Items
+            </p>
+          </Link>
         </div>
       </div>
       <div className="grid rounded-bl-md rounded-br-md grid-cols-3 px-2 bg-white gap-2 py-2">

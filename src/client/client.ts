@@ -14,13 +14,13 @@ const HTTP = axios.create({
 export const post = async (url: string, data: any) => {
   try {
     const response = await HTTP.post(url, data);
+    // console.log(response);
     if (response.status === 200) {
+      // console.log(response);
       return response.data;
-    } else if (response.status > 500) {
-      return "There was an issue with the server try logging in again";
     }
   } catch (error: any) {
-    return error.statusText;
+    return error.response;
   }
 };
 export const get = async (url: string, data: any) => {
@@ -28,10 +28,8 @@ export const get = async (url: string, data: any) => {
     const response = await HTTP.post(url, data);
     if (response.status === 200) {
       return response.data;
-    } else if (response.status > 500) {
-      return "There was an issue with the server try logging in again";
     }
   } catch (error: any) {
-    return error.statusText;
+    return error.response;
   }
 };

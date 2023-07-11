@@ -14,7 +14,6 @@ export type loginForm = {
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  // const dispatch2 = useTypedDispatch();
   let initialForm: loginForm = {
     email: "",
     password: "",
@@ -34,8 +33,8 @@ const Login = () => {
   };
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(login);
     dispatch(setForm(form));
+    dispatch(login);
   };
   return (
     <div>
@@ -59,7 +58,7 @@ const Login = () => {
             </div>
             <div className="border-b-2 w-1/2 border-gray-300"></div>
           </div>
-          <form action="" onSubmit={handleLogin}>
+          <form action="" onSubmit={(e) => e.preventDefault()}>
             <div className="flex flex-wrap mb-3">
               <label className="text-sm w-full mb-2" htmlFor="email">
                 Email Address
@@ -90,7 +89,10 @@ const Login = () => {
                 type="password"
               />
             </div>
-            <button className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg">
+            <button
+              onClick={handleLogin}
+              className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg"
+            >
               Login
             </button>
           </form>
