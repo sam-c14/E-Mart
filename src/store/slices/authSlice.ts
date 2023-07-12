@@ -10,6 +10,7 @@ export interface authState {
   token: string | null;
   form: loginForm;
   signUpForm: signUpForm;
+  otp: string;
 }
 
 // Define the initial state using that type
@@ -28,6 +29,7 @@ const initialState: authState = {
     password: "",
     role: "",
   },
+  otp: "",
 };
 
 export const authSlice = createSlice({
@@ -41,6 +43,9 @@ export const authSlice = createSlice({
     setSignUpForm: (state, action: PayloadAction<any>) => {
       state.signUpForm = action.payload;
     },
+    setOtp: (state, action: PayloadAction<any>) => {
+      state.otp = action.payload;
+    },
     setUser: (state, action: PayloadAction<"user">) => {
       localStorage.setItem("user", action.payload);
       console.log(action.payload);
@@ -52,7 +57,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { refreshToken, setUser, setForm, setSignUpForm } =
+export const { refreshToken, setUser, setForm, setSignUpForm, setOtp } =
   authSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

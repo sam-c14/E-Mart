@@ -32,7 +32,7 @@ const SignUp = () => {
       firstName: e.currentTarget.value,
       lastName: form.lastName,
       phoneNumber: form.phoneNumber,
-      email: e.currentTarget.value,
+      email: form.email,
       password: form.password,
       role: form.role,
     });
@@ -42,7 +42,7 @@ const SignUp = () => {
       firstName: form.firstName,
       lastName: e.currentTarget.value,
       phoneNumber: form.phoneNumber,
-      email: e.currentTarget.value,
+      email: form.email,
       password: form.password,
       role: form.role,
     });
@@ -52,7 +52,7 @@ const SignUp = () => {
       firstName: form.firstName,
       lastName: form.lastName,
       phoneNumber: e.currentTarget.value,
-      email: e.currentTarget.value,
+      email: form.email,
       password: form.password,
       role: form.role,
     });
