@@ -11,6 +11,7 @@ export const login = async (dispatch: any, getState: any) => {
     .then((res) => {
       console.log(res);
       const responseData = res;
+      history.navigate("/");
       // Dispatch an action with the todos we received
       dispatch({ type: "user", payload: responseData });
       // Check the updated store state after dispatching
@@ -26,7 +27,7 @@ export const signUp = async (dispatch: any, getState: any) => {
     .then((res) => {
       console.log(res);
       const responseData = res;
-      history.navigate("/verify");
+      history.navigate(`/verify/${res.userEmail}`);
       // Dispatch an action with the todos we received
       dispatch({ type: "user", payload: responseData });
       // Check the updated store state after dispatching
@@ -38,7 +39,11 @@ export const signUp = async (dispatch: any, getState: any) => {
 export const verifyOtp = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
   const currentState = getState();
-  await post("send-otp", currentState.authReducer.otp)
+  const otpObj = {
+    email: currentState.authReducer.email,
+    otp: currentState.authReducer.otp,
+  };
+  await post("send-otp", otpObj)
     .then((res) => {
       console.log(res);
       const responseData = res;

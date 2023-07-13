@@ -44,7 +44,7 @@ const App = () => {
             <Route path="/deals">
               <Route path="daily" element={<Deals dealType="daily-deals" />} />
             </Route>
-            <Route path="/verify" element={<Otp />} />
+            <Route path="/verify/:email" element={<Otp />} />
           </Routes>
         </div>
       </div>

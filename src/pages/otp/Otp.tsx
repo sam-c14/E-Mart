@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BsCart4 } from "react-icons/bs";
 import { useAppDispatch } from "../../store/hooks/hooks";
-import { setOtp } from "../../store/slices/authSlice";
+import { setOtp, setOtpEmail } from "../../store/slices/authSlice";
+import { useParams } from "react-router-dom";
 // import store from "../../store/index";
 
 import { verifyOtp } from "../../store/asyncFns/postData";
@@ -10,12 +11,16 @@ import { verifyOtp } from "../../store/asyncFns/postData";
 const Otp = () => {
   const dispatch = useAppDispatch();
   const [otp, setOtpInput] = useState("");
+  const routeParams = useParams();
+  console.log(routeParams.email);
   const setOTP = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOtpInput(e.currentTarget.value);
   };
   const handleOtpReq = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(otp);
     dispatch(setOtp(otp));
+    dispatch(setOtpEmail(routeParams.email));
     dispatch(verifyOtp);
   };
 
