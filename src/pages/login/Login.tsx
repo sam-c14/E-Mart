@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { BsCart4 } from "react-icons/bs";
+// import { BsCart4 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks/hooks";
 import { setForm } from "../../store/slices/authSlice";
 // import store from "../../store/index";
 import { login } from "../../store/asyncFns/postData";
 // import { useDispatch } from "react-redux";
+import StoreLogo from "../../components/other/StoreLogo";
 
 export type loginForm = {
   email: string;
@@ -39,10 +40,7 @@ const Login = () => {
   return (
     <div>
       <div className=" h-screen grid place-items-center">
-        <div className="flex items-center relative md:mb-5 sm:mb-10">
-          <BsCart4 className="absolute text-2xl top-4 -left-4" />
-          <p className="font-bold text-gray-700 text-2xl">E-Mart</p>
-        </div>
+        <StoreLogo />
         <div className="bg-white sm:mt-10 px-5 py-4">
           <div className="my-2">
             <h3 className="text-3xl font-bold text-center">Login</h3>

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 // import Store from "../../../assets/images/store-logo.jpg";
-import Marjay from "../../../assets/images/marjay.jpg";
+// import Marjay from "../../../assets/images/marjay.jpg";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiCart, BiQuestionMark } from "react-icons/bi";
 // import Cart from "../../../pages/Cart";
 import DropDown1 from "./DropDown1";
 import { Link } from "react-router-dom";
+// import StoreLogo from "../../other/StoreLogo";
 
 type T = {
   to: String;
@@ -25,13 +26,13 @@ const Navbar = () => {
   return (
     <div className="bg-pink-500 w-full">
       <ul className="flex w-full px-10 py-3.5 text-white">
-        <li className="transition-5 text-sm hover:scale-105 w-1/12">
+        <li className="transition-5 text-sm hover:scale-105 w-1/12 flex items-center">
           <Link to="/" className="w-full rounded-full">
-            <img src={Marjay} className="w-12 h-10" alt="logo" />
+            Home
           </Link>
         </li>
         <li className="transition-5 text-sm hover:scale-105 w-1/12 flex items-center">
-          <a href="/locator">Locator</a>
+          <Link to="/stores">Locator</Link>
         </li>
         <li className="transition-5 text-sm hover:scale-105 w-1/12 flex items-center">
           {/* <a href="/sell-items">Sell</a> */}

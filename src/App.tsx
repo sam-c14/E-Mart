@@ -6,6 +6,7 @@ import SignUp from "./pages/signup/SignUp";
 import Help from "./pages/help/help";
 import Deals from "./pages/home/Deals";
 import Otp from "./pages/otp/Otp";
+import Construction from "./pages/stores/Construction";
 
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -18,8 +19,8 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <div className="bg-gray-100">
-        <div>
+      <div>
+        <div className="bg-gray-100 -z-20">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
@@ -45,6 +46,11 @@ const App = () => {
               <Route path="daily" element={<Deals dealType="daily-deals" />} />
             </Route>
             <Route path="/verify/:email" element={<Otp />} />
+          </Routes>
+        </div>
+        <div>
+          <Routes>
+            <Route path="/stores" element={<Construction />} />
           </Routes>
         </div>
       </div>

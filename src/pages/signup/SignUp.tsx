@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { BsCart4 } from "react-icons/bs";
+// import { BsCart4 } from "react-icons/bs";
 import { useAppDispatch } from "../../store/hooks/hooks";
 import { setSignUpForm } from "../../store/slices/authSlice";
 // import store from "../../store/index";
+import StoreLogo from "../../components/other/StoreLogo";
 
 import { signUp } from "../../store/asyncFns/postData";
 
@@ -86,9 +87,8 @@ const SignUp = () => {
   return (
     <div>
       <div className="grid place-items-center">
-        <div className="flex items-center relative md:mb-5 sm:mb-10">
-          <BsCart4 className="absolute text-2xl top-4 -left-4" />
-          <p className="font-bold text-gray-700 text-2xl">E-Mart</p>
+        <div className="mt-2 mb-1">
+          <StoreLogo />
         </div>
         <div className="bg-white sm:mt-10 px-4 py-4">
           <div className="my-2">
