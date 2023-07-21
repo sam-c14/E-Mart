@@ -4,15 +4,16 @@ import { Carousel } from "react-responsive-carousel";
 import SliderImg1 from "../../assets/images/SliderImg1.jpg";
 import SliderImg2 from "../../assets/images/SliderImg2.jpg";
 import SliderImg3 from "../../assets/images/SliderImg3.jpg";
+import fadeAnimationHandler from "../../utilities/sliderStyles";
 
 const Slider = () => {
   return (
-    <div className="w-3/4 rounded-2xl">
+    <div className="lg:w-3/4 lg:h-auto md:h-screen w-full rounded-2xl">
       <Carousel
         autoPlay={true}
         interval={5000}
         infiniteLoop={true}
-        className="rounded-xl"
+        className="rounded-xl h-full"
         width={"95%"}
         showThumbs={false}
       >

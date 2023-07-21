@@ -16,8 +16,8 @@ const Home = () => {
     <div>
       <LinksHeader />
       <Navbar />
-      <Categories />
-      <div className="flex justify-between my-4 px-6">
+      {/* <Categories /> */}
+      <div className="flex flex-wrap lg:justify-between my-4 px-6">
         <Slider />
         <ProductGrid />
       </div>

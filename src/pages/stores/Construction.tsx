@@ -5,8 +5,8 @@ import StoreLogo from "../../components/other/StoreLogo";
 const Construction = () => {
   return (
     <div className="grid h-screen place-items-center">
-      <div className="flex h-1/2 justify-evenly">
-        <div className="pt-24">
+      <div className="flex h-1/2 flex-wrap sm:flex-nowrap md:justify-between lg:justify-evenly">
+        <div className="pt-24 sm:block flex justify-center flex-wrap sm:w-auto w-full">
           <div>
             <StoreLogo />
           </div>
@@ -22,7 +22,7 @@ const Construction = () => {
             </p>
           </div>
         </div>
-        <div className="w-1/3 h-11/12">
+        <div className="sm:w-1/3 sm:block flex justify-center h-11/12 w-full">
           <img className="w-full h-full" src={Constructor} alt="Maintenance" />
         </div>
       </div>

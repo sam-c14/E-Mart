@@ -15,20 +15,14 @@ const Categories = () => {
   return (
     <div>
       <div className="bg-pink-800">
-        <ul className="w-full flex gap-2">
+        <ul className="w-full md:overflow-auto flex lg:gap-2 gap-14">
           {categories.map((category) =>
             category !== "All Categories" ? (
-              <li
-                style={{ width: "12.5%" }}
-                className="flex justify-center items-center py-3 px-1 text-white hover:bg-white hover:text-black bg-transparent transition-5 whitespace-nowrap text-sm"
-              >
+              <li className="flex lg:w-1/7 justify-center items-center py-3 px-1 text-white hover:bg-white md:w- hover:text-black bg-transparent transition-5 whitespace-nowrap md:text-xs lg:text-sm">
                 {category}
               </li>
             ) : (
-              <li
-                style={{ width: "12.5%" }}
-                className="flex justify-center gap-2 items-center py-3 px-1 text-white hover:bg-white hover:text-black bg-transparent text-sm font-bold transition-5"
-              >
+              <li className="flex lg:w-1/7 justify-center gap-2 items-center py-3 px-1 text-white hover:bg-white hover:text-black bg-transparent md:text-xs lg:text-sm whitespace-nowrap font-bold transition-5">
                 {category} <FaBars className="font-bold text-base" />
               </li>
             )

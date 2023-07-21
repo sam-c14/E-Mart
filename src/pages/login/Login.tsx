@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { BsCart4 } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../store/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
 import { setForm } from "../../store/slices/authSlice";
 // import store from "../../store/index";
 import { login } from "../../store/asyncFns/postData";
 // import { useDispatch } from "react-redux";
 import StoreLogo from "../../components/other/StoreLogo";
+import TransitionsModal from "../../components/other/TransitionsModal";
+// import { status } from "../../store/slices/authSlice";
 
 export type loginForm = {
   email: string;
@@ -20,6 +22,7 @@ const Login = () => {
     password: "",
   };
   const [form, setLoginForm] = useState(initialForm);
+  const [isOpen, setIsOpen] = useState(false);
   const setEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({
       email: e.currentTarget.value,
@@ -32,13 +35,23 @@ const Login = () => {
       password: e.currentTarget.value,
     });
   };
-  const handleLogin = (e: React.FormEvent) => {
+  const status = useAppSelector((state) => state.authReducer.status);
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(setForm(form));
-    dispatch(login);
+    await dispatch(setForm(form));
+    await dispatch(login);
+    if (status) {
+      setIsOpen(status);
+    }
   };
+
   return (
     <div>
+      <TransitionsModal
+        isModalOpen={isOpen}
+        title="Login Unsuccessful"
+        body="Your Password or your Email was not correct"
+      />
       <div className=" h-screen grid place-items-center">
         <StoreLogo />
         <div className="bg-white sm:mt-10 px-5 py-4">

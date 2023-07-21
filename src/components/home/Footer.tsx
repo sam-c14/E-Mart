@@ -47,7 +47,7 @@ const Footer = () => {
     <FaYoutube />,
   ];
   return (
-    <div className="bg-gray-950 sm:block hidden px-10">
+    <div className="bg-gray-950 sm:block hidden px-5 lg:px-10">
       <div className="flex text-gray-300 justify-between mb-5 mt-1">
         <div className="grid grid-cols-4 w-3/4">
           {links.map((obj) => (
@@ -91,11 +91,13 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex items-center pb-6">
-        <div className="border-b-2 w-2/5 border-gray-400"></div>
-        <div className="text-gray-300 text-sm whitespace-nowrap w-1/5">
-          Copyright © 2023 Konga.com. All rights reserved
+        <div className="text-gray-300 text-xs flex justify-center w-full items-center">
+          <hr className="bg-white text-white w-1/3 lg:w-2/3" />
+          <p className="lg:w-1/3 w-2/4 pl-5 lg:pl-3">
+            Copyright © 2023 E-mart.com. All rights reserved
+          </p>
+          <hr className="bg-white text-white w-1/3 lg:w-2/3" />
         </div>
-        <div className="border-b-2 w-2/5 border-gray-300"></div>
       </div>
     </div>
   );

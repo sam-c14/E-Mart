@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // import { BsCart4 } from "react-icons/bs";
-import { useAppDispatch } from "../../store/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
 import { setSignUpForm } from "../../store/slices/authSlice";
 // import store from "../../store/index";
 import StoreLogo from "../../components/other/StoreLogo";
-
+import TransitionsModal from "../../components/other/TransitionsModal";
 import { signUp } from "../../store/asyncFns/postData";
 
 export type signUpForm = {
@@ -28,6 +28,7 @@ const SignUp = () => {
     role: "user",
   };
   const [form, setLoginForm] = useState(initialForm);
+  const [isOpen, setIsOpen] = useState(false);
   const setFirstName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({
       firstName: e.currentTarget.value,
@@ -78,14 +79,25 @@ const SignUp = () => {
       role: form.role,
     });
   };
-  const handleSignUp = (e: React.FormEvent) => {
+
+  const status = useAppSelector((state) => state.authReducer.status);
+
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(setSignUpForm(form));
-    dispatch(signUp);
+    await dispatch(setSignUpForm(form));
+    await dispatch(signUp);
+    if (status) {
+      setIsOpen(status);
+    }
   };
 
   return (
     <div>
+      <TransitionsModal
+        isModalOpen={isOpen}
+        title="SignUp Unsuccessful"
+        body="There was an error with the process, Please try again"
+      />
       <div className="grid place-items-center">
         <div className="mt-2 mb-1">
           <StoreLogo />

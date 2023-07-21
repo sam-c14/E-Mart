@@ -12,6 +12,7 @@ export interface authState {
   signUpForm: signUpForm;
   otp: string;
   email: string;
+  status: boolean | null;
 }
 
 // Define the initial state using that type
@@ -32,6 +33,7 @@ const initialState: authState = {
   },
   otp: "",
   email: "",
+  status: null,
 };
 
 export const authSlice = createSlice({
@@ -51,6 +53,10 @@ export const authSlice = createSlice({
     setOtpEmail: (state, action: PayloadAction<any>) => {
       state.email = action.payload;
     },
+    setStatus: (state, action: PayloadAction<any>) => {
+      state.status = action.payload;
+      console.log(state.status);
+    },
     setUser: (state, action: PayloadAction<"user">) => {
       localStorage.setItem("user", action.payload);
       console.log(action.payload);
@@ -69,7 +75,9 @@ export const {
   setSignUpForm,
   setOtp,
   setOtpEmail,
+  setStatus,
 } = authSlice.actions;
+export const { status } = authSlice.getInitialState();
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount: any = (state: RootState) => state.counterReducer;

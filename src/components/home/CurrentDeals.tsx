@@ -14,9 +14,9 @@ const CurrentDeals = () => {
           </Link>
         </div>
       </div>
-      <div className="grid rounded-bl-md rounded-br-md grid-cols-3 px-2 bg-white gap-2 py-2">
+      <div className="grid rounded-bl-md rounded-br-md md:grid-cols-2 grid-cols-1 lg:grid-cols-3 px-2 bg-white gap-2 py-5 lg:py-2">
         {deals.map((deal) => (
-          <div className="shadow-sm hover:shadow-lg transition-5 border bg-white items-center flex">
+          <div className="shadow-sm hover:shadow-lg transition-5 border lg:py-0 py-5 bg-white items-center flex">
             <div className="w-1/4">
               <img className="w-full h-full" src={Deal1} alt="deal1" />
             </div>
