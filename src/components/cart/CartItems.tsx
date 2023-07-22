@@ -2,11 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaAngleRight, FaArrowLeft } from "react-icons/fa";
 import Deal1 from "../../assets/images/Deal1.webp";
-import { useAppSelector } from "../../store/hooks/hooks";
+import { useAppSelector, useAppDispatch } from "../../store/hooks/hooks";
+import {
+  incProductQuantity,
+  decProductQuantity,
+} from "../../store/slices/cartSlice";
 
 const CartItems = () => {
   const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
   console.log(cartItems);
+  const dispatch = useAppDispatch();
+  const decItem = (id: any) => {
+    dispatch(decProductQuantity(id));
+  };
+  const incItem = (id: any) => {
+    console.log(id);
+    dispatch(incProductQuantity(id));
+  };
+
   return (
     <div className="h-screen">
       <div className="h-4/5">
@@ -57,18 +70,21 @@ const CartItems = () => {
                 <div className="w-1/5">
                   <div className="shadow-md w-1/2 mt-5">
                     <button
+                      onClick={() => decItem(items.id)}
                       className="border w-1/3 py-1 text-gray-400
                    bg-white text-sm"
                     >
                       -
                     </button>
                     <button
+                      disabled
                       className="border w-1/3 py-1 text-bla
                    bg-white text-sm"
                     >
-                      1
+                      {items.quantity.toString()}
                     </button>
                     <button
+                      onClick={() => incItem(items.id)}
                       className="border w-1/3 py-1 text-gray-400
                    bg-white text-sm"
                     >

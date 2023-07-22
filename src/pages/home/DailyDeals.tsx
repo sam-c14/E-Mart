@@ -17,13 +17,11 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Deal2 from "../../assets/images/Deal2.webp";
 import products from "../../assets/data/products.json";
-// import { FaStar } from "react-icons/fa";
 import { T } from "../../store/slices/cartSlice";
 
 export default function DailyDeals() {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
-  // const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const header = (
     <p>
       Home {">"}{" "}
@@ -106,9 +104,10 @@ export default function DailyDeals() {
               <button
                 onClick={(e) =>
                   handleAddToCart(e, {
-                    id: index,
+                    id: item.id,
                     title: item.name,
                     price: item.price,
+                    quantity: 1,
                   })
                 }
                 className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-11/12 "

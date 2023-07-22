@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import Store from "../../../assets/images/store-logo.jpg";
 // import Marjay from "../../../assets/images/marjay.jpg";
 import { AiOutlineSearch } from "react-icons/ai";
+import { useAppSelector } from "../../../store/hooks/hooks";
 import { BiCart, BiQuestionMark } from "react-icons/bi";
 // import Cart from "../../../pages/Cart";
 import DropDown1 from "./DropDown1";
@@ -14,6 +15,9 @@ type T = {
 };
 
 const Navbar = () => {
+  const cartQuantity = useAppSelector(
+    (state) => state.cartReducer.totalQuantity
+  );
   const helpItems: Array<T> = [
     { text: "FAQS", to: "/help/faqs" },
     { text: "Contact Us", to: "/help/contact-us" },
@@ -75,7 +79,7 @@ const Navbar = () => {
             <BiCart className="text-white text-xl" />
             My Cart
             <div className="bg-white w-7 flex justify-center items-center font-semibold h-5/6 text-black rounded-sm">
-              0
+              {cartQuantity}
             </div>
           </Link>
         </li>
