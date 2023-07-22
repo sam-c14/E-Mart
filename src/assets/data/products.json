@@ -1,0 +1,53 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Djack Home Theater System",
+      "price": 34000,
+      "vendor": "E-Mart Online Stores",
+      "sellerDetails": ""
+    },
+    {
+      "id": "2",
+      "name": "iTec Handle Start 3.5Kva Power",
+      "price": 134000,
+      "vendor": "E-Mart Online Stores",
+      "sellerDetails": ""
+    },
+    {
+      "id": "3",
+      "name": "Calypso Coconut Liqueur - 75cl",
+      "price": 34000,
+      "vendor": "E-Mart Online Stores",
+      "sellerDetails": ""
+    },
+    {
+      "id": "4",
+      "name": "HiSense UHD TV",
+      "price": 234000,
+      "vendor": "E-Mart Online Stores",
+      "sellerDetails": ""
+    },
+    {
+      "id": "5",
+      "name": "Sloar Lantern",
+      "price": 24000,
+      "vendor": "E-Mart Online Stores",
+      "sellerDetails": ""
+    },
+    {
+      "id": "6",
+      "name": "Redmi Phones",
+      "price": 13000,
+      "vendor": "E-Mart Online Stores",
+      "sellerDetails": ""
+    },
+    {
+      "id": "1",
+      "name": "Nexus Fan",
+      "price": 44000,
+      "vendor": "E-Mart Online Stores",
+      "sellerDetails": ""
+    }
+  ]
+}

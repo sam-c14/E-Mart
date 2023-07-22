@@ -23,10 +23,7 @@ const App = () => {
         <div className="bg-gray-100 -z-20">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/cart/overview"
-              element={<Cart isCartEmpty={false} />}
-            />
+            <Route path="/cart/overview" element={<Cart />} />
             <Route
               path="/recommendations"
               element={<Deals dealType="recommendations" />}

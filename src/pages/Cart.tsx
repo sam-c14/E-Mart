@@ -5,17 +5,17 @@ import Categories from "../components/home/nav/Categories";
 import Footer from "../components/home/Footer";
 import CartItems from "../components/cart/CartItems";
 import EmptyCart from "../components/cart/EmptyCart";
-interface cartProps {
-  isCartEmpty: boolean;
-}
+import { useAppSelector } from "../store/hooks/hooks";
 
-const Cart: FC<cartProps> = (props): JSX.Element => {
+const Cart = () => {
+  const isCartEmpty = useAppSelector((state) => state.cartReducer.isEmpty);
+  console.log(isCartEmpty);
   return (
     <div>
       <LinksHeader />
       <Navbar />
       <Categories />
-      {props.isCartEmpty ? <EmptyCart /> : <CartItems />}
+      {isCartEmpty ? <EmptyCart /> : <CartItems />}
       <Footer />
     </div>
   );
