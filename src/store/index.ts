@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./slices/couterSlice";
+import cartReducer from "./slices/cartSlice";
 import authReducer from "../store/slices/authSlice";
 import asyncFunctionMiddleware from "./middleware/asyncFn";
 // import { authState } from "../store/slices/authSlice";
@@ -10,6 +11,7 @@ const store = configureStore({
   reducer: {
     counterReducer,
     authReducer,
+    cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(asyncFunctionMiddleware),

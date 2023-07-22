@@ -12,6 +12,8 @@ import { pink } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { addToCart } from "../../store/slices/cartSlice";
+import { useAppDispatch } from "../../store/hooks/hooks";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Deal2 from "../../assets/images/Deal2.webp";
 import { FaStar } from "react-icons/fa";
