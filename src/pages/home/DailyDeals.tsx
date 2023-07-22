@@ -49,8 +49,9 @@ export default function DailyDeals() {
         <HeaderComp htmlEle={header} headerText={"Daily Deals"} />
       </div>
       <div className="lg:px-10 md:px-10 px-0 grid md:grid-cols-3 lg:grid-cols-5 gap-y-4 gap-x-4">
-        {arr.map((item) => (
+        {arr.map((item, index) => (
           <Card
+            key={index}
             className="shadow-sm hover:shadow-xl transition-105 text-orange-500"
             sx={{ maxWidth: 320, paddingBottom: 1 }}
           >

@@ -50,14 +50,17 @@ const Footer = () => {
     <div className="bg-gray-950 sm:block hidden px-5 lg:px-10">
       <div className="flex text-gray-300 justify-between mb-5 mt-1">
         <div className="grid grid-cols-4 w-3/4">
-          {links.map((obj) => (
-            <div className="link-container">
+          {links.map((obj, index) => (
+            <div className="link-container" key={index}>
               <h3 className="font-semibold text-lg uppercase mt-3 mb-2">
                 {obj.title}
               </h3>
               <ul>
-                {obj.arr.map((link) => (
-                  <li className="my-3 text-sm text-gray-300 hover:text-white transition-all">
+                {obj.arr.map((link, index) => (
+                  <li
+                    className="my-3 text-sm text-gray-300 hover:text-white transition-all"
+                    key={index}
+                  >
                     <a href="www.asa.com">{link}</a>
                   </li>
                 ))}
@@ -79,8 +82,11 @@ const Footer = () => {
           <div>
             <h3 className="uppercase text-gray-300 mt-5">connect with us</h3>
             <div className="flex gap-2 mt-5">
-              {socialLinks.map((link) => (
-                <div className="text-3xl p-3 rounded-full bg-gray-800">
+              {socialLinks.map((link, index) => (
+                <div
+                  className="text-3xl p-3 rounded-full bg-gray-800"
+                  key={index}
+                >
                   <a href="www.sac.com" className="filter">
                     {link}
                   </a>

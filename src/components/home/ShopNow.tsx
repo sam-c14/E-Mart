@@ -31,8 +31,8 @@ const ShopNow = () => {
   return (
     <div className="my-5">
       <div className="grid w-full grid-flow-col overflow-auto whitespace-nowrap lg:grid-cols-4 gap-4">
-        {products.map((product) => (
-          <div className="">
+        {products.map((product, index) => (
+          <div className="" key={index}>
             <div>
               <img src={product.src} alt="products" />
             </div>
@@ -50,9 +50,6 @@ const ShopNow = () => {
             </div>
           </div>
         ))}
-        {/* <div>
-          <img src="https://imgbox.io/ib/L8s5HOVk0G.jpg" alt="sasa" />
-        </div> */}
       </div>
     </div>
   );

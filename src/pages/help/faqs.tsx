@@ -42,10 +42,11 @@ const Faqs = () => {
         <div className="bg-sky-400 rounded-bl-sm rounded-br-sm sm:mb-10 flex sm:flex-nowrap flex-wrap">
           <div className="border-r w-full sm:w-1/5 sm:pt-10 border-white">
             <ul>
-              {questions.faqs.map((faq) => (
+              {questions.faqs.map((faq, index) => (
                 <li
                   className="my-5 py-3 sm:py-1 px-5 link text-gray-200 sm:text-justify text-center transition-all sm:border-0 
                 border-b border-t border-white hover:text-gray-100"
+                  key={index}
                 >
                   {faq.question}
                 </li>
@@ -53,8 +54,8 @@ const Faqs = () => {
             </ul>
           </div>
           <div className="px-10 w-full sm:w-4/5 pt-4">
-            {questions.faqs.map((faq) => (
-              <div className="faq my-10">
+            {questions.faqs.map((faq, index) => (
+              <div className="faq my-10" key={index}>
                 <h2 className="text-3xl text-white font-bold w-4/5">
                   {faq.question}
                 </h2>

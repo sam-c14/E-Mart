@@ -16,9 +16,12 @@ const Categories = () => {
     <div>
       <div className="bg-pink-800">
         <ul className="w-full md:overflow-auto flex lg:gap-2 gap-14">
-          {categories.map((category) =>
+          {categories.map((category: string, index) =>
             category !== "All Categories" ? (
-              <li className="flex lg:w-1/7 justify-center items-center py-3 px-1 text-white hover:bg-white md:w- hover:text-black bg-transparent transition-5 whitespace-nowrap md:text-xs lg:text-sm">
+              <li
+                key={index}
+                className="flex lg:w-1/7 justify-center items-center py-3 px-1 text-white hover:bg-white md:w- hover:text-black bg-transparent transition-5 whitespace-nowrap md:text-xs lg:text-sm"
+              >
                 {category}
               </li>
             ) : (
