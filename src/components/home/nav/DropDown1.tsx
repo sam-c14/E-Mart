@@ -17,12 +17,14 @@ interface items {
 
 const DropDown1: FC<items> = (props): JSX.Element => {
   return props.isDropDownShowing ? (
-    <div className="bg-white z-10 w-4/5 left-14 absolute text-black top-10">
+    <div className="bg-white w-full text-black">
       <ul>
         {props.itemArr.map((item, index) => (
           <li
             key={index}
-            className="py-2 pl-3 hover:text-pink-600 hover:bg-gray-100"
+            className="py-2 pl-3 z-10
+             text-sm
+            hover:text-pink-600 hover:bg-gray-100"
           >
             <Link to={item.to as To}>{item.text}</Link>
           </li>

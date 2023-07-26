@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       width: {
         "1/7": "12.5%",
+        "1/8": "30%",
       },
     },
   },

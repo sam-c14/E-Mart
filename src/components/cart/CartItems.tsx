@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { FaAngleRight, FaArrowLeft } from "react-icons/fa";
 import Deal1 from "../../assets/images/Deal1.webp";
@@ -6,9 +6,14 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks/hooks";
 import {
   incProductQuantity,
   decProductQuantity,
+  removeFromCart,
 } from "../../store/slices/cartSlice";
 
-const CartItems = () => {
+interface itemsCart {
+  handler: Function;
+}
+
+const CartItems: FC<itemsCart> = (props): JSX.Element => {
   const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
   console.log(cartItems);
   const dispatch = useAppDispatch();
@@ -18,6 +23,11 @@ const CartItems = () => {
   const incItem = (id: any) => {
     console.log(id);
     dispatch(incProductQuantity(id));
+  };
+  const removeItem = async (id: any) => {
+    console.log(id);
+    await dispatch(removeFromCart(id));
+    props.handler();
   };
 
   return (
@@ -99,7 +109,12 @@ const CartItems = () => {
                   </p>
                 </div>
                 <div className="w-1/6 mt-4">
-                  <p className="text-pink-800 text-sm ">Remove item</p>
+                  <p
+                    onClick={() => removeItem(items.id)}
+                    className="text-pink-800 text-sm "
+                  >
+                    Remove item
+                  </p>
                   <p className="text-pink-800 text-sm mt-1">Save for Later</p>
                 </div>
               </div>

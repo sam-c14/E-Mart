@@ -25,7 +25,10 @@ const Categories = () => {
                 {category}
               </li>
             ) : (
-              <li className="flex lg:w-1/7 justify-center gap-2 items-center py-3 px-1 text-white hover:bg-white hover:text-black bg-transparent md:text-xs lg:text-sm whitespace-nowrap font-bold transition-5">
+              <li
+                key={index}
+                className="flex lg:w-1/7 justify-center gap-2 items-center py-3 px-1 text-white hover:bg-white hover:text-black bg-transparent md:text-xs lg:text-sm whitespace-nowrap font-bold transition-5"
+              >
                 {category} <FaBars className="font-bold text-base" />
               </li>
             )

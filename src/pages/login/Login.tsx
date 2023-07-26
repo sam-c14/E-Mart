@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { BsCart4 } from "react-icons/bs";
+import { Spinner } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
 import { setForm } from "../../store/slices/authSlice";
@@ -23,6 +23,7 @@ const Login = () => {
   };
   const [form, setLoginForm] = useState(initialForm);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const setEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({
       email: e.currentTarget.value,
@@ -37,9 +38,11 @@ const Login = () => {
   };
   const status = useAppSelector((state) => state.authReducer.status);
   const handleLogin = async (e: React.FormEvent) => {
+    setIsLoading(true);
     e.preventDefault();
     await dispatch(setForm(form));
     await dispatch(login);
+    setIsLoading(false);
     if (status) {
       setIsOpen(status);
     }
@@ -101,10 +104,11 @@ const Login = () => {
               />
             </div>
             <button
-              onClick={handleLogin}
+              onClick={(e) => handleLogin(e)}
               className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg"
             >
-              Login
+              <span hidden={isLoading}>Login</span>
+              <Spinner hidden={!isLoading} />
             </button>
           </form>
           <div className="flex flex-wrap justify-center mt-5">

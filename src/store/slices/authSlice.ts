@@ -57,8 +57,8 @@ export const authSlice = createSlice({
       state.status = action.payload;
       console.log(state.status);
     },
-    setUser: (state, action: PayloadAction<"user">) => {
-      localStorage.setItem("user", action.payload);
+    setUser: (state, action: PayloadAction<any>) => {
+      localStorage.setItem("user", JSON.stringify(action.payload));
       console.log(action.payload);
     },
     // Use the PayloadAction type to declare the contents of `action.payload`

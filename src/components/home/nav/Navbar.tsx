@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import Store from "../../../assets/images/store-logo.jpg";
 // import Marjay from "../../../assets/images/marjay.jpg";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useAppSelector } from "../../../store/hooks/hooks";
-import { BiCart, BiQuestionMark } from "react-icons/bi";
+import { BiCart, BiQuestionMark, BiSolidShoppingBag } from "react-icons/bi";
 // import Cart from "../../../pages/Cart";
 import DropDown1 from "./DropDown1";
 import { Link } from "react-router-dom";
@@ -15,6 +15,14 @@ type T = {
 };
 
 const Navbar = () => {
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const parsedUser: any = JSON.parse(user);
+      setUser(parsedUser);
+    }
+  }, []);
+
   const cartQuantity = useAppSelector(
     (state) => state.cartReducer.totalQuantity
   );
@@ -22,9 +30,22 @@ const Navbar = () => {
     { text: "FAQS", to: "/help/faqs" },
     { text: "Contact Us", to: "/help/contact-us" },
   ];
+  const userProfile: Array<T> = [
+    { text: "Profile", to: "/account/profile" },
+    { text: "Orders", to: "/account/orders" },
+    { text: "Wishlist", to: "/account/wishlist" },
+    { text: "Logout", to: "/account/logout" },
+  ];
   const [isDropDownShowing, setIsDropDownShowing] = useState(false);
+  const [isProfileDropDownShowing, setIsProfileDropDownShowing] =
+    useState(false);
+  const [user, setUser] = useState(null);
   function toggleDropDown(value: boolean) {
     setIsDropDownShowing(value);
+    return undefined;
+  }
+  function toggleProfileDropDown(value: boolean) {
+    setIsProfileDropDownShowing(value);
     return undefined;
   }
   return (
@@ -61,15 +82,42 @@ const Navbar = () => {
               <BiQuestionMark className="text-sm" />
             </div>
             Help
-            <DropDown1
-              toggleDropDown={toggleDropDown}
-              isDropDownShowing={isDropDownShowing}
-              itemArr={helpItems}
-            />
+            <div className="w-4/5 left-11 absolute top-10 z-10">
+              <DropDown1
+                toggleDropDown={toggleDropDown}
+                isDropDownShowing={isDropDownShowing}
+                itemArr={helpItems}
+              />
+            </div>
           </span>
         </li>
         <li className="transition-5 text-sm hover:scale-105 w-1/6 flex items-center">
-          <Link to="/account/login">Login/SignUp</Link>
+          {!user ? (
+            <Link to="/account/login">Login/SignUp</Link>
+          ) : (
+            <Link
+              to="account/profile"
+              className="flex-wrap items-center flex hover:bg-white hover:text-pink-600 px-2 py-1"
+              onMouseEnter={() =>
+                toggleProfileDropDown(!isProfileDropDownShowing)
+              }
+              onMouseLeave={() =>
+                toggleProfileDropDown(!isProfileDropDownShowing)
+              }
+            >
+              <div className="bg-gray-300 mr-2 py-2 px-2 rounded-full bg-opacity-30 text-xl">
+                <BiSolidShoppingBag className="text-sm" />
+              </div>
+              Account
+              <div className="top-9 w-4/5 left-1 absolute z-20">
+                <DropDown1
+                  toggleDropDown={toggleProfileDropDown}
+                  isDropDownShowing={isProfileDropDownShowing}
+                  itemArr={userProfile}
+                />
+              </div>
+            </Link>
+          )}
         </li>
         <li className="transition-5 text-sm hover:bg-teal-700 w-48 py-1 rounded-sm flex justify-center text-white bg-teal-500">
           <Link

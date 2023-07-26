@@ -20,8 +20,10 @@ const LinksHeader = () => {
   return (
     <div className="bg-white w-full px-32">
       <ul className="flex w-full py-2 justify-between gap-4">
-        {icons.map((icon) => (
-          <li className="text-2xl ">{icon}</li>
+        {icons.map((icon, index) => (
+          <li key={index} className="text-2xl ">
+            {icon}
+          </li>
         ))}
       </ul>
     </div>

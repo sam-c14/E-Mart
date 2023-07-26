@@ -30,7 +30,7 @@ const ShopNow = () => {
   ];
   return (
     <div className="my-5">
-      <div className="grid w-full grid-flow-col overflow-auto whitespace-nowrap lg:grid-cols-4 gap-4">
+      <div className="grid w-full grid-flow-col lg:whitespace-normal overflow-auto whitespace-nowrap lg:grid-cols-4 gap-4">
         {products.map((product, index) => (
           <div className="" key={index}>
             <div>

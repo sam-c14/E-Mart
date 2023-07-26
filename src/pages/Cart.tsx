@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import LinksHeader from "../components/home/nav/LinksHeader";
 import Navbar from "../components/home/nav/Navbar";
 import Categories from "../components/home/nav/Categories";
@@ -9,13 +9,16 @@ import { useAppSelector } from "../store/hooks/hooks";
 
 const Cart = () => {
   const isCartEmpty = useAppSelector((state) => state.cartReducer.isEmpty);
-  console.log(isCartEmpty);
+
+  const checkCart = () => {
+    console.log(isCartEmpty);
+  };
   return (
     <div>
       <LinksHeader />
       <Navbar />
       <Categories />
-      {isCartEmpty ? <EmptyCart /> : <CartItems />}
+      {isCartEmpty ? <EmptyCart /> : <CartItems handler={checkCart} />}
       <Footer />
     </div>
   );

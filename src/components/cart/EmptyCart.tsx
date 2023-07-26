@@ -5,7 +5,7 @@ const EmptyCart = () => {
   return (
     <div>
       <div className="h-screen flex justify-center items-center">
-        <div className="w-1/4 h-2/5 shadow-lg rounded-lg bg-white">
+        <div className="md:w-2/5 lg:w-1/3 xl:w-1/4 h-2/5 shadow-lg rounded-lg bg-white">
           <div className="grid place-items-center h-full">
             <div className="flex w-full flex-wrap justify-center gap-y-3">
               <BsCartX className="text-pink-600 text-6xl w-full mb-6" />

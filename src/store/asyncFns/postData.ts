@@ -4,26 +4,19 @@ import { post } from "../../client/client";
 // import { RootState, AppDispatch } from "..";
 // import { useAppSelector } from "../hooks/hooks";
 import { history } from "../../utilities/routerFns";
-import { setStatus } from "../slices/authSlice";
+import { setStatus, setUser } from "../slices/authSlice";
 
 export const login = async (dispatch: any, getState: any) => {
-  // const dispatch = useAppDispatch()
   // Make an async HTTP request
   const currentState = getState();
   await post("login", currentState.authReducer.form)
     .then(async (res) => {
-      console.log(res);
-      const responseData = res;
+      // console.log(res);
       await dispatch(setStatus(true));
-      if (res.status === 200 || res.status === 201) {
-        history.navigate("/");
-        return;
-      }
+      history.navigate("/");
       // Dispatch an action with the todos we received
-      dispatch({ type: "user", payload: responseData });
+      await dispatch(setUser(res.data));
       // Check the updated store state after dispatching
-      // const allTodos = getState().todos;
-      // console.log("Number of todos after loading: ", allTodos.length);
     })
     .catch((err) => console.log(err));
 };
@@ -72,6 +65,21 @@ export const logout = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
   const currentState = getState();
   await post("logout", currentState.authReducer.form)
+    .then((res) => {
+      console.log(res);
+      const responseData = res;
+      // Dispatch an action with the todos we received
+      dispatch({ type: "user", payload: responseData });
+      // Check the updated store state after dispatching
+      // const allTodos = getState().todos;
+      // console.log("Number of todos after loading: ", allTodos.length);
+    })
+    .catch((err) => console.log(err));
+};
+export const addToCart = async (dispatch: any, getState: any) => {
+  // Make an async HTTP request
+  const currentState = getState();
+  await post("add-to-cart", currentState.cartReducer.cartItems)
     .then((res) => {
       console.log(res);
       const responseData = res;

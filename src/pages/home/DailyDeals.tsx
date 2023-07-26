@@ -57,11 +57,11 @@ export default function DailyDeals() {
   };
 
   return (
-    <div>
+    <div className="mb-2">
       <div>
         <HeaderComp htmlEle={header} headerText={"Daily Deals"} />
       </div>
-      <div className="lg:px-10 md:px-10 px-0 grid md:grid-cols-3 lg:grid-cols-5 gap-y-4 gap-x-4">
+      <div className="lg:px-10 md:px-10 px-0 grid md:grid-cols-2 xl:grid-cols-5 lg:grid-cols-3 gap-y-4 gap-x-4">
         {products.products.map((item, index) => (
           <Card
             key={index}

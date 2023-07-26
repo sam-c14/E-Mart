@@ -7,6 +7,7 @@ import Help from "./pages/help/help";
 import Deals from "./pages/home/Deals";
 import Otp from "./pages/otp/Otp";
 import Construction from "./pages/stores/Construction";
+import Product from "./pages/home/Product";
 
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -43,6 +44,7 @@ const App = () => {
               <Route path="daily" element={<Deals dealType="daily-deals" />} />
             </Route>
             <Route path="/verify/:email" element={<Otp />} />
+            <Route path="/product" element={<Product />} />
           </Routes>
         </div>
         <div>

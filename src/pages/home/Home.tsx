@@ -17,11 +17,11 @@ const Home = () => {
       <LinksHeader />
       <Navbar />
       {/* <Categories /> */}
-      <div className="flex flex-wrap lg:justify-between my-4 md:px-6 px-2">
+      <div className="flex flex-wrap lg:justify-between my-4 lg:px-10 md:px-6 px-2">
         <Slider />
         <ProductGrid />
       </div>
-      <div className="md:px-6 px-2">
+      <div className="lg:px-10 md:px-6 px-2">
         <CurrentDeals />
         <SponsoredProducts />
         <Recommended />

@@ -19,33 +19,49 @@ const initialState: cartState = {
   isEmpty: true,
 };
 
+const setCartIsEmpty = (state: any) => {
+  state.isEmpty = true;
+};
+
 export const cartSlice = createSlice({
   name: "cart",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     addToCart(state, action: PayloadAction<any>) {
-      state.cartItems.push(action.payload);
+      const itemIsPresent = state.cartItems.find(
+        (cartItem) => cartItem.id === action.payload.id
+      );
+      // console.log(itemIsPresent);
+      !itemIsPresent && state.cartItems.push(action.payload);
       state.isEmpty = false;
       state.totalQuantity = state.cartItems.length;
     },
-    removeFromCart(state, action: PayloadAction<any>) {},
+    removeFromCart(state, action: PayloadAction<any>) {
+      const product = state.cartItems.find(
+        (item) => item.id === action.payload
+      );
+      state.cartItems = state.cartItems.filter((item) => item !== product);
+      state.totalQuantity--;
+      state.totalQuantity === 0 && setCartIsEmpty(state);
+    },
     clearCart(state) {
+      state.cartItems = [];
       state.isEmpty = false;
     },
     incProductQuantity(state, action: PayloadAction<any>) {
-      console.log(action.payload);
+      // console.log(action.payload);
       const product: any = state.cartItems.find(
         (item) => item.id === action.payload
       );
-      console.log(state.cartItems);
-      product.quantity && product.quantity++;
+      // console.log(state.cartItems);
+      product.quantity >= 0 && product.quantity++;
     },
     decProductQuantity(state, action: PayloadAction<any>) {
       const product: any = state.cartItems.find(
         (item) => item.id === action.payload
       );
-      product.quantity && product.quantity--;
+      product.quantity !== 0 && product.quantity--;
     },
   },
 });

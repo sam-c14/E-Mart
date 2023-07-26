@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Spinner } from "flowbite-react";
 import { Link } from "react-router-dom";
 // import { BsCart4 } from "react-icons/bs";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
@@ -29,6 +30,7 @@ const SignUp = () => {
   };
   const [form, setLoginForm] = useState(initialForm);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const setFirstName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({
       firstName: e.currentTarget.value,
@@ -83,9 +85,11 @@ const SignUp = () => {
   const status = useAppSelector((state) => state.authReducer.status);
 
   const handleSignUp = async (e: React.FormEvent) => {
+    setIsLoading(true);
     e.preventDefault();
     await dispatch(setSignUpForm(form));
     await dispatch(signUp);
+    setIsLoading(false);
     if (status) {
       setIsOpen(status);
     }
@@ -168,10 +172,11 @@ const SignUp = () => {
               />
             </div>
             <button
-              onClick={handleSignUp}
+              onClick={(e) => handleSignUp(e)}
               className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg"
             >
-              Create an Account
+              <span hidden={isLoading}>Create an Account</span>
+              <Spinner hidden={!isLoading} />
             </button>
           </form>
           <div className="mt-3 flex justify-center">

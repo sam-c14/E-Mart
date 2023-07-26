@@ -14,9 +14,8 @@ const HTTP = axios.create({
 export const post = async (url: string, data: any) => {
   try {
     const response = await HTTP.post(url, data);
-    // console.log(response);
-    if (response.status === 200) {
-      // console.log(response);
+    console.log(response);
+    if (response.status >= 200 && response.status <= 399) {
       return response.data;
     }
   } catch (error: any) {
