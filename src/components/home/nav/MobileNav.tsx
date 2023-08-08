@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { categories } from "./Categories";
 import { LiaAngleRightSolid } from "react-icons/lia";
-
+import { Link } from "react-router-dom";
 interface mobileNavProps {
   isOpen: boolean;
 }
@@ -17,11 +17,11 @@ const MobileNav: FC<mobileNavProps> = ({ isOpen }): JSX.Element => {
     >
       <div className="grid">
         <div className="flex justify-between gap-5">
-          <button className="text-pink-500 border border-pink-500 rounded-sm bg-white hover:bg-pink-600 py-2 text-center font-semibold mt-1 w-full text-sm">
-            Login
+          <button className="text-pink-500 border border-pink-500 rounded-sm bg-white py-2 text-center font-semibold mt-1 w-full text-sm">
+            <Link to="/account/login">Login</Link>
           </button>
-          <button className="text-pink-500 border border-pink-500 rounded-sm bg-white hover:bg-pink-600 py-2 text-center font-semibold mt-1 w-full text-sm">
-            SignUp
+          <button className="text-pink-500 border border-pink-500 rounded-sm bg-white py-2 text-center font-semibold mt-1 w-full text-sm">
+            <Link to="/account/signup">Signup</Link>
           </button>
         </div>
         <div className="mt-2">
