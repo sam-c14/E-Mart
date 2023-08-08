@@ -1,17 +1,16 @@
-import React from "react";
 import { FaBars } from "react-icons/fa";
 
+export const categories: Array<string> = [
+  "All Categories",
+  "Computers and Accessories",
+  "Phones and Tablets",
+  "Electronics",
+  "Konga Fashion",
+  "Home and Kitchen",
+  "Baby, Kids and Toys",
+  "Other Categories",
+];
 const Categories = () => {
-  const categories: Array<string> = [
-    "All Categories",
-    "Computers and Accessories",
-    "Phones and Tablets",
-    "Electronics",
-    "Konga Fashion",
-    "Home and Kitchen",
-    "Baby, Kids and Toys",
-    "Other Categories",
-  ];
   return (
     <div>
       <div className="bg-pink-800">

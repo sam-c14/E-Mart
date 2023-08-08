@@ -18,7 +18,7 @@ const LinksHeader = () => {
     <MdLocalGroceryStore />,
   ];
   return (
-    <div className="bg-white w-full px-32">
+    <div className="bg-white w-full px-32 sm:block hidden">
       <ul className="flex w-full py-2 justify-between gap-4">
         {icons.map((icon, index) => (
           <li key={index} className="text-2xl ">

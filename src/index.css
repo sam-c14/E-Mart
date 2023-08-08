@@ -17,3 +17,6 @@
 .orange-col {
   color: rgb(249 115 22, 1);
 }
+.no-sidebar::-webkit-scrollbar {
+  display: none;
+}

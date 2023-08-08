@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeaderComp from "../../components/other/HeaderComp";
 import LinksHeader from "../../components/home/nav/LinksHeader";
 import Navbar from "../../components/home/nav/Navbar";
@@ -13,8 +13,15 @@ import { BiLogoFacebook } from "react-icons/bi";
 import { AiOutlineTwitter } from "react-icons/ai";
 import ProductTab from "../../components/other/ProductTab";
 import SponsoredProducts from "../../components/home/SponsoredProducts";
+import { useAppDispatch } from "../../store/hooks/hooks";
+import { getProducts } from "../../store/asyncFns/postData";
 
 const Product = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getProducts);
+  }, []);
+
   const header = (
     <p>
       Home {">"} Beauty, Health & Personal Care {">"}

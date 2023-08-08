@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 // import Store from "../../../assets/images/store-logo.jpg";
-// import Marjay from "../../../assets/images/marjay.jpg";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useAppSelector } from "../../../store/hooks/hooks";
 import { BiCart, BiQuestionMark, BiSolidShoppingBag } from "react-icons/bi";
-// import Cart from "../../../pages/Cart";
+import { GiHamburgerMenu } from "react-icons/gi";
+import {
+  HiMiniHomeModern,
+  HiOutlineShoppingCart,
+  HiMiniXMark,
+} from "react-icons/hi2";
 import DropDown1 from "./DropDown1";
 import { Link } from "react-router-dom";
+import MobileNav from "./MobileNav";
 // import StoreLogo from "../../other/StoreLogo";
 
 type T = {
@@ -40,6 +45,7 @@ const Navbar = () => {
   const [isProfileDropDownShowing, setIsProfileDropDownShowing] =
     useState(false);
   const [user, setUser] = useState(null);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   function toggleDropDown(value: boolean) {
     setIsDropDownShowing(value);
     return undefined;
@@ -48,9 +54,44 @@ const Navbar = () => {
     setIsProfileDropDownShowing(value);
     return undefined;
   }
+  const toggleSidebar = () => {
+    setIsMobileNavOpen(!isMobileNavOpen);
+  };
+
+  useEffect(() => {
+    isMobileNavOpen
+      ? document.documentElement.classList.add("overflow-hidden")
+      : document.documentElement.classList.remove("overflow-hidden");
+  }, [isMobileNavOpen]);
   return (
-    <div className="bg-pink-500 w-full">
-      <ul className="flex w-full px-10 py-3.5 text-white">
+    <div className="bg-white lg:bg-pink-500 sm:py-3 sm:px-5 py-0 lg:py-0 z-20 w-full">
+      <div
+        className="lg:hidden flex border-b-2
+       fixed justify-between top-0 bg-white px-5 w-full py-4 z-20"
+      >
+        <GiHamburgerMenu
+          className={
+            isMobileNavOpen
+              ? "text-2xl cursor-pointer hidden transition-all"
+              : "text-2xl cursor-pointer block"
+          }
+          onClick={toggleSidebar}
+        />
+        <HiMiniXMark
+          className={
+            isMobileNavOpen
+              ? "text-2xl cursor-pointer block"
+              : "text-2xl cursor-pointer hidden"
+          }
+          onClick={toggleSidebar}
+        />
+
+        <div className="flex gap-3">
+          <HiMiniHomeModern className="text-2xl cursor-pointer" />
+          <HiOutlineShoppingCart className="text-2xl cursor-pointer" />
+        </div>
+      </div>
+      <ul className="lg:flex w-full px-10 py-3.5 hidden text-white">
         <li className="transition-5 text-sm hover:scale-105 w-1/12 flex items-center">
           <Link to="/" className="w-full rounded-full">
             Home
@@ -58,9 +99,6 @@ const Navbar = () => {
         </li>
         <li className="transition-5 text-sm hover:scale-105 w-1/12 flex items-center">
           <Link to="/stores">Locator</Link>
-        </li>
-        <li className="transition-5 text-sm hover:scale-105 w-1/12 flex items-center">
-          {/* <a href="/sell-items">Sell</a> */}
         </li>
         <li className="transition-5 text-sm flex w-1/2">
           <input
@@ -82,7 +120,7 @@ const Navbar = () => {
               <BiQuestionMark className="text-sm" />
             </div>
             Help
-            <div className="w-4/5 left-11 absolute top-10 z-10">
+            <div style={{ left: "29%" }} className="w-4/5 absolute top-10 z-10">
               <DropDown1
                 toggleDropDown={toggleDropDown}
                 isDropDownShowing={isDropDownShowing}
@@ -109,7 +147,7 @@ const Navbar = () => {
                 <BiSolidShoppingBag className="text-sm" />
               </div>
               Account
-              <div className="top-9 w-4/5 left-1 absolute z-20">
+              <div style={{ left: "0%" }} className="top-9 w-4/5 absolute z-20">
                 <DropDown1
                   toggleDropDown={toggleProfileDropDown}
                   isDropDownShowing={isProfileDropDownShowing}
@@ -119,7 +157,7 @@ const Navbar = () => {
             </Link>
           )}
         </li>
-        <li className="transition-5 text-sm hover:bg-teal-700 w-48 py-1 rounded-sm flex justify-center text-white bg-teal-500">
+        <li className="transition-5 text-sm hover:bg-teal-700 lg:w-48 w-1/6 py-1 rounded-sm flex justify-center text-white bg-teal-500">
           <Link
             className="flex gap-4 text-sm items-center justify-center"
             to="/cart/overview"
@@ -132,6 +170,7 @@ const Navbar = () => {
           </Link>
         </li>
       </ul>
+      <MobileNav isOpen={isMobileNavOpen} />
     </div>
   );
 };

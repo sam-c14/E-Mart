@@ -22,9 +22,9 @@ export const post = async (url: string, data: any) => {
     return error.response;
   }
 };
-export const get = async (url: string, data: any) => {
+export const get = async (url: string) => {
   try {
-    const response = await HTTP.post(url, data);
+    const response = await HTTP.get(url);
     if (response.status === 200) {
       return response.data;
     }
