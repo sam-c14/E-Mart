@@ -12,9 +12,9 @@ export const categories: Array<string> = [
 ];
 const Categories = () => {
   return (
-    <div>
+    <div className="sm:block hidden">
       <div className="bg-pink-800">
-        <ul className="w-full md:overflow-auto flex lg:gap-2 gap-14">
+        <ul className="w-full over md:overflow-auto flex lg:gap-2 gap-14">
           {categories.map((category: string, index) =>
             category !== "All Categories" ? (
               <li

@@ -7,7 +7,7 @@ const SponsoredProducts = () => {
     <div className="mb-5">
       <div className="py-3 mt-4 border-b-2 rounded-tr-md rounded-tl-md text-black bg-white">
         <div className="flex gap-5 pl-5 items-center">
-          <h1 className="text-2xl font-bold">Sponsored Products</h1>
+          <h1 className="sm:text-2xl text-lg font-bold">Sponsored Products</h1>
           {/* <p className="text-sm">See All Items</p> */}
         </div>
       </div>

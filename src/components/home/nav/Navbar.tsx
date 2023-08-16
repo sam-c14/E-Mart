@@ -64,7 +64,7 @@ const Navbar = () => {
       : document.documentElement.classList.remove("overflow-hidden");
   }, [isMobileNavOpen]);
   return (
-    <div className="bg-white lg:bg-pink-500 sm:py-3 sm:px-5 py-0 lg:py-0 z-20 w-full">
+    <div className="bg-white lg:bg-pink-500 sm:py-3 lg:px-5 py-0 lg:py-0 z-20 w-full">
       <div
         className="lg:hidden flex border-b-2
        fixed justify-between top-0 bg-white px-5 w-full py-4 z-20"
@@ -87,8 +87,12 @@ const Navbar = () => {
         />
 
         <div className="flex gap-3">
-          <HiMiniHomeModern className="text-2xl cursor-pointer" />
-          <HiOutlineShoppingCart className="text-2xl cursor-pointer" />
+          <Link to="/stores">
+            <HiMiniHomeModern className="text-2xl cursor-pointer" />
+          </Link>
+          <Link className="" to="/cart/overview">
+            <HiOutlineShoppingCart className="text-2xl cursor-pointer" />
+          </Link>
         </div>
       </div>
       <ul className="lg:flex w-full px-10 py-3.5 hidden text-white">

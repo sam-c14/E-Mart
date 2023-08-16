@@ -16,7 +16,7 @@ export const post = async (url: string, data: any) => {
     const response = await HTTP.post(url, data);
     console.log(response);
     if (response.status >= 200 && response.status <= 399) {
-      return response.data;
+      return response;
     }
   } catch (error: any) {
     return error.response;

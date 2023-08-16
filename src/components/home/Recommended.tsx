@@ -8,9 +8,11 @@ const Recommended = () => {
     <div className="my-2">
       <div className="py-2 bg-white border-b-2 rounded-tr-md rounded-tl-md text-black">
         <div className="flex gap-5 pl-5 items-center">
-          <h1 className="text-xl font-bold">Recommended for you</h1>
+          <h1 className="sm:text-xl text-base font-bold">
+            Recommended for you
+          </h1>
           <Link to={"/recommendations"}>
-            <p className="text-sm hover:underline transition-all text-pink-800 ">
+            <p className="sm:text-sm text-xs hover:underline transition-all text-pink-800 ">
               See All Items
             </p>
           </Link>

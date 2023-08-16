@@ -1,4 +1,3 @@
-import React from "react";
 import Deal1 from "../../assets/images/Deal1.webp";
 import { Link } from "react-router-dom";
 import { history } from "../../utilities/routerFns";
@@ -12,15 +11,16 @@ const CurrentDeals = () => {
     <div>
       <div className="bg-pink-800 py-2 rounded-tr-md rounded-tl-md text-white">
         <div className="flex gap-5 pl-5 items-center">
-          <h1 className="text-3xl font-bold">Today's Deals</h1>
+          <h1 className="sm:text-3xl text-lg font-bold">Today's Deals</h1>
           <Link to="/deals/daily">
             <p className="text-sm hover:underline">See All Items</p>
           </Link>
         </div>
       </div>
       <div className="grid rounded-bl-md rounded-br-md md:grid-cols-2 grid-cols-1 lg:grid-cols-3 px-2 bg-white gap-2 py-5 lg:py-2">
-        {deals.map((deal) => (
+        {deals.map((deal, index) => (
           <div
+            key={index}
             onClick={routeToProduct}
             className="shadow-sm hover:shadow-lg transition-5 border lg:py-0 py-5 bg-white items-center flex"
           >

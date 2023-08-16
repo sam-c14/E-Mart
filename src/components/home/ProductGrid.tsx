@@ -10,8 +10,8 @@ const ProductGrid = () => {
   return (
     <div className="lg:w-1/8 w-full px-2">
       <div className="grid grid-cols-2 h-full gap-3">
-        {images.map((image) => (
-          <div className="h-full">
+        {images.map((image, index) => (
+          <div key={index} className="h-full">
             <img src={image} className="h-full rounded-lg" alt="product" />
           </div>
         ))}

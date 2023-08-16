@@ -20,3 +20,7 @@
 .no-sidebar::-webkit-scrollbar {
   display: none;
 }
+.rotate-custom {
+  --tw-rotate: 270deg;
+  transform: rotate(var(--tw-rotate));
+}
