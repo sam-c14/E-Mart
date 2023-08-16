@@ -91,7 +91,7 @@ const SignUp = () => {
     await dispatch(signUp);
     setIsLoading(false);
     if (status) {
-      setIsOpen(status);
+      setIsOpen(!status);
     }
   };
 

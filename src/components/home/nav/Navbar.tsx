@@ -25,6 +25,7 @@ const Navbar = () => {
     if (user) {
       const parsedUser: any = JSON.parse(user);
       setUser(parsedUser);
+      console.log(parsedUser);
     }
   }, []);
 

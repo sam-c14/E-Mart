@@ -28,7 +28,7 @@ export const signUp = async (dispatch: any, getState: any) => {
       console.log(res);
       const responseData = res;
       await dispatch(setStatus(true));
-      if (res.status === 201) {
+      if (res.status === 201 || res.status === 200) {
         history.navigate(`/verify/${res.userEmail}`);
         // history.navigate("/");
         return;
