@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LinksHeader from "../../components/home/nav/LinksHeader";
 import Navbar from "../../components/home/nav/Navbar";
 import Categories from "../../components/home/nav/Categories";
@@ -10,8 +10,23 @@ import Recommended from "../../components/home/Recommended";
 import ShopNow from "../../components/home/ShopNow";
 import AboutUs from "../../components/home/AboutUs";
 import Footer from "../../components/home/Footer";
+import { useParams } from "react-router-dom";
+import { useAppDispatch } from "../../store/hooks/hooks";
+import { logout } from "../../store/asyncFns/postData";
 
 const Home = () => {
+  const dispatch = useAppDispatch();
+  const { logoutStatus } = useParams();
+  const handleLogout = async () => {
+    console.log(logoutStatus);
+    await dispatch(logout);
+  };
+  useEffect(() => {
+    if (logoutStatus) {
+      handleLogout();
+    }
+  }, []);
+
   return (
     <div>
       <LinksHeader />

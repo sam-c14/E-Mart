@@ -18,15 +18,17 @@ interface items {
 const DropDown1: FC<items> = (props): JSX.Element => {
   return props.isDropDownShowing ? (
     <div className="bg-white w-full text-black">
-      <ul>
+      <ul className="w-full">
         {props.itemArr.map((item, index) => (
           <li
             key={index}
             className="py-2 pl-3 z-10
              text-sm
-            hover:text-pink-600 hover:bg-gray-100"
+            hover:text-pink-600- w-full hover:bg-gray-100"
           >
-            <Link to={item.to as To}>{item.text}</Link>
+            <Link className="w-full block" to={item.to as To}>
+              {item.text}
+            </Link>
           </li>
         ))}
       </ul>

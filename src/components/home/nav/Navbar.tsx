@@ -25,7 +25,6 @@ const Navbar = () => {
     if (user) {
       const parsedUser: any = JSON.parse(user);
       setUser(parsedUser);
-      console.log(parsedUser);
     }
   }, []);
 
@@ -40,7 +39,7 @@ const Navbar = () => {
     { text: "Profile", to: "/account/profile" },
     { text: "Orders", to: "/account/orders" },
     { text: "Wishlist", to: "/account/wishlist" },
-    { text: "Logout", to: "/account/logout" },
+    { text: "Logout", to: "/account/logout/true" },
   ];
   const [isDropDownShowing, setIsDropDownShowing] = useState(false);
   const [isProfileDropDownShowing, setIsProfileDropDownShowing] =
@@ -139,7 +138,7 @@ const Navbar = () => {
             <Link to="/account/login">Login/SignUp</Link>
           ) : (
             <Link
-              to="account/profile"
+              to=""
               className="flex-wrap items-center flex hover:bg-white hover:text-pink-600 px-2 py-1"
               onMouseEnter={() =>
                 toggleProfileDropDown(!isProfileDropDownShowing)

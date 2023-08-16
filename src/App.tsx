@@ -31,6 +31,7 @@ const App = () => {
             />
             <Route path="/account">
               <Route path="login" element={<Login />} />
+              <Route path="logout/:logoutStatus" element={<Home />} />
               <Route path="signup" element={<SignUp />} />
             </Route>
             <Route path="/help">

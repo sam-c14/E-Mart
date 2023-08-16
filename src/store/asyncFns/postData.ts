@@ -11,7 +11,6 @@ export const login = async (dispatch: any, getState: any) => {
   const currentState = getState();
   await post("login", currentState.authReducer.form)
     .then(async (res) => {
-      // console.log(res);
       await dispatch(setStatus(true));
       history.navigate("/");
       // Dispatch an action with the todos we received
@@ -67,12 +66,9 @@ export const logout = async (dispatch: any, getState: any) => {
   await post("logout", currentState.authReducer.form)
     .then((res) => {
       console.log(res);
-      const responseData = res;
+      localStorage.removeItem("user");
+      history.navigate(`/`);
       // Dispatch an action with the todos we received
-      dispatch({ type: "user", payload: responseData });
-      // Check the updated store state after dispatching
-      // const allTodos = getState().todos;
-      // console.log("Number of todos after loading: ", allTodos.length);
     })
     .catch((err) => console.log(err));
 };
