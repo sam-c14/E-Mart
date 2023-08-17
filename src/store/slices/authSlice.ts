@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../index";
 import { loginForm } from "../../pages/login/Login";
 import { signUpForm } from "../../pages/signup/SignUp";
 // import { TypedThunk } from "../index";
@@ -80,6 +79,5 @@ export const {
 export const { status } = authSlice.getInitialState();
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount: any = (state: RootState) => state.counterReducer;
 
 export default authSlice.reducer;

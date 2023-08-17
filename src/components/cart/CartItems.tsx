@@ -70,7 +70,7 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                     <div className="w-3/5 flex gap-2 items-center">
                       <div className="w-1/5">
                         <img
-                          src={Deal1}
+                          src={items.src}
                           alt="tablet"
                           className="w-full h-full"
                         />
@@ -80,7 +80,6 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                         <p className="text-xs">
                           Sold by
                           <span className="text-blue-500">
-                            {" "}
                             ESTEEM MEDIA PRO
                           </span>
                         </p>

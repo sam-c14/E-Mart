@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderComp from "../../components/other/HeaderComp";
 // import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
@@ -15,12 +15,16 @@ import ShareIcon from "@mui/icons-material/Share";
 import { addToCart } from "../../store/slices/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Deal2 from "../../assets/images/Deal2.webp";
-import products from "../../assets/data/products.json";
+import CircularProgress from "@mui/material/CircularProgress";
 import { T } from "../../store/slices/cartSlice";
+import { getProducts } from "../../store/asyncFns/postData";
 
 export default function DailyDeals() {
   const dispatch = useAppDispatch();
+  const sliceProducts = useAppSelector(
+    (state) => state.productReducer.products
+  );
+
   const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
   const header = (
     <p>
@@ -28,6 +32,16 @@ export default function DailyDeals() {
       <span className="text-pink-800 font-semibold">Daily Deals</span>
     </p>
   );
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const [product, setProduct] = useState<any>();
+  const fetchProducts = async () => {
+    await dispatch(getProducts);
+    console.log(sliceProducts);
+  };
+
   let favItems: Array<String> = [];
   const favIcons: NodeListOf<HTMLElement> =
     document.querySelectorAll(".fav-icon");
@@ -51,10 +65,18 @@ export default function DailyDeals() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     items: T
   ) => {
-    console.log(items);
     await dispatch(addToCart(items));
-    console.log(cartItems);
   };
+
+  if (sliceProducts.length === 0) {
+    // Data is not fetched yet, you can show a loading message here if necessary
+    return (
+      <div className="grid h-screen place-items-center">
+        <CircularProgress />
+        {/* <div>Please wait while the product is being added</div> */}
+      </div>
+    );
+  }
 
   return (
     <div className="mb-2 sm:mt-auto mt-12">
@@ -62,7 +84,7 @@ export default function DailyDeals() {
         <HeaderComp htmlEle={header} headerText={"Daily Deals"} />
       </div>
       <div className="lg:px-10 md:px-10 px-0 sm:grid md:grid-cols-2 xl:grid-cols-5 flex flex-wrap justify-center lg:grid-cols-3 gap-y-4 gap-x-4">
-        {products.products.map((item, index) => (
+        {sliceProducts.map((item, index) => (
           <Card
             key={index}
             className="shadow-sm hover:shadow-xl transition-105 text-orange-500"
@@ -71,7 +93,7 @@ export default function DailyDeals() {
             <CardHeader
               avatar={
                 <Avatar sx={{ bgcolor: pink[500] }} aria-label="recipe">
-                  {item.vendor[0]}
+                  {"E"}
                 </Avatar>
               }
               action={
@@ -79,22 +101,26 @@ export default function DailyDeals() {
                   <MoreVertIcon />
                 </IconButton>
               }
-              title={item.vendor}
+              title="E-Mart Online Stores"
               subheader="Imported Product"
             />
             <div className="h-36 px-10">
-              <img className="h-full w-full" src={Deal2} alt={item.name} />
+              <img
+                className="h-full w-full"
+                src={item.product_details.product_img}
+                alt="Product Img"
+              />
             </div>
             <CardContent>
-              <h3 className="font-bold">{item.name}</h3>
-              <h1 className="font-bold text-2xl mt-3">₦{item.price}</h1>
+              <h3 className="font-bold">{item.title.slice(0, 20)}</h3>
+              <h1 className="font-bold text-2xl mt-3">₦{item.pricing.price}</h1>
               <p className="text-xs mt-1 text-gray-500">
                 Click Here for Seller's Details
               </p>
             </CardContent>
             <CardActions disableSpacing>
               <IconButton aria-label="add to favorites">
-                <FavoriteIcon id={item.toString()} className="fav-icon" />
+                <FavoriteIcon id={item.sku.toString()} className="fav-icon" />
               </IconButton>
               <IconButton aria-label="share">
                 <ShareIcon />
@@ -104,9 +130,10 @@ export default function DailyDeals() {
               <button
                 onClick={(e) =>
                   handleAddToCart(e, {
-                    id: item.id,
-                    title: item.name,
-                    price: item.price,
+                    id: item.sku,
+                    src: item.product_details.product_img,
+                    title: item.title,
+                    price: item.pricing.price,
                     quantity: 1,
                   })
                 }

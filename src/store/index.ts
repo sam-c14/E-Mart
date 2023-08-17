@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./slices/couterSlice";
+import productReducer from "./slices/productSlice";
 import cartReducer from "./slices/cartSlice";
 import authReducer from "../store/slices/authSlice";
 import asyncFunctionMiddleware from "./middleware/asyncFn";
@@ -9,7 +9,7 @@ import { Action, ThunkAction } from "@reduxjs/toolkit";
 // const middlewareEnhancer = applyMiddleware(asyncFunctionMiddleware);
 const store = configureStore({
   reducer: {
-    counterReducer,
+    productReducer,
     authReducer,
     cartReducer,
   },

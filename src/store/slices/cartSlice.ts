@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type T = {
   id: String;
+  src: string;
   title: String;
   price: Number;
   quantity: Number;
