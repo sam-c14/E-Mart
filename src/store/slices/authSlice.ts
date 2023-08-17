@@ -62,7 +62,6 @@ export const authSlice = createSlice({
         process.env.REACT_APP_ENCRYPT_KEY
       ).toString();
       localStorage.setItem("user", encryptedData);
-      console.log(encryptedData);
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
     refreshToken: (state, action: PayloadAction<string>) => {
