@@ -8,7 +8,7 @@ const images = [ProductImg1, ProductImg2, ProductImg3, ProductImg4];
 
 const ProductGrid = () => {
   return (
-    <div className="lg:w-1/8 w-full px-2">
+    <div className="lg:w-1/8 sm:h-auto h-screen w-full px-2">
       <div className="grid grid-cols-2 h-full gap-3">
         {images.map((image, index) => (
           <div key={index} className="h-full">

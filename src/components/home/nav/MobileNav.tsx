@@ -11,17 +11,21 @@ const MobileNav: FC<mobileNavProps> = ({ isOpen }): JSX.Element => {
     <div
       className={
         isOpen
-          ? "lg:hidden block h-screen absolute top-14 px-5 pt-4 transition-5 overflow-auto no-sidebar left-0 w-full z-30 bg-white"
-          : "lg:hidden block h-screen absolute top-14 px-5 pt-4 transition-5 -left-full w-full z-20 bg-white"
+          ? "lg:hidden block h-screen fixed top-14 px-5 pt-4 transition-5 overflow-auto no-sidebar left-0 w-full z-30 bg-white"
+          : "lg:hidden block h-screen fixed top-14 px-5 pt-4 transition-5 -left-full w-full z-20 bg-white"
       }
     >
       <div className="grid">
         <div className="flex justify-between gap-5">
           <button className="text-pink-500 border border-pink-500 rounded-sm bg-white py-2 text-center font-semibold mt-1 w-full text-sm">
-            <Link to="/account/login">Login</Link>
+            <Link className="w-full" to="/account/login">
+              Login
+            </Link>
           </button>
           <button className="text-pink-500 border border-pink-500 rounded-sm bg-white py-2 text-center font-semibold mt-1 w-full text-sm">
-            <Link to="/account/signup">Signup</Link>
+            <Link className="w-full" to="/account/signup">
+              Signup
+            </Link>
           </button>
         </div>
         <div className="mt-2">
