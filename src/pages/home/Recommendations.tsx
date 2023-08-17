@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import HeaderComp from "../../components/other/HeaderComp";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
@@ -14,7 +14,6 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Deal2 from "../../assets/images/Deal2.webp";
-import { FaStar } from "react-icons/fa";
 
 const Recommendations = () => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];

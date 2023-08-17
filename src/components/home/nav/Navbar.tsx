@@ -12,6 +12,7 @@ import {
 import DropDown1 from "./DropDown1";
 import { Link } from "react-router-dom";
 import MobileNav from "./MobileNav";
+import CryptoJS from "crypto-js";
 // import StoreLogo from "../../other/StoreLogo";
 
 type T = {
@@ -20,11 +21,21 @@ type T = {
 };
 
 const Navbar = () => {
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user");
+  //   if (user) {
+  //     const parsedUser: any = JSON.parse(user);
+  //     setUser(parsedUser);
+  //   }
+  // }, []);
+
   useEffect(() => {
     const user = localStorage.getItem("user");
-    if (user) {
-      const parsedUser: any = JSON.parse(user);
-      setUser(parsedUser);
+    const bytes = CryptoJS.AES.decrypt(user, process.env.REACT_APP_ENCRYPT_KEY);
+    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    if (decryptedData) {
+      setUser(decryptedData);
+      console.log(decryptedData);
     }
   }, []);
 

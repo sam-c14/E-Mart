@@ -15,6 +15,7 @@ import { useAppDispatch } from "../../store/hooks/hooks";
 import { logout } from "../../store/asyncFns/postData";
 
 const Home = () => {
+  console.log(process.env);
   const dispatch = useAppDispatch();
   const { logoutStatus } = useParams();
   const handleLogout = async () => {
@@ -25,7 +26,7 @@ const Home = () => {
     if (logoutStatus) {
       handleLogout();
     }
-  }, []);
+  }, [logoutStatus]);
 
   return (
     <div>

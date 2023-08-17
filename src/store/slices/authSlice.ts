@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loginForm } from "../../pages/login/Login";
 import { signUpForm } from "../../pages/signup/SignUp";
-// import { TypedThunk } from "../index";
+import CryptoJS from "crypto-js";
 
 // Define a type for the slice state
 export interface authState {
@@ -57,8 +57,12 @@ export const authSlice = createSlice({
       console.log(state.status);
     },
     setUser: (state, action: PayloadAction<any>) => {
-      localStorage.setItem("user", JSON.stringify(action.payload));
-      console.log(action.payload);
+      const encryptedData = CryptoJS.AES.encrypt(
+        JSON.stringify(action.payload),
+        process.env.REACT_APP_ENCRYPT_KEY
+      ).toString();
+      localStorage.setItem("user", encryptedData);
+      console.log(encryptedData);
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
     refreshToken: (state, action: PayloadAction<string>) => {
