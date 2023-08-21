@@ -21,6 +21,7 @@ const initialState: authState = {
   form: {
     email: "",
     password: "",
+    role: "user",
   },
   signUpForm: {
     firstName: "",

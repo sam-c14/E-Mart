@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import LinksHeader from "../../components/home/nav/LinksHeader";
 import Navbar from "../../components/home/nav/Navbar";
 import Categories from "../../components/home/nav/Categories";
@@ -11,18 +11,28 @@ import ShopNow from "../../components/home/ShopNow";
 import AboutUs from "../../components/home/AboutUs";
 import Footer from "../../components/home/Footer";
 import { useParams } from "react-router-dom";
-import { useAppDispatch } from "../../store/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
+// import { reduxFns } from "../../utilities/reduxFns";
+import { getReservedProducts } from "../../store/asyncFns/postData";
+import { setProductTag } from "../../store/slices/productSlice";
 import { logout } from "../../store/asyncFns/postData";
 
 const Home = () => {
-  console.log(process.env);
   const dispatch = useAppDispatch();
   const { logoutStatus } = useParams();
   const handleLogout = async () => {
-    console.log(logoutStatus);
     await dispatch(logout);
   };
+  const sponsoredProducts = useAppSelector(
+    (state: any) => state.productReducer.sponsoredProducts
+  );
+  const getProducts = async () => {
+    await dispatch(setProductTag("sponsored"));
+    await dispatch(getReservedProducts);
+  };
+
   useEffect(() => {
+    getProducts();
     if (logoutStatus) {
       handleLogout();
     }
@@ -33,13 +43,13 @@ const Home = () => {
       <LinksHeader />
       <Navbar />
       {/* <Categories /> */}
-      <div className="flex lg:flex-nowrap flex-wrap lg:justify-between md:mt-3 sm:mt-auto mt-20 my-4 lg:px-10 md:px-6 px-2">
+      <div className="flex lg:flex-nowrap flex-wrap lg:justify-between md:mt-3 sm:mt-auto mt-20 my-4 lg:px-8 md:px-6 px-1">
         <Slider />
         <ProductGrid />
       </div>
-      <div className="lg:px-10 md:px-6 px-2">
+      <div className="lg:px-8 md:px-6 px-1">
         <CurrentDeals />
-        <SponsoredProducts />
+        {sponsoredProducts.length !== 0 ? <SponsoredProducts /> : ""}
         <Recommended />
         <ShopNow />
         <AboutUs />

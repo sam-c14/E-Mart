@@ -2,10 +2,9 @@
 import { post, get } from "../../client/client";
 // import { loginForm } from "../../pages/login/Login";
 // import { RootState, AppDispatch } from "..";
-// import { useAppSelector } from "../hooks/hooks";
 import { history } from "../../utilities/routerFns";
 import { setStatus, setUser } from "../slices/authSlice";
-import { setProducts } from "../slices/productSlice";
+import { setProducts, setSponsoredProducts } from "../slices/productSlice";
 
 export const login = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
@@ -96,12 +95,26 @@ export const getProducts = async (dispatch: any, getState: any) => {
     .then((res) => {
       console.log(res);
       const responseData = res;
-      dispatch(setProducts(res.product));
+      dispatch(setProducts(res.data.product));
       // Dispatch an action with the todos we received
       dispatch({ type: "user", payload: responseData });
       // Check the updated store state after dispatching
       // const allTodos = getState().todos;
       // console.log("Number of todos after loading: ", allTodos.length);
+    })
+    .catch((err) => console.log(err));
+};
+export const getReservedProducts = async (dispatch: any, getState: any) => {
+  // Make an async HTTP request
+  const tag = getState().productReducer.tag;
+  // console.log(tag);
+  await get(`get-reserved-products/${tag}`)
+    .then(async (res) => {
+      console.log(res);
+      await dispatch(setSponsoredProducts(res.data.sponsoredProducts));
+      // const pro = getState().productReducer.sponsoredProducts;
+      // console.log(pro);
+      // Dispatch an action with the todos we received
     })
     .catch((err) => console.log(err));
 };

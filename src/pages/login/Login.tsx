@@ -3,7 +3,6 @@ import { Spinner } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
 import { setForm } from "../../store/slices/authSlice";
-// import store from "../../store/index";
 import { login } from "../../store/asyncFns/postData";
 // import { useDispatch } from "react-redux";
 import StoreLogo from "../../components/other/StoreLogo";
@@ -13,6 +12,7 @@ import TransitionsModal from "../../components/other/TransitionsModal";
 export type loginForm = {
   email: string;
   password: string;
+  role: string;
 };
 
 const Login = () => {
@@ -20,6 +20,7 @@ const Login = () => {
   let initialForm: loginForm = {
     email: "",
     password: "",
+    role: "",
   };
   const [form, setLoginForm] = useState(initialForm);
   const [isOpen, setIsOpen] = useState(false);
@@ -28,12 +29,14 @@ const Login = () => {
     setLoginForm({
       email: e.currentTarget.value,
       password: form.password,
+      role: "user",
     });
   };
   const setPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({
       email: form.email,
       password: e.currentTarget.value,
+      role: "user",
     });
   };
   const status = useAppSelector((state) => state.authReducer.status);

@@ -22,11 +22,11 @@ export const post = async (url: string, data: any) => {
     return error.response;
   }
 };
-export const get = async (url: string) => {
+export const get = async (url: string, data = {}) => {
   try {
-    const response = await HTTP.get(url);
+    const response = await HTTP.get(url, data);
     if (response.status === 200) {
-      return response.data;
+      return response;
     }
   } catch (error: any) {
     return error.response;

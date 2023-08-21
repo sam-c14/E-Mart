@@ -3,6 +3,7 @@ import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { LiaHomeSolid } from "react-icons/lia";
 import { BsTag, BsCart2 } from "react-icons/bs";
 import { LuBarChart } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const aboutLinks = [
@@ -46,18 +47,22 @@ const Footer = () => {
   const mobileLinks = [
     {
       title: "Home",
+      to: "/",
       icon: <LiaHomeSolid />,
     },
     {
       title: "Deals",
+      to: "/deals/daily",
       icon: <BsTag />,
     },
     {
       title: "Cart",
+      to: "/cart/overview",
       icon: <BsCart2 />,
     },
     {
       title: "More",
+      to: "/",
       icon: <LuBarChart className="rotate-custom" />,
     },
   ];
@@ -67,6 +72,30 @@ const Footer = () => {
     <FaTwitter />,
     <FaYoutube />,
   ];
+
+  const setActiveLink = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    const links = document.querySelectorAll("w-full foot-link");
+    console.log("Got Here");
+    links.forEach((link) => {
+      console.log("Got Here 2");
+
+      if (link !== e.currentTarget) {
+        link.firstElementChild?.firstElementChild?.firstElementChild?.classList.remove(
+          "text-pink-800"
+        );
+        link.firstElementChild?.lastElementChild?.classList.remove(
+          "text-pink-800"
+        );
+      }
+    });
+    console.log(e.currentTarget);
+    e.currentTarget.firstElementChild?.firstElementChild?.firstElementChild?.classList.add(
+      "text-pink-800"
+    );
+    e.currentTarget.firstElementChild?.lastElementChild?.classList.add(
+      "text-pink-800"
+    );
+  };
   return (
     <React.Fragment>
       <div className="bg-gray-950 sm:block hidden px-5 lg:px-10">
@@ -133,14 +162,16 @@ const Footer = () => {
         </div>
       </div>
       <div
-        style={{ top: "90%" }}
+        style={{ bottom: "0" }}
         className="bg-white py-3 fixed sm:hidden px-10 w-full z-10 block"
       >
         <ul className="flex justify-between">
           {mobileLinks.map((link, index) => (
-            <li key={index}>
-              <div className="flex justify-center">{link.icon}</div>
-              <p className="text-sm text-center">{link.title}</p>
+            <li onClick={(e) => setActiveLink(e)} key={index}>
+              <Link className="w-full foot-link" to={link.to}>
+                <div className="flex justify-center">{link.icon}</div>
+                <p className="text-sm text-center">{link.title}</p>
+              </Link>
             </li>
           ))}
         </ul>

@@ -8,53 +8,51 @@ import Deals from "./pages/home/Deals";
 import Otp from "./pages/otp/Otp";
 import Construction from "./pages/stores/Construction";
 import Product from "./pages/home/Product";
-
+import { useAppDispatch, useAppSelector } from "./store/hooks/hooks";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import { Provider } from "react-redux";
-import store from "./store/index";
+
 import { history } from "./utilities/routerFns";
+import { reduxFns } from "./utilities/reduxFns";
 
 const App = () => {
   history.navigate = useNavigate();
   history.location = useLocation();
 
+  reduxFns.dispatch = useAppDispatch();
+  reduxFns.selector = useAppSelector;
+
   return (
-    <Provider store={store}>
-      <div>
-        <div className="bg-gray-100 -z-20">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart/overview" element={<Cart />} />
-            <Route
-              path="/recommendations"
-              element={<Deals dealType="recommendations" />}
-            />
-            <Route path="/account">
-              <Route path="login" element={<Login />} />
-              <Route path="logout/:logoutStatus" element={<Home />} />
-              <Route path="signup" element={<SignUp />} />
-            </Route>
-            <Route path="/help">
-              <Route path="faqs" element={<Help helpComp="faqs" />} />
-              <Route
-                path="contact-us"
-                element={<Help helpComp="contact-us" />}
-              />
-            </Route>
-            <Route path="/deals">
-              <Route path="daily" element={<Deals dealType="daily-deals" />} />
-            </Route>
-            <Route path="/verify/:email" element={<Otp />} />
-            <Route path="/product" element={<Product />} />
-          </Routes>
-        </div>
-        <div>
-          <Routes>
-            <Route path="/stores" element={<Construction />} />
-          </Routes>
-        </div>
+    <div>
+      <div className="bg-gray-100 -z-20">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart/overview" element={<Cart />} />
+          <Route
+            path="/recommendations"
+            element={<Deals dealType="recommendations" />}
+          />
+          <Route path="/account">
+            <Route path="login" element={<Login />} />
+            <Route path="logout/:logoutStatus" element={<Home />} />
+            <Route path="signup" element={<SignUp />} />
+          </Route>
+          <Route path="/help">
+            <Route path="faqs" element={<Help helpComp="faqs" />} />
+            <Route path="contact-us" element={<Help helpComp="contact-us" />} />
+          </Route>
+          <Route path="/deals">
+            <Route path="daily" element={<Deals dealType="daily-deals" />} />
+          </Route>
+          <Route path="/verify/:email" element={<Otp />} />
+          <Route path="/product" element={<Product />} />
+        </Routes>
       </div>
-    </Provider>
+      <div>
+        <Routes>
+          <Route path="/stores" element={<Construction />} />
+        </Routes>
+      </div>
+    </div>
   );
 };
 
