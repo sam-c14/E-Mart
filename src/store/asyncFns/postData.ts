@@ -4,7 +4,11 @@ import { post, get } from "../../client/client";
 // import { RootState, AppDispatch } from "..";
 import { history } from "../../utilities/routerFns";
 import { setStatus, setUser } from "../slices/authSlice";
-import { setProducts, setSponsoredProducts } from "../slices/productSlice";
+import {
+  setProducts,
+  setSponsoredProducts,
+  setSingleProduct,
+} from "../slices/productSlice";
 
 export const login = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
@@ -112,6 +116,20 @@ export const getReservedProducts = async (dispatch: any, getState: any) => {
     .then(async (res) => {
       console.log(res);
       await dispatch(setSponsoredProducts(res.data.sponsoredProducts));
+      // const pro = getState().productReducer.sponsoredProducts;
+      // console.log(pro);
+      // Dispatch an action with the todos we received
+    })
+    .catch((err) => console.log(err));
+};
+export const getSingleProducts = async (dispatch: any, getState: any) => {
+  // Make an async HTTP request
+  const sku = getState().productReducer.singleProductSku;
+  // console.log(sku);
+  await get(`get-product/${sku}`)
+    .then(async (res) => {
+      console.log(res);
+      await dispatch(setSingleProduct(res.data.product));
       // const pro = getState().productReducer.sponsoredProducts;
       // console.log(pro);
       // Dispatch an action with the todos we received

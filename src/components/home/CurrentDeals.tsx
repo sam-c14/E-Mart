@@ -1,12 +1,18 @@
-import Deal1 from "../../assets/images/Deal1.webp";
 import { Link } from "react-router-dom";
 import { history } from "../../utilities/routerFns";
+import { FC } from "react";
+import { sliceStr } from "./SponsoredProducts";
 
-const CurrentDeals = () => {
-  const deals = [1, 2, 3, 4, 5, 6];
-  const routeToProduct = () => {
-    history.navigate("/product");
-  };
+export interface cProps {
+  product: Array<any>;
+}
+export const routeToProduct = (deal: any) => {
+  history.navigate(`/product/${deal.sku}`);
+};
+
+const CurrentDeals: FC<cProps> = ({ product }): JSX.Element => {
+  console.log(product);
+
   return (
     <div>
       <div className="bg-pink-800 py-2 rounded-tr-md rounded-tl-md text-white">
@@ -18,22 +24,50 @@ const CurrentDeals = () => {
         </div>
       </div>
       <div className="grid rounded-bl-md rounded-br-md md:grid-cols-2 grid-cols-1 lg:grid-cols-3 px-2 bg-white gap-2 py-5 lg:py-2">
-        {deals.map((deal, index) => (
+        {product.map((deal, index) => (
           <div
             key={index}
-            onClick={routeToProduct}
-            className="shadow-sm hover:shadow-lg transition-5 border lg:py-0 py-5 bg-white items-center flex"
+            onClick={(e) => routeToProduct(deal)}
+            className="shadow-sm hover:shadow-lg transition-5 border lg:py-0 py-5 bg-white items-center gap-2 flex"
           >
             <div className="w-1/4">
-              <img className="w-full h-full" src={Deal1} alt="deal1" />
+              <img
+                className="w-full h-full"
+                src={deal.product_details.product_img}
+                alt="deal1"
+              />
             </div>
             <div className="w-3/4">
-              <p>iTec Handle Start, 3.5Kva Power...</p>
+              <p>{sliceStr(deal.title)}</p>
               <div className="flex gap-3 items-center mt-2">
-                <h5 className="font-bold text-lg">143,000</h5>
-                <p className="line-through text-sm text-gray-400">207000</p>
+                <h5 className="font-bold text-lg">
+                  {deal.pricing.discount !== 0 &&
+                  typeof deal.pricing.discount === "number"
+                    ? "₦" +
+                      Math.round(
+                        deal.pricing.price -
+                          (deal.pricing.price * deal.pricing.discount) / 100
+                      )
+                    : "₦" + deal.pricing.price}
+                </h5>
+                <p className="line-through text-sm text-gray-400">
+                  {deal.pricing.discount !== 0 &&
+                  typeof deal.pricing.discount === "number"
+                    ? "₦" + deal.pricing.price
+                    : ""}
+                </p>
               </div>
-              <p className="text-green-600 text-sm">You save #143,900</p>
+              <p className="text-green-600 text-sm">
+                {deal.pricing.discount !== 0 &&
+                typeof deal.pricing.discount === "number"
+                  ? "You save ₦" +
+                    (deal.pricing.price -
+                      Math.round(
+                        deal.pricing.price -
+                          (deal.pricing.price * deal.pricing.discount) / 100
+                      ))
+                  : ""}
+              </p>
             </div>
           </div>
         ))}

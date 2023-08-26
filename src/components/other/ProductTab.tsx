@@ -1,7 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import productSpecs from "../../assets/data/productSpecs.json";
 
-const ProductTab = () => {
+export interface tabProps {
+  product_details: {
+    overview: Array<string>;
+    description: any;
+    shipping: string;
+    warranty: any;
+    return_policy: string;
+    product_img: string;
+  };
+}
+
+const ProductTab: FC<tabProps> = (props): JSX.Element => {
   const tabs = [
     "Overview",
     "Description",
@@ -11,7 +22,7 @@ const ProductTab = () => {
     "Reviews",
   ];
   const productInfo = JSON.parse(JSON.stringify(productSpecs));
-  const [info, setInfo] = useState<any>({});
+  const [info, setInfo] = useState<any>("");
   const changeTab = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const productTabs = document.querySelectorAll(".product-tab");
     productTabs.forEach((tab) => {
@@ -19,27 +30,59 @@ const ProductTab = () => {
         tab.classList.remove("text-pink-700");
       } else {
         tab.classList.add("text-pink-700");
-        for (let key of Object.keys(productInfo)) {
-          if (tab.textContent?.toLowerCase() === key) {
-            const info = productInfo[key];
-            // console.log(info);
-            setInfo(info);
-          } else if (tab.textContent?.toLowerCase() === "return policy") {
-            const info = productInfo["returnPolicy"];
-            // console.log(info);
-            setInfo(info);
+        tabs.map((tab) => {
+          switch (e.currentTarget?.textContent) {
+            case "Overview":
+              const overview = props.product_details["overview"];
+              let joinedStr = "";
+              // console.log(info[0]);
+              overview.map((string) => {
+                joinedStr += string + " ";
+              });
+              setInfo(joinedStr);
+
+              // console.log(joine
+              break;
+            case "Description":
+              const description = props.product_details["description"];
+              setInfo(description.desc);
+              break;
+            case "Shipping":
+              const shipping = props.product_details["shipping"];
+              setInfo(shipping);
+              break;
+            case "Warranty":
+              const warranty = props.product_details["warranty"];
+              const str = warranty.term + " " + warranty.details;
+              setInfo(str);
+              break;
+            case "Return Policy":
+              const return_policy = props.product_details["return_policy"];
+              setInfo(return_policy);
+              break;
+            case "Reviews":
+              setInfo("No reviews yet for this product");
+              break;
           }
-        }
+        });
       }
     });
   };
   useEffect(() => {
+    // console.log(Object.keys(info)
+    //   props);
     const productTabs = document.querySelectorAll(".product-tab");
     productTabs.forEach((tab) => {
       if (tab.textContent === "Overview") tab.classList.add("text-pink-700");
     });
-    const info = productInfo["overview"];
-    setInfo(info);
+    const info = props.product_details["overview"];
+    let joinedStr = "";
+    // console.log(info[0]);
+    info.map((string) => {
+      joinedStr += string + " ";
+    });
+    console.log(joinedStr);
+    setInfo(joinedStr);
   }, []);
 
   return (
@@ -53,13 +96,7 @@ const ProductTab = () => {
           ))}
         </ul>
         <div className="lg:block hidden mt-5">
-          {Object.keys(info).length !== 0
-            ? Object.keys(info).map((key) => (
-                <div className="text-xs my-0.5">
-                  {key} : {info[key]}
-                </div>
-              ))
-            : ""}
+          <div className="text-xs my-0.5">{info}</div>
         </div>
       </div>
     </div>

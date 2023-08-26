@@ -6,10 +6,6 @@ export const sliceStr = (str: string) => {
   return str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
 };
 
-// export interface product {
-//   products: Array<any>;
-// }
-
 const SponsoredProducts = (): JSX.Element => {
   const sponsoredProducts = useAppSelector(
     (state: any) => state.productReducer.sponsoredProducts
@@ -67,10 +63,17 @@ const SponsoredProducts = (): JSX.Element => {
                       {deal?.pricing.price.toLocaleString()}
                     </p>
                   </div>
-                  <p className="text-green-600 text-sm">
+                  <p
+                    className={
+                      deal?.pricing.discount > 0
+                        ? "text-green-600 text-sm"
+                        : "hidden"
+                    }
+                  >
                     You save ₦
                     {deal?.pricing.price -
-                      deal?.pricing.price * (deal?.pricing.discount / 100)}
+                      (deal?.pricing.price -
+                        deal?.pricing.price * (deal?.pricing.discount / 100))}
                   </p>
                 </div>
               </div>

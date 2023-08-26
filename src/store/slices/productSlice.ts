@@ -5,6 +5,8 @@ export interface ProductState {
   products: Array<any>;
   tag: any;
   sponsoredProducts: Array<any>;
+  singleProduct: any;
+  singleProductSku: string;
 }
 
 // Define the initial state using that type
@@ -12,6 +14,8 @@ const initialState: ProductState = {
   products: [],
   tag: {},
   sponsoredProducts: [],
+  singleProduct: {},
+  singleProductSku: "",
 };
 
 export const productSlice = createSlice({
@@ -27,13 +31,23 @@ export const productSlice = createSlice({
     },
     setSponsoredProducts: (state, action: PayloadAction<any>) => {
       state.sponsoredProducts = action.payload;
-      // console.log(state.sponsoredProducts);
+    },
+    setSingleProduct: (state, action: PayloadAction<any>) => {
+      state.singleProduct = action.payload;
+    },
+    setSingleProductSku: (state, action: PayloadAction<any>) => {
+      state.singleProductSku = action.payload;
     },
   },
 });
 
-export const { setProducts, setSponsoredProducts, setProductTag } =
-  productSlice.actions;
+export const {
+  setProducts,
+  setSponsoredProducts,
+  setProductTag,
+  setSingleProduct,
+  setSingleProductSku,
+} = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 

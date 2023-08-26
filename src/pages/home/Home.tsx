@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
 // import { reduxFns } from "../../utilities/reduxFns";
 import { getReservedProducts } from "../../store/asyncFns/postData";
 import { setProductTag } from "../../store/slices/productSlice";
+import { getProducts as fetchCurProducts } from "../../store/asyncFns/postData";
 import { logout } from "../../store/asyncFns/postData";
 
 const Home = () => {
@@ -27,9 +28,14 @@ const Home = () => {
     (state: any) => state.productReducer.sponsoredProducts
   );
   const getProducts = async () => {
+    await dispatch(fetchCurProducts);
     await dispatch(setProductTag("sponsored"));
     await dispatch(getReservedProducts);
   };
+
+  const sliceProducts = useAppSelector(
+    (state) => state.productReducer.products
+  );
 
   useEffect(() => {
     getProducts();
@@ -48,7 +54,11 @@ const Home = () => {
         <ProductGrid />
       </div>
       <div className="lg:px-8 md:px-6 px-1">
-        <CurrentDeals />
+        {sliceProducts.length !== 0 ? (
+          <CurrentDeals product={sliceProducts.slice(0, 6)} />
+        ) : (
+          ""
+        )}
         {sponsoredProducts.length !== 0 ? <SponsoredProducts /> : ""}
         <Recommended />
         <ShopNow />

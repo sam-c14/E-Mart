@@ -18,6 +18,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CircularProgress from "@mui/material/CircularProgress";
 import { T } from "../../store/slices/cartSlice";
 import { getProducts } from "../../store/asyncFns/postData";
+import { routeToProduct } from "../../components/home/CurrentDeals";
 
 export default function DailyDeals() {
   const dispatch = useAppDispatch();
@@ -55,7 +56,7 @@ export default function DailyDeals() {
       } else {
         icon.style.color = "!important rgb(249 115 22, 1);";
         // icon.classList.add("text-orange-500");
-        console.log(icon.classList);
+        // console.log(icon.classList);
         favItems.push(icon.id);
       }
     });
@@ -87,6 +88,7 @@ export default function DailyDeals() {
         {sliceProducts.map((item, index) => (
           <Card
             key={index}
+            onClick={(e) => routeToProduct(item)}
             className="shadow-sm hover:shadow-xl transition-105 text-orange-500"
             sx={{ maxWidth: 320, paddingBottom: 1 }}
           >
