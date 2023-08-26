@@ -9,9 +9,9 @@ const images = [ProductImg1, ProductImg2, ProductImg3, ProductImg4];
 const ProductGrid = () => {
   return (
     <div className="lg:w-1/8 sm:h-auto w-full px-2">
-      <div className="sm:grid grid-cols-2 flex flex-wrap h-full gap-0 sm:gap-3">
+      <div className="sm:grid grid-cols-2 flex flex-wrap h-full gap-1 sm:gap-3">
         {images.map((image, index) => (
-          <div key={index} className="sm:w-auto sm:h-full w-1/2 h-1/2">
+          <div key={index} className="sm:w-auto sm:h-full w-1/9 h-1/2">
             <img
               src={image}
               className="h-full w-full rounded-lg"
