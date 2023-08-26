@@ -15,6 +15,7 @@ import MobileNav from "./MobileNav";
 import CryptoJS from "crypto-js";
 import { T } from "./DropDown1";
 // import StoreLogo from "../../other/StoreLogo";
+import EMart1 from "../../../assets/images/E-Mart2.png";
 
 // type T = {
 //   to: String;
@@ -115,7 +116,7 @@ const Navbar = () => {
       <ul className="lg:flex w-full px-10 py-3.5 hidden text-white">
         <li className="transition-5 text-sm hover:scale-105 w-1/12 flex items-center">
           <Link to="/" className="w-full rounded-full">
-            Home
+            <img className="h-10 w-10 rounded-full" src={EMart1} alt="logo" />
           </Link>
         </li>
         <li className="transition-5 text-sm hover:scale-105 w-1/12 flex items-center">

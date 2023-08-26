@@ -8,7 +8,7 @@ interface headerProps {
 
 const HeaderComp: FC<headerProps> = ({ htmlEle, headerText }): JSX.Element => {
   return (
-    <div className="py-5 pl-10 xl:pl-20 bg-white shadow-sm border-b mb-5">
+    <div className="py-5 pl-5 sm:pl-10 xl:pl-20 bg-white shadow-sm border-b mb-5">
       <div className="text-sm mb-3">{htmlEle}</div>
       <div>
         <h1 className="font-bold mt-3 text-2xl lg:text-4xl">{headerText}</h1>

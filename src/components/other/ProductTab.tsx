@@ -48,7 +48,10 @@ const ProductTab: FC<tabProps> = (props): JSX.Element => {
               setInfo(description.desc);
               break;
             case "Shipping":
-              const shipping = props.product_details["shipping"];
+              let shipping = props.product_details["shipping"];
+              if (shipping.length <= 12) {
+                shipping = "Estimated shipping time " + shipping;
+              }
               setInfo(shipping);
               break;
             case "Warranty":

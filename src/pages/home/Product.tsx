@@ -69,15 +69,15 @@ const Product = () => {
       <LinksHeader />
       <Navbar />
       {/* <Categories /> */}
-      <div>
-        <div className="mb-1 md:mb-4">
+      <div className="sm:mt-auto mt-5">
+        <div className="mb-1 sm:pt-0 pt-12 md:mb-4">
           {product.description ? (
             <HeaderComp htmlEle={header} headerText={product.description} />
           ) : (
             ""
           )}
         </div>
-        <div className="px-5 lg:mx-10">
+        <div className="md:px-5 px-2 lg:mx-10">
           <div
             className="flex md:justify-between
           flex-wrap md:flex-nowrap
