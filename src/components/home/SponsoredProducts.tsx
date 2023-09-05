@@ -1,5 +1,6 @@
 // import { FC } from "react";
 import { useAppSelector } from "../../store/hooks/hooks";
+import { routeToProduct } from "./CurrentDeals";
 
 export const sliceStr = (str: string) => {
   const maxLength = 20;
@@ -30,6 +31,7 @@ const SponsoredProducts = (): JSX.Element => {
         {sponsoredProducts?.length > 0
           ? sponsoredProducts.map((deal: any, index: any) => (
               <div
+                onClick={(e) => routeToProduct(deal)}
                 className="shadow-sm hover:shadow-xl transition-5 w-64 pb-9 flex flex-wrap justify-start border items-center px-2 bg-white"
                 key={index}
               >
@@ -49,8 +51,10 @@ const SponsoredProducts = (): JSX.Element => {
                     <h5 className="font-bold text-lg">
                       ₦
                       {deal?.pricing.discount > 0
-                        ? deal?.pricing.price -
-                          deal?.pricing.price * (deal?.pricing.discount / 100)
+                        ? (
+                            deal?.pricing.price -
+                            deal?.pricing.price * (deal?.pricing.discount / 100)
+                          ).toLocaleString()
                         : deal?.pricing.price.toLocaleString()}
                     </h5>
                     <p
