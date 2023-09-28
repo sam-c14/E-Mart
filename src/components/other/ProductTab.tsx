@@ -45,7 +45,11 @@ const ProductTab: FC<tabProps> = (props): JSX.Element => {
               break;
             case "Description":
               const description = props.product_details["description"];
-              setInfo(description.desc);
+              setInfo(
+                description.desc === ""
+                  ? "No description to display here"
+                  : description.desc
+              );
               break;
             case "Shipping":
               let shipping = props.product_details["shipping"];
