@@ -6,12 +6,13 @@ import { sliceStr } from "./SponsoredProducts";
 export interface cProps {
   product: Array<any>;
 }
-export const routeToProduct = (deal: any) => {
-  history.navigate(`/product/${deal.sku}`);
+export const routeToProduct = (deal: any, e: any) => {
+  // console.log(e.target);
+  if (!e.target.id) history.navigate(`/product/${deal.sku}`);
 };
 
 const CurrentDeals: FC<cProps> = ({ product }): JSX.Element => {
-  console.log(product);
+  // console.log(product);
 
   return (
     <div>
@@ -27,7 +28,7 @@ const CurrentDeals: FC<cProps> = ({ product }): JSX.Element => {
         {product.map((deal, index) => (
           <div
             key={index}
-            onClick={(e) => routeToProduct(deal)}
+            onClick={(e) => routeToProduct(deal, e)}
             className="shadow-sm hover:shadow-lg transition-5 border lg:py-0 py-5 bg-white items-center gap-2 flex"
           >
             <div className="w-1/4">

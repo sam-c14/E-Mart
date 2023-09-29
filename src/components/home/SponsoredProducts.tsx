@@ -31,7 +31,7 @@ const SponsoredProducts = (): JSX.Element => {
         {sponsoredProducts?.length > 0
           ? sponsoredProducts.map((deal: any, index: any) => (
               <div
-                onClick={(e) => routeToProduct(deal)}
+                onClick={(e) => routeToProduct(deal, e)}
                 className="shadow-sm hover:shadow-xl transition-5 w-64 pb-9 flex flex-wrap justify-start border items-center px-2 bg-white"
                 key={index}
               >

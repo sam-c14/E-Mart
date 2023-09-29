@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import LinksHeader from "../../components/home/nav/LinksHeader";
+// import XLogo from
 import Navbar from "../../components/home/nav/Navbar";
 import Categories from "../../components/home/nav/Categories";
 import Slider from "../../components/home/Slider";
@@ -18,11 +19,13 @@ import { setProductTag } from "../../store/slices/productSlice";
 import { CircularProgress } from "@mui/material";
 import { getProducts as fetchCurProducts } from "../../store/asyncFns/postData";
 import { logout } from "../../store/asyncFns/postData";
+// import * as notify from "notifyjs";
+import Swal from "sweetalert2";
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const { logoutStatus } = useParams();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const handleLogout = async () => {
     await dispatch(logout);
   };
@@ -30,10 +33,14 @@ const Home = () => {
     (state: any) => state.productReducer.sponsoredProducts
   );
   const getProducts = async () => {
-    await setLoading(true);
-    await dispatch(fetchCurProducts);
-    await dispatch(setProductTag("sponsored"));
-    await dispatch(getReservedProducts);
+    // await setLoading(true);
+    try {
+      await dispatch(fetchCurProducts);
+      await dispatch(setProductTag("sponsored"));
+      await dispatch(getReservedProducts);
+    } catch (error) {
+      showAlert();
+    }
     await setLoading(false);
   };
 
@@ -41,7 +48,23 @@ const Home = () => {
     (state) => state.productReducer.products
   );
 
+  const showAlert = () => {
+    //  Swal.fire({
+    //    icon: "",
+    //    title: "Oops...",
+    //    text: "Something went wrong!",
+    //    footer: '<a href="">Why do I have this issue?</a>',
+    //  });
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Was unable to fetch products, Kindly refresh and try again!",
+      footer: '<a href="">Why do I have this issue?</a>',
+    });
+  };
+
   useEffect(() => {
+    // notify.requestPermission();
     getProducts();
     if (logoutStatus) {
       handleLogout();
@@ -56,6 +79,7 @@ const Home = () => {
     <>
       <div>
         <LinksHeader />
+        {/* <button onClick={showAlert}>Show Alert</button> */}
         <Navbar />
         {/* <Categories /> */}
         <div className="flex lg:flex-nowrap flex-wrap lg:justify-between md:mt-3 sm:mt-auto mt-20 my-4 lg:px-8 md:px-6 px-1">

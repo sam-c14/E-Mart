@@ -88,7 +88,7 @@ export default function DailyDeals() {
         {sliceProducts.map((item, index) => (
           <Card
             key={index}
-            onClick={(e) => routeToProduct(item)}
+            onClick={(e) => routeToProduct(item, e)}
             className="shadow-sm hover:shadow-xl transition-105 text-orange-500"
             sx={{ maxWidth: 320, paddingBottom: 1 }}
           >
@@ -100,36 +100,39 @@ export default function DailyDeals() {
               }
               action={
                 <IconButton aria-label="settings">
-                  <MoreVertIcon />
+                  <MoreVertIcon id="settings" />
                 </IconButton>
               }
               title="E-Mart Online Stores"
               subheader="Imported Product"
             />
-            <div className="h-36 px-10">
+            <div className="h-36 flex justify-center px-10">
               <img
-                className="h-full w-full"
+                className="h-full lg:w-8/12 md:11/12"
                 src={item.product_details.product_img}
                 alt="Product Img"
               />
             </div>
             <CardContent>
               <h3 className="font-bold">{item.title.slice(0, 20)}</h3>
-              <h1 className="font-bold text-2xl mt-3">₦{item.pricing.price}</h1>
+              <h1 className="font-bold text-2xl mt-3">
+                ₦{item.pricing.price.toLocaleString()}
+              </h1>
               <p className="text-xs mt-1 text-gray-500">
                 Click Here for Seller's Details
               </p>
             </CardContent>
             <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites">
+              <IconButton id="favorites" aria-label="add to favorites">
                 <FavoriteIcon id={item.sku.toString()} className="fav-icon" />
               </IconButton>
               <IconButton aria-label="share">
-                <ShareIcon />
+                <ShareIcon id="share" />
               </IconButton>
             </CardActions>
-            <div className="w-full flex justify-center">
+            <div className="w-full z-30 flex justify-center">
               <button
+                id="cta-btn"
                 onClick={(e) =>
                   handleAddToCart(e, {
                     id: item.sku,
