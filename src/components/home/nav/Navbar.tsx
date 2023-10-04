@@ -26,7 +26,7 @@ import EMart1 from "../../../assets/images/E-Mart2.png";
 const Navbar = () => {
   const getUser = () => {
     const user = localStorage.getItem("user");
-    console.log(user);
+    // console.log(user);
     if (user) {
       const bytes = CryptoJS.AES.decrypt(
         user,

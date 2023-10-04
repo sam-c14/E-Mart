@@ -4,11 +4,26 @@ import { post, get } from "../../client/client";
 // import { RootState, AppDispatch } from "..";
 import { history } from "../../utilities/routerFns";
 import { setStatus, setUser } from "../slices/authSlice";
+import CryptoJS from "crypto-js";
 import {
   setProducts,
   setSponsoredProducts,
   setSingleProduct,
 } from "../slices/productSlice";
+import { setUser as setUserSliceUser } from "../slices/userSlice";
+
+const getUserFromLocalStorage = () => {
+  const user = localStorage.getItem("user");
+  // console.log(user);
+  if (user) {
+    const bytes = CryptoJS.AES.decrypt(user, process.env.REACT_APP_ENCRYPT_KEY);
+    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    if (decryptedData) {
+      return decryptedData;
+      // console.log(decryptedData);
+    }
+  }
+};
 
 export const login = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
@@ -28,11 +43,11 @@ export const signUp = async (dispatch: any, getState: any) => {
   const currentState = getState();
   await post("signup", currentState.authReducer.signUpForm)
     .then(async (res) => {
-      console.log(res);
+      // console.log(res);
       const responseData = res;
       await dispatch(setStatus(true));
       if (res.status === 201 || res.status === 200) {
-        history.navigate(`/verify/${res.userEmail}`);
+        history.navigate(`/account/login`);
         // history.navigate("/");
         return;
       }
@@ -69,7 +84,7 @@ export const logout = async (dispatch: any, getState: any) => {
   const currentState = getState();
   await post("logout", currentState.authReducer.form)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       localStorage.removeItem("user");
       history.navigate(`/`);
       // Dispatch an action with the todos we received
@@ -135,4 +150,18 @@ export const getSingleProducts = async (dispatch: any, getState: any) => {
       // Dispatch an action with the todos we received
     })
     .catch((err) => console.log(err));
+};
+export const getUser = async (dispatch: any, getState: any) => {
+  // Make an async HTTP request
+  const user = getUserFromLocalStorage();
+  // console.log(sku);
+  await get(`user/?email_address=${user.data.email}`)
+    .then(async (res) => {
+      // console.log(res, "from getUser");
+      await dispatch(setUserSliceUser(res.data.user));
+      // const pro = getState().productReducer.sponsoredProducts;
+      // console.log(pro);
+      // Dispatch an action with the todos we received
+    })
+    .catch((err) => console.log(err, "from getUser"));
 };

@@ -8,8 +8,10 @@ import Deals from "./pages/home/Deals";
 import Otp from "./pages/otp/Otp";
 import Construction from "./pages/stores/Construction";
 import Product from "./pages/home/Product";
+import Profile from "./pages/profile/Profile";
 import { useAppDispatch, useAppSelector } from "./store/hooks/hooks";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import { history } from "./utilities/routerFns";
 import { reduxFns } from "./utilities/reduxFns";
@@ -45,6 +47,7 @@ const App = () => {
           </Route>
           <Route path="/verify/:email" element={<Otp />} />
           <Route path="/product/:sku" element={<Product />} />
+          <Route path="/account/profile" element={<Profile />} />
         </Routes>
       </div>
       <div>
@@ -52,6 +55,7 @@ const App = () => {
           <Route path="/stores" element={<Construction />} />
         </Routes>
       </div>
+      <Toaster />
     </div>
   );
 };

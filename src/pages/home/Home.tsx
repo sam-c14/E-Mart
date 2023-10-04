@@ -21,6 +21,7 @@ import { getProducts as fetchCurProducts } from "../../store/asyncFns/postData";
 import { logout } from "../../store/asyncFns/postData";
 // import * as notify from "notifyjs";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -38,6 +39,7 @@ const Home = () => {
       await dispatch(fetchCurProducts);
       await dispatch(setProductTag("sponsored"));
       await dispatch(getReservedProducts);
+      setTimeout(() => showProductsFetchedSuccessAlert(), 1000);
     } catch (error) {
       showAlert();
     }
@@ -47,6 +49,10 @@ const Home = () => {
   const sliceProducts = useAppSelector(
     (state) => state.productReducer.products
   );
+
+  const showProductsFetchedSuccessAlert = () => {
+    toast.success("Products Fetched Successfully");
+  };
 
   const showAlert = () => {
     //  Swal.fire({
