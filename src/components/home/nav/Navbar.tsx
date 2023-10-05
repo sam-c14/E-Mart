@@ -35,7 +35,7 @@ const Navbar = () => {
       const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
       if (decryptedData) {
         setUser(decryptedData);
-        console.log(decryptedData);
+        // console.log(decryptedData);
       }
     }
   };

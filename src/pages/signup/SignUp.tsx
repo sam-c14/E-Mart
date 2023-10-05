@@ -8,6 +8,7 @@ import { setSignUpForm } from "../../store/slices/authSlice";
 import StoreLogo from "../../components/other/StoreLogo";
 import TransitionsModal from "../../components/other/TransitionsModal";
 import { signUp } from "../../store/asyncFns/postData";
+import EMart1 from "../../assets/images/E-Mart3.png";
 
 export type signUpForm = {
   firstName: string;
@@ -102,99 +103,103 @@ const SignUp = () => {
         title="SignUp Unsuccessful"
         body="There was an error with the process, Please try again"
       />
-      <div className="grid place-items-center">
-        <div className="mt-2 mb-1">
-          <StoreLogo />
+      <div className="xl:h-screen flex flex-wrap">
+        <div className="sm:w-1/2 w-full sm:h-auto h-16">
+          <Link className="w-full h-full" to="/">
+            <img src={EMart1} className="w-full h-full" alt="logo" />
+          </Link>
         </div>
-        <div className="bg-white sm:mt-10 px-4 py-4">
-          <div className="my-2">
-            <h3 className="text-3xl font-bold text-center">
-              Create An Account
-            </h3>
-          </div>
-          <div className="my-3 border border-gray-100"></div>
-          <form action="" onSubmit={(e) => e.preventDefault()}>
-            <div className="flex flex-wrap mb-3">
-              <label className="text-sm w-full mb-2" htmlFor="first-name">
-                First Name
-              </label>
-              <input
-                onChange={(e) => setFirstName(e)}
-                placeholder="Enter First Name"
-                className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
-                type="text"
-              />
+        <div className="bg-white flex items-center sm:w-1/2 w-full">
+          <div className="w-full py-4 md:px-7 lg:px-10 px-4">
+            <div className="my-2">
+              <h3 className="text-2xl font-bold text-center">
+                Create An Account
+              </h3>
             </div>
-            <div className="flex flex-wrap mb-3">
-              <label className="text-sm w-full mb-2" htmlFor="last-name">
-                Last Name
-              </label>
-              <input
-                onChange={(e) => setLastName(e)}
-                placeholder="Enter Last Name"
-                className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
-                type="text"
-              />
-            </div>
-            <div className="flex flex-wrap mb-3">
-              <label className="text-sm w-full mb-2" htmlFor="email">
-                Email Address
-              </label>
-              <input
-                onChange={(e) => setEmail(e)}
-                placeholder="Enter Email Address"
-                className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
-                type="email"
-              />
-            </div>
-            <div className="flex flex-wrap mb-3">
-              <label className="text-sm w-full mb-2" htmlFor="email">
-                Phone Number
-              </label>
-              <input
-                onChange={(e) => setPhoneNumber(e)}
-                placeholder="Enter Phone Number"
-                className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
-                type="email"
-              />
-            </div>
-            <div className="flex flex-wrap mb-3">
-              <div className="w-full flex justify-between mb-2">
-                <label className="text-sm" htmlFor="password">
-                  Password
+            <div className="my-3 border border-gray-100"></div>
+            <form action="" onSubmit={(e) => e.preventDefault()}>
+              <div className="flex flex-wrap mb-3">
+                <label className="text-sm w-full mb-2" htmlFor="first-name">
+                  First Name
                 </label>
+                <input
+                  onChange={(e) => setFirstName(e)}
+                  placeholder="Enter First Name"
+                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  type="text"
+                />
               </div>
-              <input
-                onChange={(e) => setPassword(e)}
-                placeholder="Enter Password"
-                className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
-                type="password"
-              />
-            </div>
-            <button
-              onClick={(e) => handleSignUp(e)}
-              className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg"
-            >
-              <span hidden={isLoading}>Create an Account</span>
-              <Spinner hidden={!isLoading} />
-            </button>
-          </form>
-          <div className="mt-3 flex justify-center">
-            <p className="text-sm w-3/5 text-gray-200">
-              By signing up you accept our
-              <Link to="/content/terms-and-conditions">
-                terms and conditions & privacy policy
+              <div className="flex flex-wrap mb-3">
+                <label className="text-sm w-full mb-2" htmlFor="last-name">
+                  Last Name
+                </label>
+                <input
+                  onChange={(e) => setLastName(e)}
+                  placeholder="Enter Last Name"
+                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  type="text"
+                />
+              </div>
+              <div className="flex flex-wrap mb-3">
+                <label className="text-sm w-full mb-2" htmlFor="email">
+                  Email Address
+                </label>
+                <input
+                  onChange={(e) => setEmail(e)}
+                  placeholder="Enter Email Address"
+                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  type="email"
+                />
+              </div>
+              <div className="flex flex-wrap mb-3">
+                <label className="text-sm w-full mb-2" htmlFor="email">
+                  Phone Number
+                </label>
+                <input
+                  onChange={(e) => setPhoneNumber(e)}
+                  placeholder="Enter Phone Number"
+                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  type="email"
+                />
+              </div>
+              <div className="flex flex-wrap mb-3">
+                <div className="w-full flex justify-between mb-2">
+                  <label className="text-sm" htmlFor="password">
+                    Password
+                  </label>
+                </div>
+                <input
+                  onChange={(e) => setPassword(e)}
+                  placeholder="Enter Password"
+                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  type="password"
+                />
+              </div>
+              <button
+                onClick={(e) => handleSignUp(e)}
+                className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg"
+              >
+                <span hidden={isLoading}>Create an Account</span>
+                <Spinner hidden={!isLoading} />
+              </button>
+            </form>
+            {/* <div className="mt-3 flex justify-center">
+              <p className="text-sm w-3/5 text-gray-200">
+                By signing up you accept our
+                <Link to="/content/terms-and-conditions">
+                  terms and conditions & privacy policy
+                </Link>
+              </p>
+            </div> */}
+            <div className="flex flex-wrap justify-center mt-4">
+              <p className="text-gray-400 text-sm">Already have an Account?</p>
+              <Link
+                to="/account/login"
+                className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center rot font-bold w-full "
+              >
+                Login
               </Link>
-            </p>
-          </div>
-          <div className="flex flex-wrap justify-center mt-4">
-            <p className="text-gray-400 text-sm">Already have an Account?</p>
-            <Link
-              to="/account/login"
-              className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center rot font-bold w-full "
-            >
-              Login
-            </Link>
+            </div>
           </div>
         </div>
       </div>

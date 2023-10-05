@@ -85,7 +85,7 @@ export const logout = async (dispatch: any, getState: any) => {
   await post("logout", currentState.authReducer.form)
     .then((res) => {
       // console.log(res);
-      localStorage.removeItem("user");
+      localStorage.clear();
       history.navigate(`/`);
       // Dispatch an action with the todos we received
     })

@@ -8,6 +8,7 @@ import { login } from "../../store/asyncFns/postData";
 import StoreLogo from "../../components/other/StoreLogo";
 import TransitionsModal from "../../components/other/TransitionsModal";
 // import { status } from "../../store/slices/authSlice";
+import EMart1 from "../../assets/images/E-Mart3.png";
 
 export type loginForm = {
   email: string;
@@ -58,13 +59,24 @@ const Login = () => {
         title="Login Unsuccessful"
         body="Your Password or your Email was not correct"
       />
-      <div className=" h-screen grid place-items-center">
-        <StoreLogo />
-        <div className="bg-white sm:mt-10 px-5 py-4">
-          <div className="my-2">
-            <h3 className="text-3xl font-bold text-center">Login</h3>
-          </div>
-          <div className="border-b-2 w-full border-gray-300 my-4"></div>
+      <div className="h-screen flex flex-wrap">
+        {/* <StoreLogo /> */}
+        <div className="sm:w-1/2 w-full sm:h-full h-16">
+          <Link className="w-full h-full" to="/">
+            <img src={EMart1} className="w-full h-full" alt="logo" />
+          </Link>
+        </div>
+        {/* <div className="w-1/2 xl:max-h-fit">
+          <Link className="w-full h-full" to="/">
+            <img src={EMart1} className="w-full h-full" alt="logo" />
+          </Link>
+        </div> */}
+        <div className="bg-white flex items-center sm:w-1/2 w-full">
+          <div className="w-full py-4 md:px-7 lg:px-10 px-4">
+            <div className="my-2">
+              <h3 className="text-3xl font-bold text-center">Login</h3>
+            </div>
+            {/* <div className="border-b-2 w-full border-gray-300 my-4"></div>
           <button className="text-blue-600 rounded-sm bg-transparent py-2 my-3 border-2 border-blue-600 text-center font-bold w-full ">
             Login with Google
           </button>
@@ -74,54 +86,55 @@ const Login = () => {
               <p>OR</p>
             </div>
             <div className="border-b-2 w-1/2 border-gray-300"></div>
-          </div>
-          <form action="" onSubmit={(e) => e.preventDefault()}>
-            <div className="flex flex-wrap mb-3">
-              <label className="text-sm w-full mb-2" htmlFor="email">
-                Email Address
-              </label>
-              <input
-                onChange={(e) => setEmail(e)}
-                placeholder="Enter Email Address"
-                className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
-                type="email"
-              />
-            </div>
-            <div className="flex flex-wrap mb-3">
-              <div className="w-full flex justify-between mb-2">
-                <label className="text-sm" htmlFor="password">
-                  Password
+          </div> */}
+            <form action="" onSubmit={(e) => e.preventDefault()}>
+              <div className="flex flex-wrap mb-3">
+                <label className="text-sm w-full mb-2" htmlFor="email">
+                  Email Address
                 </label>
-                <Link
-                  className="text-sm underline text-pink-800"
-                  to="/account/forgot-password"
-                >
-                  Forgot Password?
-                </Link>
+                <input
+                  onChange={(e) => setEmail(e)}
+                  placeholder="Enter Email Address"
+                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  type="email"
+                />
               </div>
-              <input
-                onChange={(e) => setPassword(e)}
-                placeholder="Enter Password"
-                className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
-                type="password"
-              />
+              <div className="flex flex-wrap mb-3">
+                <div className="w-full flex justify-between mb-2">
+                  <label className="text-sm" htmlFor="password">
+                    Password
+                  </label>
+                  <Link
+                    className="text-sm underline text-pink-800"
+                    to="/account/forgot-password"
+                  >
+                    Forgot Password?
+                  </Link>
+                </div>
+                <input
+                  onChange={(e) => setPassword(e)}
+                  placeholder="Enter Password"
+                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  type="password"
+                />
+              </div>
+              <button
+                onClick={(e) => handleLogin(e)}
+                className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg"
+              >
+                <span hidden={isLoading}>Login</span>
+                <Spinner hidden={!isLoading} />
+              </button>
+            </form>
+            <div className="flex flex-wrap justify-center mt-5">
+              <p className="text-gray-400 text-sm">Don't have an Account?</p>
+              <Link
+                to="/account/signup"
+                className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-full "
+              >
+                Create an Account?
+              </Link>
             </div>
-            <button
-              onClick={(e) => handleLogin(e)}
-              className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg"
-            >
-              <span hidden={isLoading}>Login</span>
-              <Spinner hidden={!isLoading} />
-            </button>
-          </form>
-          <div className="flex flex-wrap justify-center mt-5">
-            <p className="text-gray-400 text-sm">Don't have an Account?</p>
-            <Link
-              to="/account/signup"
-              className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-full "
-            >
-              Create an Account?
-            </Link>
           </div>
         </div>
       </div>

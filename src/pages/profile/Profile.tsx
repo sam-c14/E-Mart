@@ -30,7 +30,7 @@ const Profile = () => {
       links: [
         {
           text: "account information",
-          url: "account/profile",
+          url: "",
         },
         {
           text: "delivery address",
