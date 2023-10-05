@@ -22,6 +22,17 @@ export const post = async (url: string, data: any) => {
     return error.response;
   }
 };
+export const put = async (url: string, data: any) => {
+  try {
+    const response = await HTTP.put(url, data);
+    console.log(response);
+    if (response.status >= 200 && response.status <= 399) {
+      return response;
+    }
+  } catch (error: any) {
+    return error.response;
+  }
+};
 export const get = async (url: string, data = {}) => {
   try {
     const response = await HTTP.get(url, data);

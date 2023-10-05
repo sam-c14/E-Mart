@@ -1,16 +1,21 @@
 // import { RootState, AppDispatch } from "..";
-import { post, get } from "../../client/client";
+import { post, get, put } from "../../client/client";
 // import { loginForm } from "../../pages/login/Login";
 // import { RootState, AppDispatch } from "..";
 import { history } from "../../utilities/routerFns";
 import { setStatus, setUser } from "../slices/authSlice";
 import CryptoJS from "crypto-js";
+import toast from "react-hot-toast";
+
 import {
   setProducts,
   setSponsoredProducts,
   setSingleProduct,
 } from "../slices/productSlice";
-import { setUser as setUserSliceUser } from "../slices/userSlice";
+import {
+  setUser as setUserSliceUser,
+  setUserFormSubmissionStatus,
+} from "../slices/userSlice";
 
 const getUserFromLocalStorage = () => {
   const user = localStorage.getItem("user");
@@ -164,4 +169,27 @@ export const getUser = async (dispatch: any, getState: any) => {
       // Dispatch an action with the todos we received
     })
     .catch((err) => console.log(err, "from getUser"));
+};
+export const updateUser = async (dispatch: any, getState: any) => {
+  // Make an async HTTP request
+  const user = getState().userReducer.userForm;
+
+  // console.log(sku);
+  await put(`update-user`, user)
+    .then(async (res) => {
+      // console.log(res, "from getUser");
+      document.location.reload();
+      await dispatch(setUserFormSubmissionStatus(true));
+      toast.success("User successfully updated");
+
+      // console.log(pro);
+      // Dispatch an action with the todos we received
+    })
+    .catch(async (err) => {
+      console.log(err);
+      toast.error(
+        "User Update Failed, Please wait a few seconds and try again"
+      );
+      await dispatch(setUserFormSubmissionStatus(false));
+    });
 };

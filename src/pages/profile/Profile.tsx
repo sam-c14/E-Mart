@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import LinksHeader from "../../components/home/nav/LinksHeader";
 import Navbar from "../../components/home/nav/Navbar";
 import Categories from "../../components/home/nav/Categories";
@@ -9,8 +9,14 @@ import { BsWallet2 } from "react-icons/bs";
 import { LiaUserTimesSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import { getUser } from "../../store/asyncFns/postData";
+import { CircularProgress } from "@mui/material";
+import { getUser, updateUser } from "../../store/asyncFns/postData";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
+import { reduxFns } from "../../utilities/reduxFns";
+import { setUserForm } from "../../store/slices/userSlice";
+import bcrypt from "bcryptjs";
+import { Alert } from "flowbite-react";
+import { HiInformationCircle } from "react-icons/hi";
 
 interface linkObjType {
   title: string;
@@ -75,25 +81,78 @@ const Profile = () => {
   ];
 
   const getUserDetails = async () => {
+    await setLoad(true);
     await dispatch(getUser);
+    // set parameters
+    const user = reduxFns.selector.user;
+    await setUserId(user._id);
+    // console.log(user);
+    await setFirstName(user.firstName);
+    await setLastName(user.lastName);
+    await setEmail(user.email);
+    await setPassword(user.password);
+    //
+    await setLoad(false);
+    // console.log(user, "ss");
   };
 
-  const user = useAppSelector((state) => state.userReducer.user);
+  // const user = useAppSelector((state) => state.userReducer.user);
 
-  const [firstName, setFirstName] = useState(user.firstName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [email, setEmail] = useState(user.email);
-  const [password, setPassword] = useState(user.password);
+  const [firstName, setFirstName] = useState("");
+  const [userId, setUserId] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [load, setLoad] = useState<boolean>(false);
 
-  const updateUserDetails = () => {
-    console.log(firstName, lastName);
+  const updateUserDetails = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      // console.log("Here");
+      setErrorMsg(true);
+
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 3000);
+      return;
+    }
+    await setPassword(bcrypt.hashSync(newPassword, 8));
+    const userObj = {
+      _id: userId,
+      firstName,
+      lastName,
+      email,
+      password,
+    };
+    setIsSubmitted(true);
+    await dispatch(setUserForm(userObj));
+    await dispatch(updateUser);
+    setIsSubmitted(false);
   };
 
   useEffect(() => {
     getUserDetails();
   }, []);
+
+  if (load) {
+    return (
+      <div className="grid h-screen place-items-center">
+        <CircularProgress />
+        {/* <div>Please wait while the product is being added</div> */}
+      </div>
+    );
+  }
+
+  // if (errorMsg) {
+  //   {
+  //     console.log("Got Here");
+  //   }
+
+  // }
 
   return (
     <div>
@@ -224,10 +283,22 @@ const Profile = () => {
                   type="password"
                 />
               </div>
-              {/* <div className="flex items-center gap-2">
-                <Checkbox id="agree" />
-              </div> */}
-              <Button type="submit">Save Changes</Button>
+              {errorMsg ? (
+                <>
+                  <div className="text-red-600 my-2">
+                    The two passwords don't match, please check and try again
+                  </div>
+                </>
+              ) : (
+                <div></div>
+              )}
+              <button
+                disabled={isSubmitted}
+                type="submit"
+                className="py-3 w-full text-sm bg-green-600 hover:bg-green-500 rounded-md transition-all text-white"
+              >
+                Save Changes
+              </button>
             </form>
           </div>
         </div>

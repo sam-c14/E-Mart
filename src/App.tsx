@@ -21,7 +21,7 @@ const App = () => {
   history.location = useLocation();
 
   reduxFns.dispatch = useAppDispatch();
-  reduxFns.selector = useAppSelector;
+  reduxFns.selector = useAppSelector((state) => state.userReducer);
 
   return (
     <div>

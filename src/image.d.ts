@@ -6,3 +6,4 @@ declare module "*.webp";
 declare module "crypto-js";
 declare module "notifyjs";
 declare module "sweetalert2";
+declare module "bcryptjs";
