@@ -19,7 +19,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { T } from "../../store/slices/cartSlice";
 import { getProducts } from "../../store/asyncFns/postData";
 import { routeToProduct } from "../../components/home/CurrentDeals";
+import { setReturnUrl } from "../../store/slices/authSlice";
 import { addToCart as postAddedItem } from "../../store/asyncFns/postData";
+import { history } from "../../utilities/routerFns";
 
 export default function DailyDeals() {
   const dispatch = useAppDispatch();
@@ -62,6 +64,10 @@ export default function DailyDeals() {
     });
   });
 
+  const routeToCartOverview = () => {
+    history.navigate("/cart/overview");
+  };
+
   const handleAddToCart = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     items: T
@@ -73,6 +79,7 @@ export default function DailyDeals() {
       return;
     }
     await dispatch(addToCart(items));
+    await dispatch(setReturnUrl("/cart/overview"));
     await dispatch(postAddedItem);
     setIsLoading(false);
   };
@@ -140,7 +147,11 @@ export default function DailyDeals() {
             </CardActions>
             <div className="w-full z-30 flex justify-center">
               {cartItems.find((cartItem) => cartItem.sku === item.sku) ? (
-                <button className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-11/12 ">
+                <button
+                  id="proceed-to-payment"
+                  onClick={routeToCartOverview}
+                  className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-11/12 "
+                >
                   Proceed To Payment
                 </button>
               ) : (

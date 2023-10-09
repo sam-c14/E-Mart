@@ -3,7 +3,7 @@ import { post, get, put } from "../../client/client";
 // import { loginForm } from "../../pages/login/Login";
 // import { RootState, AppDispatch } from "..";
 import { history } from "../../utilities/routerFns";
-import { setStatus, setUser } from "../slices/authSlice";
+import { setStatus, setUser, setReturnUrl } from "../slices/authSlice";
 import CryptoJS from "crypto-js";
 import toast from "react-hot-toast";
 
@@ -109,6 +109,7 @@ export const logout = async (dispatch: any, getState: any) => {
     .then((res) => {
       // console.log(res);
       localStorage.clear();
+      document.location.reload();
       history.navigate(`/`);
       // Dispatch an action with the todos we received
     })
@@ -118,10 +119,10 @@ export const addToCart = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
   const currentState = getState();
   const returnUrl = currentState.authReducer.returnUrl;
-  console.log(returnUrl, "here");
+  // console.log(returnUrl, "here");
   await post("add-to-cart", currentState.cartReducer.addedItem)
     .then(async (res) => {
-      console.log(res);
+      // console.log(res);
       const responseData = res;
       // Dispatch an action with the todos we received
       dispatch({ type: "user", payload: responseData });
@@ -129,11 +130,12 @@ export const addToCart = async (dispatch: any, getState: any) => {
       if (returnUrl === "/cart/overview")
         setTimeout(() => {
           history.navigate(returnUrl);
+          dispatch(setReturnUrl(history.location.pathname));
         }, 2000);
       await getCartDetails(dispatch, getState);
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       toast.error("There was an error adding item to cart");
     });
 };
@@ -164,13 +166,13 @@ export const getCartDetails = async (
 ) => {
   let userId;
   const cartId = getState().cartReducer?.addedItem?._id;
-  console.log(cartId);
+  // console.log(cartId);
   if (!cartId) userId = user.data.id;
   else userId = cartId;
 
   try {
     await get(`user-cart/?id=${userId}`).then(async (res) => {
-      console.log(res.data, "from cart deets");
+      // console.log(res.data, "from cart deets");
       await dispatch(setCartDetails(res.data.cart));
     });
   } catch (error) {

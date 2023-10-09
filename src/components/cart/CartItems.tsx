@@ -9,6 +9,7 @@ import {
   setItemToBeRemoved,
 } from "../../store/slices/cartSlice";
 import { removeFromCart as postRemovedItemFromCart } from "../../store/asyncFns/postData";
+import { history } from "../../utilities/routerFns";
 
 interface itemsCart {
   handler: Function;
@@ -17,7 +18,8 @@ interface itemsCart {
 const CartItems: FC<itemsCart> = (props): JSX.Element => {
   const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
   const cartId = useAppSelector((state) => state.cartReducer.id);
-  console.log(cartItems);
+  const returnUrl = useAppSelector((state) => state.authReducer.returnUrl);
+  // console.log(cartItems);
   const dispatch = useAppDispatch();
   const decItem = (id: any) => {
     dispatch(decProductQuantity(id));
@@ -26,6 +28,11 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
     // console.log(id);
     dispatch(incProductQuantity(id));
   };
+
+  const goBack = () => {
+    if (returnUrl) history.navigate(returnUrl);
+  };
+
   const removeItem = async (id: any, body: any) => {
     await dispatch(setItemToBeRemoved(body));
     // await dispatch(removeFromCart(id));
@@ -50,7 +57,10 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
         </div>
         <div className="md:px-10 px-16 pt-5">
           <div className="mb-2">
-            <button className="border-2 border-pink-500 change-border text-pink-500 flex justify-between items-center font-semibold py-2 w-44 px-2 rounded-sm">
+            <button
+              onClick={goBack}
+              className="border-2 border-pink-500 change-border text-pink-500 flex justify-between items-center font-semibold py-2 w-44 px-2 rounded-sm"
+            >
               <FaArrowLeft className="text-xs" />
               Continue Shopping
             </button>
