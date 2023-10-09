@@ -11,7 +11,7 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import { pink } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import toast from "react-hot-toast";
 import { addToCart } from "../../store/slices/cartSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -19,6 +19,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { T } from "../../store/slices/cartSlice";
 import { getProducts } from "../../store/asyncFns/postData";
 import { routeToProduct } from "../../components/home/CurrentDeals";
+import { addToCart as postAddedItem } from "../../store/asyncFns/postData";
 
 export default function DailyDeals() {
   const dispatch = useAppDispatch();
@@ -29,18 +30,17 @@ export default function DailyDeals() {
   const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
   const header = (
     <p>
-      Home {">"}{" "}
-      <span className="text-pink-800 font-semibold">Daily Deals</span>
+      Home {">"} <span className="text-pink-800 font-bold">Daily Deals</span>
     </p>
   );
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  const [product, setProduct] = useState<any>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const fetchProducts = async () => {
     await dispatch(getProducts);
-    console.log(sliceProducts);
+    // console.log(sliceProducts);
   };
 
   let favItems: Array<String> = [];
@@ -66,7 +66,15 @@ export default function DailyDeals() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     items: T
   ) => {
+    setIsLoading(true);
+    const user = localStorage.getItem("user");
+    if (!user || user.length === 0) {
+      toast.error("Please Login First");
+      return;
+    }
     await dispatch(addToCart(items));
+    await dispatch(postAddedItem);
+    setIsLoading(false);
   };
 
   if (sliceProducts.length === 0) {
@@ -131,21 +139,28 @@ export default function DailyDeals() {
               </IconButton>
             </CardActions>
             <div className="w-full z-30 flex justify-center">
-              <button
-                id="cta-btn"
-                onClick={(e) =>
-                  handleAddToCart(e, {
-                    id: item.sku,
-                    src: item.product_details.product_img,
-                    title: item.title,
-                    price: item.pricing.price,
-                    quantity: 1,
-                  })
-                }
-                className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-11/12 "
-              >
-                Add To Cart
-              </button>
+              {cartItems.find((cartItem) => cartItem.sku === item.sku) ? (
+                <button className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-11/12 ">
+                  Proceed To Payment
+                </button>
+              ) : (
+                <button
+                  id="cta-btn"
+                  disabled={isLoading}
+                  onClick={(e) =>
+                    handleAddToCart(e, {
+                      sku: item.sku,
+                      src: item.product_details.product_img,
+                      title: item.title,
+                      price: item.pricing.price,
+                      quantity: 1,
+                    })
+                  }
+                  className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-11/12 "
+                >
+                  Add To Cart
+                </button>
+              )}
             </div>
           </Card>
         ))}

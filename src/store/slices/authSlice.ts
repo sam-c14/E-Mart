@@ -5,18 +5,19 @@ import CryptoJS from "crypto-js";
 
 // Define a type for the slice state
 export interface authState {
-  isUserLoggedIn: boolean;
+  // isUserLoggedIn: boolean;
   token: string | null;
   form: loginForm;
   signUpForm: signUpForm;
-  otp: string;
+  // token: string;
   email: string;
   status: boolean | null;
+  returnUrl: string | null;
 }
 
 // Define the initial state using that type
 const initialState: authState = {
-  isUserLoggedIn: false,
+  // isUserLoggedIn: false,
   token: null,
   form: {
     email: "",
@@ -31,9 +32,9 @@ const initialState: authState = {
     password: "",
     role: "",
   },
-  otp: "",
   email: "",
   status: null,
+  returnUrl: "",
 };
 
 export const authSlice = createSlice({
@@ -47,8 +48,8 @@ export const authSlice = createSlice({
     setSignUpForm: (state, action: PayloadAction<any>) => {
       state.signUpForm = action.payload;
     },
-    setOtp: (state, action: PayloadAction<any>) => {
-      state.otp = action.payload;
+    setToken: (state, action: PayloadAction<any>) => {
+      state.token = action.payload;
     },
     setOtpEmail: (state, action: PayloadAction<any>) => {
       state.email = action.payload;
@@ -64,6 +65,9 @@ export const authSlice = createSlice({
       ).toString();
       localStorage.setItem("user", encryptedData);
     },
+    setReturnUrl(state, action: PayloadAction<string | null>) {
+      state.returnUrl = action.payload;
+    },
     // Use the PayloadAction type to declare the contents of `action.payload`
     refreshToken: (state, action: PayloadAction<string>) => {
       //   state.value += action.payload;
@@ -76,9 +80,10 @@ export const {
   setUser,
   setForm,
   setSignUpForm,
-  setOtp,
+  setToken,
   setOtpEmail,
   setStatus,
+  setReturnUrl,
 } = authSlice.actions;
 export const { status } = authSlice.getInitialState();
 

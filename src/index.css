@@ -24,3 +24,15 @@
   --tw-rotate: 270deg;
   transform: rotate(var(--tw-rotate));
 }
+.no-border-no-outline {
+  border: none !important;
+  outline: none !important;
+}
+.no-border-no-outline:focus {
+  border-color: none !important;
+}
+.fade-out {
+  opacity: 1;
+  transition: all 0.5s;
+}
+/* .fade-out */

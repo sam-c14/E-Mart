@@ -17,6 +17,11 @@ import {
   setUserFormSubmissionStatus,
 } from "../slices/userSlice";
 
+import {
+  setCartDetails,
+  removeFromCart as removeFromCartSlice,
+} from "../slices/cartSlice";
+
 const getUserFromLocalStorage = () => {
   const user = localStorage.getItem("user");
   // console.log(user);
@@ -33,26 +38,39 @@ const getUserFromLocalStorage = () => {
 export const login = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
   const currentState = getState();
+  console.log(currentState.authReducer.form);
   await post("login", currentState.authReducer.form)
     .then(async (res) => {
+      // console.log(res, "from here");
       if (res.status === 200 || res.status === 201) {
         await dispatch(setStatus(true));
+        await getCartDetails(dispatch, getState, res.data);
         history.navigate("/");
         await dispatch(setUser(res.data));
+      } else if (res.status === 404) {
+        toast.error(
+          "There was an error signing in, Kindly check your credentials and try again"
+        );
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      // console.log(err);
+      toast.error(
+        "There was an error signing in, Kindly check your credentials and try again"
+      );
+    });
 };
 export const signUp = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
   const currentState = getState();
-  await post("signup", currentState.authReducer.signUpForm)
+  const form = currentState.authReducer.signUpForm;
+  await post("signup", form)
     .then(async (res) => {
       // console.log(res);
       const responseData = res;
       await dispatch(setStatus(true));
       if (res.status === 201 || res.status === 200) {
-        history.navigate(`/account/login`);
+        history.navigate(`/account/login?email=${form.email}`);
         // history.navigate("/");
         return;
       }
@@ -99,17 +117,65 @@ export const logout = async (dispatch: any, getState: any) => {
 export const addToCart = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
   const currentState = getState();
-  await post("add-to-cart", currentState.cartReducer.cartItems)
-    .then((res) => {
+  const returnUrl = currentState.authReducer.returnUrl;
+  console.log(returnUrl, "here");
+  await post("add-to-cart", currentState.cartReducer.addedItem)
+    .then(async (res) => {
       console.log(res);
       const responseData = res;
       // Dispatch an action with the todos we received
       dispatch({ type: "user", payload: responseData });
-      // Check the updated store state after dispatching
-      // const allTodos = getState().todos;
-      // console.log("Number of todos after loading: ", allTodos.length);
+      toast.success("Item Successfully added to cart");
+      if (returnUrl === "/cart/overview")
+        setTimeout(() => {
+          history.navigate(returnUrl);
+        }, 2000);
+      await getCartDetails(dispatch, getState);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      toast.error("There was an error adding item to cart");
+    });
+};
+export const removeFromCart = async (dispatch: any, getState: any) => {
+  // Make an async HTTP request
+  const currentState = getState();
+  const cartItem = currentState.cartReducer.itemToBeRemoved;
+  // const returnUrl = currentState.authReducer.returnUrl;
+  await post("remove-from-cart", cartItem)
+    .then(async (res) => {
+      console.log(res);
+      const responseData = res;
+      // Dispatch an action with the todos we received
+      dispatch({ type: "user", payload: responseData });
+      // await dispatch(removeFromCartSlice(cartItem.id));
+      toast.success("Item Successfully removed from cart");
+      await getCartDetails(dispatch, getState);
+    })
+    .catch((err) => {
+      console.log(err);
+      toast.error("There was an error removing the item from cart");
+    });
+};
+export const getCartDetails = async (
+  dispatch: any,
+  getState: any,
+  user: any = {}
+) => {
+  let userId;
+  const cartId = getState().cartReducer?.addedItem?._id;
+  console.log(cartId);
+  if (!cartId) userId = user.data.id;
+  else userId = cartId;
+
+  try {
+    await get(`user-cart/?id=${userId}`).then(async (res) => {
+      console.log(res.data, "from cart deets");
+      await dispatch(setCartDetails(res.data.cart));
+    });
+  } catch (error) {
+    toast.error("There was an error fetching cart details");
+  }
 };
 export const getProducts = async (dispatch: any, getState: any) => {
   // Make an async HTTP request

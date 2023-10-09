@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BsCart4 } from "react-icons/bs";
 import { useAppDispatch } from "../../store/hooks/hooks";
-import { setOtp, setOtpEmail } from "../../store/slices/authSlice";
+import { setToken, setOtpEmail } from "../../store/slices/authSlice";
 import { useParams } from "react-router-dom";
 // import store from "../../store/index";
 
@@ -19,7 +19,7 @@ const Otp = () => {
   const handleOtpReq = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(otp);
-    dispatch(setOtp(otp));
+    dispatch(setToken(otp));
     dispatch(setOtpEmail(routeParams.email));
     dispatch(verifyOtp);
   };

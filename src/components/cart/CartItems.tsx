@@ -1,13 +1,14 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { FaAngleRight, FaArrowLeft } from "react-icons/fa";
-import Deal1 from "../../assets/images/Deal1.webp";
+// import Deal1 from "../../assets/images/Deal1.webp";
 import { useAppSelector, useAppDispatch } from "../../store/hooks/hooks";
 import {
   incProductQuantity,
   decProductQuantity,
-  removeFromCart,
+  setItemToBeRemoved,
 } from "../../store/slices/cartSlice";
+import { removeFromCart as postRemovedItemFromCart } from "../../store/asyncFns/postData";
 
 interface itemsCart {
   handler: Function;
@@ -15,18 +16,20 @@ interface itemsCart {
 
 const CartItems: FC<itemsCart> = (props): JSX.Element => {
   const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
+  const cartId = useAppSelector((state) => state.cartReducer.id);
   console.log(cartItems);
   const dispatch = useAppDispatch();
   const decItem = (id: any) => {
     dispatch(decProductQuantity(id));
   };
   const incItem = (id: any) => {
-    console.log(id);
+    // console.log(id);
     dispatch(incProductQuantity(id));
   };
-  const removeItem = async (id: any) => {
-    console.log(id);
-    await dispatch(removeFromCart(id));
+  const removeItem = async (id: any, body: any) => {
+    await dispatch(setItemToBeRemoved(body));
+    // await dispatch(removeFromCart(id));
+    await dispatch(postRemovedItemFromCart);
     props.handler();
   };
 
@@ -88,7 +91,7 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                     <div className="w-1/5">
                       <div className="shadow-md w-1/2 mt-5">
                         <button
-                          onClick={() => decItem(items.id)}
+                          onClick={() => decItem(items.sku)}
                           className="border w-1/3 py-1 text-gray-400
                    bg-white text-sm"
                         >
@@ -102,7 +105,7 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                           {items.quantity.toString()}
                         </button>
                         <button
-                          onClick={() => incItem(items.id)}
+                          onClick={() => incItem(items.sku)}
                           className="border w-1/3 py-1 text-gray-400
                    bg-white text-sm"
                         >
@@ -112,15 +115,21 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                     </div>
                     <div className="w-1/6 mt-4">
                       <p className="font-bold text-lg">
-                        ₦{items.price.toString()}
+                        ₦{items.price.toLocaleString()}
                       </p>
                       <p className="text-gray-400 text-sm">
-                        ₦{items.price.toString()} x 1 item
+                        ₦{items.price.toLocaleString()} x 1 item
                       </p>
                     </div>
                     <div className="w-1/6 mt-4">
                       <p
-                        onClick={() => removeItem(items.id)}
+                        onClick={() =>
+                          removeItem(items.sku, {
+                            sku: items.sku,
+                            id: cartId,
+                            price: items.price,
+                          })
+                        }
                         className="text-pink-800 text-sm "
                       >
                         Remove item

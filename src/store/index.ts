@@ -1,24 +1,37 @@
 import { configureStore } from "@reduxjs/toolkit";
-import productReducer from "./slices/productSlice";
-import cartReducer from "./slices/cartSlice";
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import authReducer from "../store/slices/authSlice";
-import userReducer from "../store/slices/userSlice";
+import { setupListeners } from "@reduxjs/toolkit/query";
 import asyncFunctionMiddleware from "./middleware/asyncFn";
-// import { authState } from "../store/slices/authSlice";
+import { persistStore } from "redux-persist";
+import persistedReducer from "./persist/persistConfig";
 import { Action, ThunkAction } from "@reduxjs/toolkit";
 
 // const middlewareEnhancer = applyMiddleware(asyncFunctionMiddleware);
 const store = configureStore({
-  reducer: {
-    productReducer,
-    authReducer,
-    cartReducer,
-    userReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(asyncFunctionMiddleware),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(asyncFunctionMiddleware),
 });
-export default store;
+
+setupListeners(store.dispatch);
+
+const persistor = persistStore(store);
+
+export { store, persistor };
+
+// export default store;
 
 export type TypedDispatch = typeof store.dispatch;
 export type ReduxState = ReturnType<typeof authReducer>;

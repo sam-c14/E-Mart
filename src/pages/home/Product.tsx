@@ -18,6 +18,9 @@ import { CircularProgress } from "@mui/material";
 import { getSingleProducts } from "../../store/asyncFns/postData";
 import { setSingleProductSku } from "../../store/slices/productSlice";
 import { setProductTag } from "../../store/slices/productSlice";
+import { setReturnUrl } from "../../store/slices/authSlice";
+import { addToCart as addToCartSlice } from "../../store/slices/cartSlice";
+import { addToCart as postAddedItem } from "../../store/asyncFns/postData";
 import { getReservedProducts } from "../../store/asyncFns/postData";
 import { useParams } from "react-router-dom";
 
@@ -25,6 +28,7 @@ const Product = () => {
   const dispatch = useAppDispatch();
   const product = useAppSelector((state) => state.productReducer.singleProduct);
   const [load, setLoad] = useState<boolean>(false);
+  const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
   const fetchProduct = async () => {
     // console.log("reached here");
     setLoad(true);
@@ -32,11 +36,11 @@ const Product = () => {
     await dispatch(getSingleProducts);
     await dispatch(setProductTag("sponsored"));
     await dispatch(getReservedProducts);
-    console.log(product);
+    // console.log(product);
     setLoad(false);
   };
   useEffect(() => {
-    console.log("we are here oo");
+    // console.log("we are here oo");
     fetchProduct();
   }, []);
 
@@ -44,15 +48,23 @@ const Product = () => {
   const header = product.categories ? (
     <p>
       Home {">"} {product.categories[0]} {">"}
-      <span className="text-pink-800 font-semibold">
-        {product.categories[1]}
-      </span>
+      <span className="text-pink-800 font-bold">{product.categories[1]}</span>
     </p>
   ) : (
     <p></p>
   );
   const changeIconColor = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // e.currentTarget.backgroundColor = "rgb(255 138 76)";
+  };
+
+  const addToCart = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    item: any
+  ) => {
+    setIsAddingToCart(true);
+    await dispatch(setReturnUrl("/cart/overview"));
+    await dispatch(addToCartSlice(item));
+    await dispatch(postAddedItem);
   };
 
   if (load) {
@@ -151,6 +163,15 @@ const Product = () => {
                 <hr />
                 <div className="flex my-4">
                   <button
+                    onClick={(e) =>
+                      addToCart(e, {
+                        sku: product.sku,
+                        src: product.product_details.product_img,
+                        title: product.title,
+                        price: product.pricing.price,
+                        quantity: 1,
+                      })
+                    }
                     className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-1 text-center
                   w-1/2 font-semibold mt-1 text-base"
                   >

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Spinner } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
 import { setForm } from "../../store/slices/authSlice";
 import { login } from "../../store/asyncFns/postData";
 // import { useDispatch } from "react-redux";
-import StoreLogo from "../../components/other/StoreLogo";
+import { useLocation } from "react-router-dom";
 import TransitionsModal from "../../components/other/TransitionsModal";
 // import { status } from "../../store/slices/authSlice";
 import EMart1 from "../../assets/images/E-Mart3.png";
@@ -17,6 +17,11 @@ export type loginForm = {
 };
 
 const Login = () => {
+  // const history = useHistory();
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+
   const dispatch = useAppDispatch();
   let initialForm: loginForm = {
     email: "",
@@ -26,25 +31,39 @@ const Login = () => {
   const [form, setLoginForm] = useState(initialForm);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const setEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginForm({
-      email: e.currentTarget.value,
-      password: form.password,
-      role: "user",
-    });
-  };
-  const setPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginForm({
-      email: form.email,
-      password: e.currentTarget.value,
-      role: "user",
-    });
-  };
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  // const setEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setLoginForm({
+  //     email: e.currentTarget.value,
+  //     password: form.password,
+  //     role: "user",
+  //   });
+  // };
+  // const setPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setLoginForm({
+  //     email: form.email,
+  //     password: e.currentTarget.value,
+  //     role: "user",
+  //   });
+  // };
+  const [showPassword, setShowPassword] = useState(false);
   const status = useAppSelector((state) => state.authReducer.status);
   const handleLogin = async (e: React.FormEvent) => {
     setIsLoading(true);
     e.preventDefault();
-    await dispatch(setForm(form));
+    await setLoginForm({
+      email,
+      password,
+      role: "user",
+    });
+    const postForm = {
+      email,
+      password,
+      role: "user",
+    };
+    console.log(postForm);
+    await dispatch(setForm(postForm));
     await dispatch(login);
     setIsLoading(false);
     if (status) {
@@ -52,13 +71,27 @@ const Login = () => {
     }
   };
 
+  const handleTogglePassword = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  };
+  useEffect(() => {
+    const queryEmail = queryParams.get("email");
+    // console.log(queryEmail, "s");
+    if (queryEmail) {
+      setEmail(queryEmail);
+    }
+  }, []);
+
   return (
     <div>
-      <TransitionsModal
+      {/* <TransitionsModal
         isModalOpen={isOpen}
         title="Login Unsuccessful"
         body="Your Password or your Email was not correct"
-      />
+      /> */}
       <div className="h-screen flex flex-wrap">
         {/* <StoreLogo /> */}
         <div className="sm:w-1/2 w-full sm:h-full h-16">
@@ -87,16 +120,23 @@ const Login = () => {
             </div>
             <div className="border-b-2 w-1/2 border-gray-300"></div>
           </div> */}
-            <form action="" onSubmit={(e) => e.preventDefault()}>
+            <form
+              action=""
+              onSubmit={(e) => {
+                handleLogin(e);
+              }}
+            >
               <div className="flex flex-wrap mb-3">
                 <label className="text-sm w-full mb-2" htmlFor="email">
                   Email Address
                 </label>
                 <input
-                  onChange={(e) => setEmail(e)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter Email Address"
                   className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
                   type="email"
+                  required
                 />
               </div>
               <div className="flex flex-wrap mb-3">
@@ -111,15 +151,33 @@ const Login = () => {
                     Forgot Password?
                   </Link>
                 </div>
-                <input
-                  onChange={(e) => setPassword(e)}
-                  placeholder="Enter Password"
-                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
-                  type="password"
-                />
+                <div className="focus:border-black border-gray-500 outline-none my-1 rounded-sm border-2 flex w-full">
+                  <input
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter Password"
+                    className="no-border-no-outline w-11/12"
+                    type={showPassword ? "text" : "password"}
+                    required
+                  />
+                  {showPassword ? (
+                    <button
+                      onClick={handleTogglePassword}
+                      className="text-sm w-1/12 text-red-500 fade-out"
+                    >
+                      Hide
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleTogglePassword}
+                      className="text-sm w-1/12 text-green-500 fade-out"
+                    >
+                      Show
+                    </button>
+                  )}
+                </div>
               </div>
               <button
-                onClick={(e) => handleLogin(e)}
+                type="submit"
                 className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg"
               >
                 <span hidden={isLoading}>Login</span>

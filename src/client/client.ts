@@ -19,6 +19,7 @@ export const post = async (url: string, data: any) => {
       return response;
     }
   } catch (error: any) {
+    console.log(error);
     return error.response;
   }
 };

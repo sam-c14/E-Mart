@@ -81,6 +81,12 @@ const Navbar = () => {
       ? document.documentElement.classList.add("overflow-hidden")
       : document.documentElement.classList.remove("overflow-hidden");
   }, [isMobileNavOpen]);
+
+  useEffect(() => {
+    // console.log("I changed");
+    console.log(cartQuantity);
+  }, [cartQuantity]);
+
   return (
     <div className="bg-white lg:bg-pink-500 sm:py-3 lg:px-5 py-0 lg:py-0 z-20 w-full">
       <div

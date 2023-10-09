@@ -48,13 +48,13 @@ const CurrentDeals: FC<cProps> = ({ product }): JSX.Element => {
                       Math.round(
                         deal.pricing.price -
                           (deal.pricing.price * deal.pricing.discount) / 100
-                      )
-                    : "₦" + deal.pricing.price}
+                      ).toLocaleString()
+                    : "₦" + deal.pricing.price.toLocaleString()}
                 </h5>
                 <p className="line-through text-sm text-gray-400">
                   {deal.pricing.discount !== 0 &&
                   typeof deal.pricing.discount === "number"
-                    ? "₦" + deal.pricing.price
+                    ? "₦" + deal.pricing.price.toLocaleString()
                     : ""}
                 </p>
               </div>
@@ -62,11 +62,13 @@ const CurrentDeals: FC<cProps> = ({ product }): JSX.Element => {
                 {deal.pricing.discount !== 0 &&
                 typeof deal.pricing.discount === "number"
                   ? "You save ₦" +
-                    (deal.pricing.price -
+                    (
+                      deal.pricing.price -
                       Math.round(
                         deal.pricing.price -
                           (deal.pricing.price * deal.pricing.discount) / 100
-                      ))
+                      )
+                    ).toLocaleString()
                   : ""}
               </p>
             </div>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
 import { setSignUpForm } from "../../store/slices/authSlice";
 // import store from "../../store/index";
-import StoreLogo from "../../components/other/StoreLogo";
+// import StoreLogo from "../../components/other/StoreLogo";
 import TransitionsModal from "../../components/other/TransitionsModal";
 import { signUp } from "../../store/asyncFns/postData";
 import EMart1 from "../../assets/images/E-Mart3.png";
@@ -85,15 +85,23 @@ const SignUp = () => {
 
   const status = useAppSelector((state) => state.authReducer.status);
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    setIsLoading(true);
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     await dispatch(setSignUpForm(form));
     await dispatch(signUp);
     setIsLoading(false);
     if (status) {
       setIsOpen(!status);
     }
+  };
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleTogglePassword = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -117,7 +125,7 @@ const SignUp = () => {
               </h3>
             </div>
             <div className="my-3 border border-gray-100"></div>
-            <form action="" onSubmit={(e) => e.preventDefault()}>
+            <form action="" onSubmit={(e) => handleSignUp(e)}>
               <div className="flex flex-wrap mb-3">
                 <label className="text-sm w-full mb-2" htmlFor="first-name">
                   First Name
@@ -125,8 +133,9 @@ const SignUp = () => {
                 <input
                   onChange={(e) => setFirstName(e)}
                   placeholder="Enter First Name"
-                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
                   type="text"
+                  required
                 />
               </div>
               <div className="flex flex-wrap mb-3">
@@ -136,8 +145,9 @@ const SignUp = () => {
                 <input
                   onChange={(e) => setLastName(e)}
                   placeholder="Enter Last Name"
-                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
                   type="text"
+                  required
                 />
               </div>
               <div className="flex flex-wrap mb-3">
@@ -147,8 +157,9 @@ const SignUp = () => {
                 <input
                   onChange={(e) => setEmail(e)}
                   placeholder="Enter Email Address"
-                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
                   type="email"
+                  required
                 />
               </div>
               <div className="flex flex-wrap mb-3">
@@ -158,8 +169,9 @@ const SignUp = () => {
                 <input
                   onChange={(e) => setPhoneNumber(e)}
                   placeholder="Enter Phone Number"
-                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
-                  type="email"
+                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  type="text"
+                  required
                 />
               </div>
               <div className="flex flex-wrap mb-3">
@@ -168,15 +180,33 @@ const SignUp = () => {
                     Password
                   </label>
                 </div>
-                <input
-                  onChange={(e) => setPassword(e)}
-                  placeholder="Enter Password"
-                  className="py-2 outline-0 my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
-                  type="password"
-                />
+                <div className="focus:border-black border-gray-500 outline-none my-1 rounded-sm border-2 flex w-full">
+                  <input
+                    onChange={(e) => setPassword(e)}
+                    placeholder="Enter Password"
+                    className="no-border-no-outline w-11/12"
+                    type={showPassword ? "text" : "password"}
+                    required
+                  />
+                  {showPassword ? (
+                    <button
+                      onClick={handleTogglePassword}
+                      className="text-sm w-1/12 text-red-500 fade-out"
+                    >
+                      Hide
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleTogglePassword}
+                      className="text-sm w-1/12 text-green-500 fade-out"
+                    >
+                      Show
+                    </button>
+                  )}
+                </div>
               </div>
               <button
-                onClick={(e) => handleSignUp(e)}
+                type="submit"
                 className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-2 text-center font-semibold mt-1 w-full text-lg"
               >
                 <span hidden={isLoading}>Create an Account</span>

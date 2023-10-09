@@ -163,7 +163,7 @@ const Profile = () => {
       <div className="py-5 pl-10 xl:pl-20 bg-white shadow-sm border-b mb-3">
         <div className="text-sm">
           Home {">"} My Account {">"}{" "}
-          <span className="text-pink-800">My Profile</span>
+          <span className="text-pink-800 font-bold">My Profile</span>
         </div>
         <div>
           <h1 className="font-bold text-4xl">Account Information</h1>
