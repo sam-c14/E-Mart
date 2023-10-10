@@ -209,7 +209,7 @@ const Product = () => {
                     <button
                       id="proceed-to-payment"
                       onClick={routeToCartOverview}
-                      className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-10/12 "
+                      className="text-pink-600 rounded-sm bg-transparent py-2 mt-0 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-10/12 "
                     >
                       Proceed To Payment
                     </button>
