@@ -22,6 +22,7 @@ import { routeToProduct } from "../../components/home/CurrentDeals";
 import { setReturnUrl } from "../../store/slices/authSlice";
 import { addToCart as postAddedItem } from "../../store/asyncFns/postData";
 import { history } from "../../utilities/routerFns";
+import { Spinner } from "flowbite-react";
 
 export default function DailyDeals() {
   const dispatch = useAppDispatch();
@@ -39,7 +40,9 @@ export default function DailyDeals() {
     fetchProducts();
   }, []);
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean | String | undefined>(
+    false
+  );
   const fetchProducts = async () => {
     await dispatch(getProducts);
     // console.log(sliceProducts);
@@ -72,7 +75,7 @@ export default function DailyDeals() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     items: T
   ) => {
-    setIsLoading(true);
+    setIsLoading(items.sku);
     const user = localStorage.getItem("user");
     if (!user || user.length === 0) {
       toast.error("Please Login First");
@@ -157,7 +160,7 @@ export default function DailyDeals() {
               ) : (
                 <button
                   id="cta-btn"
-                  disabled={isLoading}
+                  disabled={!!isLoading}
                   onClick={(e) =>
                     handleAddToCart(e, {
                       sku: item.sku,
@@ -169,7 +172,12 @@ export default function DailyDeals() {
                   }
                   className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-11/12 "
                 >
-                  Add To Cart
+                  <span hidden={isLoading === item.sku}>Add To Cart</span>
+                  <Spinner
+                    hidden={
+                      !isLoading ? true : isLoading === item.sku ? false : true
+                    }
+                  />
                 </button>
               )}
             </div>

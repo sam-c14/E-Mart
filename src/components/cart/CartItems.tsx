@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaAngleRight, FaArrowLeft } from "react-icons/fa";
 // import Deal1 from "../../assets/images/Deal1.webp";
@@ -10,7 +10,7 @@ import {
 } from "../../store/slices/cartSlice";
 import { removeFromCart as postRemovedItemFromCart } from "../../store/asyncFns/postData";
 import { history } from "../../utilities/routerFns";
-
+import { Spinner } from "flowbite-react";
 interface itemsCart {
   handler: Function;
 }
@@ -29,15 +29,21 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
     dispatch(incProductQuantity(id));
   };
 
+  const [isLoading, setIsLoading] = useState<boolean | String | undefined>(
+    false
+  );
+
   const goBack = () => {
     if (returnUrl) history.navigate(returnUrl);
   };
 
   const removeItem = async (id: any, body: any) => {
+    setIsLoading(id);
     await dispatch(setItemToBeRemoved(body));
     // await dispatch(removeFromCart(id));
     await dispatch(postRemovedItemFromCart);
     props.handler();
+    setIsLoading(false);
   };
 
   return (
@@ -84,7 +90,7 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                       <div className="w-1/5">
                         <img
                           src={items.src}
-                          alt="tablet"
+                          alt="product-img"
                           className="w-full h-full"
                         />
                       </div>
@@ -92,8 +98,8 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                         <p className="font-semibold">{items.title}</p>
                         <p className="text-xs">
                           Sold by
-                          <span className="text-blue-500">
-                            ESTEEM MEDIA PRO
+                          <span className="ml-1 text-blue-500 font-semibold">
+                            {items.title.substring(0, 10)}
                           </span>
                         </p>
                       </div>
@@ -132,19 +138,34 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                       </p>
                     </div>
                     <div className="w-1/6 mt-4">
-                      <p
-                        onClick={() =>
-                          removeItem(items.sku, {
-                            sku: items.sku,
-                            id: cartId,
-                            price: items.price,
-                          })
-                        }
-                        className="text-pink-800 text-sm "
-                      >
-                        Remove item
-                      </p>
-                      <p className="text-pink-800 text-sm mt-1">
+                      <div>
+                        <p
+                          hidden={isLoading === items.sku}
+                          onClick={() =>
+                            removeItem(items.sku, {
+                              sku: items.sku,
+                              id: cartId,
+                              price: items.price,
+                            })
+                          }
+                          className="text-pink-800 text-sm transition-all hover:underline"
+                        >
+                          Remove item
+                        </p>
+                        <div className="flex pl-5 mb-1">
+                          <Spinner
+                            className="w-5 h-5"
+                            hidden={
+                              !isLoading
+                                ? true
+                                : isLoading === items.sku
+                                ? false
+                                : true
+                            }
+                          />
+                        </div>
+                      </div>
+                      <p className="text-pink-800 text-sm mt-1 transition-all hover:underline">
                         Save for Later
                       </p>
                     </div>
