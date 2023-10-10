@@ -6,7 +6,7 @@ import { setForm } from "../../store/slices/authSlice";
 import { login } from "../../store/asyncFns/postData";
 // import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import TransitionsModal from "../../components/other/TransitionsModal";
+// import TransitionsModal from "../../components/other/TransitionsModal";
 // import { status } from "../../store/slices/authSlice";
 import EMart1 from "../../assets/images/E-Mart3.png";
 
@@ -23,12 +23,12 @@ const Login = () => {
   const queryParams = new URLSearchParams(location.search);
 
   const dispatch = useAppDispatch();
-  let initialForm: loginForm = {
-    email: "",
-    password: "",
-    role: "",
-  };
-  const [form, setLoginForm] = useState(initialForm);
+  // let initialForm: loginForm = {
+  //   email: "",
+  //   password: "",
+  //   role: "",
+  // };
+  // const [form, setLoginForm] = useState(initialForm);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState<string>("");
@@ -52,17 +52,17 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     setIsLoading(true);
     e.preventDefault();
-    await setLoginForm({
-      email,
-      password,
-      role: "user",
-    });
+    // await setLoginForm({
+    //   email,
+    //   password,
+    //   role: "user",
+    // });
     const postForm = {
       email,
       password,
       role: "user",
     };
-    console.log(postForm);
+    // console.log(postForm);
     await dispatch(setForm(postForm));
     await dispatch(login);
     setIsLoading(false);

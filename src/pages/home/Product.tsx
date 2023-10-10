@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HeaderComp from "../../components/other/HeaderComp";
 import LinksHeader from "../../components/home/nav/LinksHeader";
 import Navbar from "../../components/home/nav/Navbar";
-import Categories from "../../components/home/nav/Categories";
+// import Categories from "../../components/home/nav/Categories";
 import Footer from "../../components/home/Footer";
 import ProductSlider from "../../components/home/ProductSlider";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -23,6 +23,7 @@ import { addToCart as addToCartSlice } from "../../store/slices/cartSlice";
 import { addToCart as postAddedItem } from "../../store/asyncFns/postData";
 import { getReservedProducts } from "../../store/asyncFns/postData";
 import { useParams } from "react-router-dom";
+import { routeToCartOverview } from "../home/DailyDeals";
 
 const Product = () => {
   const dispatch = useAppDispatch();
@@ -66,6 +67,8 @@ const Product = () => {
     await dispatch(addToCartSlice(item));
     await dispatch(postAddedItem);
   };
+
+  const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
 
   if (load) {
     return (
@@ -162,21 +165,34 @@ const Product = () => {
                 </div>
                 <hr />
                 <div className="flex my-4">
-                  <button
-                    onClick={(e) =>
-                      addToCart(e, {
-                        sku: product.sku,
-                        src: product.product_details.product_img,
-                        title: product.title,
-                        price: product.pricing.price,
-                        quantity: 1,
-                      })
-                    }
-                    className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-1 text-center
+                  {!cartItems.find(
+                    (cartItem) => cartItem.sku === product.sku
+                  ) ? (
+                    <button
+                      onClick={(e) =>
+                        addToCart(e, {
+                          sku: product.sku,
+                          src: product.product_details.product_img,
+                          title: product.title,
+                          price: product.pricing.price,
+                          quantity: 1,
+                        })
+                      }
+                      className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-1 text-center
                   w-1/2 font-semibold mt-1 text-base"
-                  >
-                    Buy Now
-                  </button>
+                    >
+                      Buy Now
+                    </button>
+                  ) : (
+                    <button
+                      id="proceed-to-payment"
+                      onClick={routeToCartOverview}
+                      className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-11/12 "
+                    >
+                      Proceed To Payment
+                    </button>
+                  )}
+
                   <div className="w-1/2 flex items-center pl-4">
                     <div
                       aria-label="add to favorites"

@@ -17,10 +17,7 @@ import {
   setUserFormSubmissionStatus,
 } from "../slices/userSlice";
 
-import {
-  setCartDetails,
-  removeFromCart as removeFromCartSlice,
-} from "../slices/cartSlice";
+import { setCartDetails } from "../slices/cartSlice";
 
 const getUserFromLocalStorage = () => {
   const user = localStorage.getItem("user");

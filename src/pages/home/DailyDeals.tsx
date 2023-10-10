@@ -24,6 +24,10 @@ import { addToCart as postAddedItem } from "../../store/asyncFns/postData";
 import { history } from "../../utilities/routerFns";
 import { Spinner } from "flowbite-react";
 
+export const routeToCartOverview = () => {
+  history.navigate("/cart/overview");
+};
+
 export default function DailyDeals() {
   const dispatch = useAppDispatch();
   const sliceProducts = useAppSelector(
@@ -66,10 +70,6 @@ export default function DailyDeals() {
       }
     });
   });
-
-  const routeToCartOverview = () => {
-    history.navigate("/cart/overview");
-  };
 
   const handleAddToCart = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
