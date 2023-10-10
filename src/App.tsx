@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Home from "./pages/home/Home";
 import Cart from "./pages/Cart";
 import Login from "./pages/login/Login";
@@ -12,7 +12,7 @@ import Profile from "./pages/profile/Profile";
 import { useAppDispatch, useAppSelector } from "./store/hooks/hooks";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-
+import { setReturnUrl } from "./store/slices/authSlice";
 import { history } from "./utilities/routerFns";
 import { reduxFns } from "./utilities/reduxFns";
 
@@ -20,8 +20,21 @@ const App = () => {
   history.navigate = useNavigate();
   history.location = useLocation();
 
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+
   reduxFns.dispatch = useAppDispatch();
   reduxFns.selector = useAppSelector((state) => state.userReducer);
+
+  // console.log(location.pathname);
+  useEffect(() => {
+    const previousRoute = location.pathname;
+
+    // Sets the previous route when the components unmounts
+    return () => {
+      dispatch(setReturnUrl(previousRoute));
+    };
+  }, [location.pathname]);
 
   return (
     <div>

@@ -55,8 +55,7 @@ const Navbar = () => {
   const userProfile: Array<T> = [
     { text: `${user?.data.username.split(" ")[0]}`, to: "", disabled: true },
     { text: "Profile", to: "/account/profile", disabled: false },
-    { text: "Profile", to: "/account/profile", disabled: false },
-    { text: "Orders", to: "/account/orders", disabled: false },
+    { text: "My Orders", to: "/account/orders", disabled: false },
     { text: "Wishlist", to: "/account/wishlist", disabled: false },
     { text: "Logout", to: "/account/logout/true", disabled: false },
   ];
@@ -84,7 +83,7 @@ const Navbar = () => {
 
   useEffect(() => {
     // console.log("I changed");
-    console.log(cartQuantity);
+    // console.log(cartQuantity);
   }, [cartQuantity]);
 
   return (

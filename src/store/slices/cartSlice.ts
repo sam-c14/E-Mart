@@ -14,6 +14,14 @@ export type productT = {
   price: Number;
   quantity: Number;
 };
+export type itemT = {
+  id: String;
+  status: String;
+  price: Number;
+  quantity: number;
+  op: String;
+  sku: String;
+};
 export type cartItemType = {
   _id: String;
   status: string;
@@ -25,6 +33,7 @@ export interface cartState {
   status: String;
   cartItems: Array<T>;
   addedItem: cartItemType;
+  itemQuantityToBeChanged: itemT;
   totalQuantity: number;
   isEmpty: Boolean;
   itemToBeRemoved: any;
@@ -44,6 +53,14 @@ const initialState: cartState = {
       price: 0,
       quantity: 0,
     },
+  },
+  itemQuantityToBeChanged: {
+    id: "",
+    status: "",
+    price: 0,
+    quantity: 0,
+    op: "",
+    sku: "",
   },
   totalQuantity: 0,
   isEmpty: true,
@@ -95,6 +112,9 @@ export const cartSlice = createSlice({
       );
       product.quantity !== 0 && product.quantity--;
     },
+    setItemQuantityToBeChanged(state, action: PayloadAction<itemT>) {
+      state.itemQuantityToBeChanged = action.payload;
+    },
     setCartDetails(state, action: PayloadAction<any>) {
       state.cartItems = action.payload?.products;
       state.addedItem._id = action.payload?._id;
@@ -118,6 +138,7 @@ export const {
   incProductQuantity,
   setCartDetails,
   setItemToBeRemoved,
+  setItemQuantityToBeChanged,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

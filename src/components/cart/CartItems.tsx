@@ -11,6 +11,11 @@ import {
 import { removeFromCart as postRemovedItemFromCart } from "../../store/asyncFns/postData";
 import { history } from "../../utilities/routerFns";
 import { Spinner } from "flowbite-react";
+// import { reduxFns } from "../../utilities/reduxFns";
+import { itemT } from "../../store/slices/cartSlice";
+import { changeProductQuantity } from "../../store/asyncFns/postData";
+import { setItemQuantityToBeChanged } from "../../store/slices/cartSlice";
+// import { Spinner } from "flowbite-react";
 interface itemsCart {
   handler: Function;
 }
@@ -44,6 +49,16 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
     await dispatch(postRemovedItemFromCart);
     props.handler();
     setIsLoading(false);
+  };
+
+  const [changingItemQuantity, setChangingItemQuantity] =
+    useState<boolean>(false);
+
+  const changedItemQuantity = async (body: itemT) => {
+    setChangingItemQuantity(true);
+    await dispatch(setItemQuantityToBeChanged(body));
+    await dispatch(changeProductQuantity);
+    setChangingItemQuantity(false);
   };
 
   return (
@@ -82,7 +97,7 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                 </ul>
               </div>
             </div>
-            <div className="bg-white px-3">
+            <div className="bg-white py-1 px-3">
               {cartItems.map((items) => (
                 <>
                   <div className="flex rounded-bl-sm px-3 rounded-br-sm">
@@ -91,7 +106,7 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                         <img
                           src={items.src}
                           alt="product-img"
-                          className="w-full h-full"
+                          className="w-11/12 h-11/12"
                         />
                       </div>
                       <div>
@@ -105,31 +120,69 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                       </div>
                     </div>
                     <div className="w-1/5">
-                      <div className="shadow-md w-1/2 mt-5">
+                      <div className="shadow-md w-1/2 mt-4">
                         <button
-                          onClick={() => decItem(items.sku)}
+                          disabled={changingItemQuantity}
+                          onClick={() =>
+                            changedItemQuantity({
+                              id: cartId,
+                              status: "active",
+                              // prevents sending wrong price to the server
+                              price:
+                                items.quantity === 1
+                                  ? items.price
+                                  : (items.price as number) /
+                                    (items.quantity as number),
+                              quantity: 1,
+                              op: "dec",
+                              sku: items.sku,
+                            })
+                          }
                           className="border w-1/3 py-1 text-gray-400
-                   bg-white text-sm"
+                   bg-white text-sm font-semibold"
                         >
                           -
                         </button>
                         <button
                           disabled
-                          className="border w-1/3 py-1 text-bla
+                          className="border w-1/3 py-1 text-black
                    bg-white text-sm"
                         >
-                          {items.quantity.toString()}
+                          <span hidden={changingItemQuantity}>
+                            {items.quantity.toString()}
+                          </span>
+                          <span
+                            className="w-11/12"
+                            style={{ maxHeight: "91.6667%" }}
+                          >
+                            <Spinner hidden={!changingItemQuantity} />
+                          </span>
                         </button>
                         <button
-                          onClick={() => incItem(items.sku)}
+                          disabled={changingItemQuantity}
+                          onClick={() =>
+                            changedItemQuantity({
+                              id: cartId,
+                              status: "active",
+                              // prevents sending wrong price to the server
+                              price:
+                                items.quantity === 1
+                                  ? items.price
+                                  : (items.price as number) /
+                                    (items.quantity as number),
+                              quantity: 1,
+                              op: "inc",
+                              sku: items.sku,
+                            })
+                          }
                           className="border w-1/3 py-1 text-gray-400
-                   bg-white text-sm"
+                   bg-white text-sm font-semibold"
                         >
                           +
                         </button>
                       </div>
                     </div>
-                    <div className="w-1/6 mt-4">
+                    <div className="w-1/6 mt-3">
                       <p className="font-bold text-lg">
                         ₦{items.price.toLocaleString()}
                       </p>
@@ -137,7 +190,7 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                         ₦{items.price.toLocaleString()} x 1 item
                       </p>
                     </div>
-                    <div className="w-1/6 mt-4">
+                    <div className="w-1/6 mt-3">
                       <div>
                         <p
                           hidden={isLoading === items.sku}

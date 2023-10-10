@@ -52,7 +52,7 @@ const Product = () => {
   const { sku } = useParams();
   const header = product.categories ? (
     <p>
-      Home {">"} {product.categories[0]} {">"}
+      Home {">"} {product.categories[0]} {" > "}
       <span className="text-pink-800 font-bold">{product.categories[1]}</span>
     </p>
   ) : (
@@ -209,7 +209,7 @@ const Product = () => {
                     <button
                       id="proceed-to-payment"
                       onClick={routeToCartOverview}
-                      className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-11/12 "
+                      className="text-pink-600 rounded-sm bg-transparent py-2 mt-3 border-2  hover:text-white transition-5 border-pink-600 hover:bg-pink-600 text-center font-bold w-10/12 "
                     >
                       Proceed To Payment
                     </button>

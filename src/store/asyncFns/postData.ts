@@ -136,6 +136,26 @@ export const addToCart = async (dispatch: any, getState: any) => {
       toast.error("There was an error adding item to cart");
     });
 };
+export const changeProductQuantity = async (dispatch: any, getState: any) => {
+  // Make an async HTTP request
+  const currentState = getState();
+  const cartItem = currentState.cartReducer.itemQuantityToBeChanged;
+  // const returnUrl = currentState.authReducer.returnUrl;
+  await post("change-prod-quantity", cartItem)
+    .then(async (res) => {
+      console.log(res);
+      const responseData = res;
+      // Dispatch an action with the todos we received
+      dispatch({ type: "user", payload: responseData });
+      // await dispatch(removeFromCartSlice(cartItem.id));
+      toast.success("Item quantity has been successfully updated");
+      await getCartDetails(dispatch, getState);
+    })
+    .catch((err) => {
+      console.log(err);
+      toast.error("There was an error updating the item quantity");
+    });
+};
 export const removeFromCart = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
   const currentState = getState();

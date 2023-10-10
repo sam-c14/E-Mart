@@ -8,6 +8,9 @@ import { login } from "../../store/asyncFns/postData";
 import { useLocation } from "react-router-dom";
 // import TransitionsModal from "../../components/other/TransitionsModal";
 // import { status } from "../../store/slices/authSlice";
+import { history } from "../../utilities/routerFns";
+import { FaArrowLeft } from "react-icons/fa";
+// import
 import EMart1 from "../../assets/images/E-Mart3.png";
 
 export type loginForm = {
@@ -23,12 +26,13 @@ const Login = () => {
   const queryParams = new URLSearchParams(location.search);
 
   const dispatch = useAppDispatch();
-  // let initialForm: loginForm = {
-  //   email: "",
-  //   password: "",
-  //   role: "",
-  // };
-  // const [form, setLoginForm] = useState(initialForm);
+  const returnUrl = useAppSelector((state) => state.authReducer.returnUrl);
+  // console.log(cartItems);
+  //  const dispatch = useAppDispatch();
+
+  const goBack = () => {
+    if (returnUrl) history.navigate(returnUrl);
+  };
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState<string>("");
@@ -104,10 +108,18 @@ const Login = () => {
             <img src={EMart1} className="w-full h-full" alt="logo" />
           </Link>
         </div> */}
+
         <div className="bg-white flex items-center sm:w-1/2 w-full">
           <div className="w-full py-4 md:px-7 lg:px-10 px-4">
-            <div className="my-2">
-              <h3 className="text-3xl font-bold text-center">Login</h3>
+            <div className="my-2 flex flex-row-reverse justify-between">
+              <h3 className="text-3xl font-bold text-center">Sign-In</h3>
+              <button
+                onClick={goBack}
+                className="border-2 border-pink-500 transition-all hover:text-white hover:bg-pink-500 text-pink-500 flex justify-between items-center font-semibold py-1 rounded-md px-3"
+              >
+                <FaArrowLeft className="text-xs mr-1" />
+                Back
+              </button>
             </div>
             {/* <div className="border-b-2 w-full border-gray-300 my-4"></div>
           <button className="text-blue-600 rounded-sm bg-transparent py-2 my-3 border-2 border-blue-600 text-center font-bold w-full ">

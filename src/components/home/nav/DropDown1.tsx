@@ -28,9 +28,9 @@ const DropDown1: FC<items> = (props): JSX.Element => {
             hover:text-pink-600 w-full hover:bg-gray-100"
           >
             {item.disabled ? (
-              <h1 className="font-semibold"> Hi {item.text}</h1>
+              <h1 className="font-semibold text-sm"> Hi {item.text}</h1>
             ) : (
-              <Link className="w-full block" to={item.to as To}>
+              <Link className="w-full block text-sm" to={item.to as To}>
                 {item.text}
               </Link>
             )}

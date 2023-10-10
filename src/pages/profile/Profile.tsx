@@ -8,15 +8,15 @@ import { BsBagDash } from "react-icons/bs";
 import { BsWallet2 } from "react-icons/bs";
 import { LiaUserTimesSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Label, TextInput } from "flowbite-react";
 import { CircularProgress } from "@mui/material";
 import { getUser, updateUser } from "../../store/asyncFns/postData";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
+import { useAppDispatch } from "../../store/hooks/hooks";
 import { reduxFns } from "../../utilities/reduxFns";
 import { setUserForm } from "../../store/slices/userSlice";
 import bcrypt from "bcryptjs";
-import { Alert } from "flowbite-react";
-import { HiInformationCircle } from "react-icons/hi";
+// import { Alert } from "flowbite-react";
+import { Spinner } from "flowbite-react";
 
 interface linkObjType {
   title: string;
@@ -297,7 +297,8 @@ const Profile = () => {
                 type="submit"
                 className="py-3 w-full text-sm bg-green-600 hover:bg-green-500 rounded-md transition-all text-white"
               >
-                Save Changes
+                <span hidden={isSubmitted}> Save Changes</span>
+                <Spinner hidden={!isSubmitted} />
               </button>
             </form>
           </div>

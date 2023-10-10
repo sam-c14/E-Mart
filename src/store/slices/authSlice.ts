@@ -12,7 +12,7 @@ export interface authState {
   // token: string;
   email: string;
   status: boolean | null;
-  returnUrl: string | null;
+  returnUrl: string | null | undefined;
 }
 
 // Define the initial state using that type
@@ -65,7 +65,7 @@ export const authSlice = createSlice({
       ).toString();
       localStorage.setItem("user", encryptedData);
     },
-    setReturnUrl(state, action: PayloadAction<string | null>) {
+    setReturnUrl(state, action: PayloadAction<string | null | undefined>) {
       state.returnUrl = action.payload;
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
