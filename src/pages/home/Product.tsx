@@ -24,12 +24,16 @@ import { addToCart as postAddedItem } from "../../store/asyncFns/postData";
 import { getReservedProducts } from "../../store/asyncFns/postData";
 import { useParams } from "react-router-dom";
 import { routeToCartOverview } from "../home/DailyDeals";
+import toast from "react-hot-toast";
+import { Spinner } from "flowbite-react";
 
 const Product = () => {
   const dispatch = useAppDispatch();
   const product = useAppSelector((state) => state.productReducer.singleProduct);
   const [load, setLoad] = useState<boolean>(false);
-  const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
+  const [isAddingToCart, setIsAddingToCart] = useState<
+    boolean | String | undefined
+  >(false);
   const fetchProduct = async () => {
     // console.log("reached here");
     setLoad(true);
@@ -62,10 +66,16 @@ const Product = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     item: any
   ) => {
-    setIsAddingToCart(true);
+    const user = localStorage.getItem("user");
+    if (!user || user.length === 0) {
+      toast.error("Please Login First");
+      return;
+    }
+    setIsAddingToCart(item.sku);
     await dispatch(setReturnUrl("/cart/overview"));
     await dispatch(addToCartSlice(item));
     await dispatch(postAddedItem);
+    setIsAddingToCart(false);
   };
 
   const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
@@ -169,6 +179,7 @@ const Product = () => {
                     (cartItem) => cartItem.sku === product.sku
                   ) ? (
                     <button
+                      disabled={!!isAddingToCart}
                       onClick={(e) =>
                         addToCart(e, {
                           sku: product.sku,
@@ -181,7 +192,18 @@ const Product = () => {
                       className="text-white rounded-sm bg-emerald-500 hover:bg-emerald-400 py-1 text-center
                   w-1/2 font-semibold mt-1 text-base"
                     >
-                      Buy Now
+                      <span hidden={isAddingToCart === product.sku}>
+                        Buy Now
+                      </span>
+                      <Spinner
+                        hidden={
+                          !isAddingToCart
+                            ? true
+                            : isAddingToCart === product.sku
+                            ? false
+                            : true
+                        }
+                      />
                     </button>
                   ) : (
                     <button
