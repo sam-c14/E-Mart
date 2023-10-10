@@ -128,7 +128,7 @@ export const addToCart = async (dispatch: any, getState: any) => {
         setTimeout(() => {
           history.navigate(returnUrl);
           dispatch(setReturnUrl(history.location.pathname));
-        }, 2000);
+        }, 3500);
       await getCartDetails(dispatch, getState);
     })
     .catch((err) => {

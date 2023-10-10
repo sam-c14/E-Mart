@@ -130,10 +130,10 @@ const Navbar = () => {
         <li className="transition-5 text-sm flex w-1/2">
           <input
             type="text"
-            className="pl-5 py-1 w-11/12 outline-none text-black rounded-s-lg"
+            className="pl-5 py-1 w-11/12 outline-none border-none text-black rounded-s-lg"
             placeholder="Search for products, brands and categories"
           />
-          <button className="text-white w-1/12 flex rounded-e-md justify-center items-center text-2xl py-2 px-4 bg-orange-500">
+          <button className="text-white w-1/12 flex rounded-e-md justify-center items-center text-2xl py-1.5 px-4 bg-orange-500">
             <AiOutlineSearch />
           </button>
         </li>
