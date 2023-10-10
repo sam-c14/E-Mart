@@ -51,11 +51,12 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
     setIsLoading(false);
   };
 
-  const [changingItemQuantity, setChangingItemQuantity] =
-    useState<boolean>(false);
+  const [changingItemQuantity, setChangingItemQuantity] = useState<
+    boolean | String | undefined
+  >(false);
 
   const changedItemQuantity = async (body: itemT) => {
-    setChangingItemQuantity(true);
+    setChangingItemQuantity(body.sku);
     await dispatch(setItemQuantityToBeChanged(body));
     await dispatch(changeProductQuantity);
     setChangingItemQuantity(false);
@@ -102,11 +103,11 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                 <>
                   <div className="flex rounded-bl-sm px-3 rounded-br-sm">
                     <div className="w-3/5 flex gap-2 items-center">
-                      <div className="w-1/5">
+                      <div className="w-1/5" style={{ height: "91.667%" }}>
                         <img
                           src={items.src}
                           alt="product-img"
-                          className="w-11/12 h-11/12"
+                          className="w-11/12"
                         />
                       </div>
                       <div>
@@ -122,7 +123,7 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                     <div className="w-1/5">
                       <div className="shadow-md w-1/2 mt-4">
                         <button
-                          disabled={changingItemQuantity}
+                          disabled={!!changingItemQuantity}
                           onClick={() =>
                             changedItemQuantity({
                               id: cartId,
@@ -148,18 +149,26 @@ const CartItems: FC<itemsCart> = (props): JSX.Element => {
                           className="border w-1/3 py-1 text-black
                    bg-white text-sm"
                         >
-                          <span hidden={changingItemQuantity}>
+                          <span hidden={changingItemQuantity === items.sku}>
                             {items.quantity.toString()}
                           </span>
                           <span
                             className="w-11/12"
                             style={{ maxHeight: "91.6667%" }}
                           >
-                            <Spinner hidden={!changingItemQuantity} />
+                            <Spinner
+                              hidden={
+                                !changingItemQuantity
+                                  ? true
+                                  : changingItemQuantity === items.sku
+                                  ? false
+                                  : true
+                              }
+                            />
                           </span>
                         </button>
                         <button
-                          disabled={changingItemQuantity}
+                          disabled={!!changingItemQuantity}
                           onClick={() =>
                             changedItemQuantity({
                               id: cartId,
