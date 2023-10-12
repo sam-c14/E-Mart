@@ -35,7 +35,7 @@ const getUserFromLocalStorage = () => {
 export const login = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
   const currentState = getState();
-  console.log(currentState.authReducer.form);
+  // console.log(currentState.authReducer.form);
   await post("login", currentState.authReducer.form)
     .then(async (res) => {
       // console.log(res, "from here");
@@ -106,7 +106,7 @@ export const logout = async (dispatch: any, getState: any) => {
     .then((res) => {
       // console.log(res);
       localStorage.clear();
-      document.location.reload();
+      // document.location.reload();
       history.navigate(`/`);
       // Dispatch an action with the todos we received
     })
@@ -143,7 +143,7 @@ export const changeProductQuantity = async (dispatch: any, getState: any) => {
   // const returnUrl = currentState.authReducer.returnUrl;
   await post("change-prod-quantity", cartItem)
     .then(async (res) => {
-      console.log(res);
+      // console.log(res);
       const responseData = res;
       // Dispatch an action with the todos we received
       dispatch({ type: "user", payload: responseData });
