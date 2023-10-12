@@ -22,6 +22,7 @@ import { logout } from "../../store/asyncFns/postData";
 // import * as notify from "notifyjs";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { history } from "../../utilities/routerFns";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -54,6 +55,8 @@ const Home = () => {
     toast.success("Products Fetched Successfully");
   };
 
+  const user = localStorage.getItem("user");
+
   const showAlert = () => {
     //  Swal.fire({
     //    icon: "",
@@ -72,10 +75,12 @@ const Home = () => {
   useEffect(() => {
     // notify.requestPermission();
     getProducts();
-    if (logoutStatus) {
-      handleLogout();
-    }
-  }, [logoutStatus]);
+    // if (logoutStatus && user?.length !== 0) {
+    //   handleLogout();
+    // } else {
+    //   if (document.location.href !== "/") history.navigate("/");
+    // }
+  }, []);
 
   return loading ? (
     <div className="grid h-screen place-items-center">

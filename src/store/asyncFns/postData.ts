@@ -106,7 +106,7 @@ export const logout = async (dispatch: any, getState: any) => {
     .then((res) => {
       // console.log(res);
       localStorage.clear();
-      // document.location.reload();
+      document.location.reload();
       history.navigate(`/`);
       // Dispatch an action with the todos we received
     })

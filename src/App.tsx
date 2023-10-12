@@ -5,6 +5,7 @@ import Login from "./pages/login/Login";
 import SignUp from "./pages/signup/SignUp";
 import Help from "./pages/help/help";
 import Deals from "./pages/home/Deals";
+import LogOut from "./pages/home/LogOut";
 import Otp from "./pages/otp/Otp";
 import Construction from "./pages/stores/Construction";
 import Product from "./pages/home/Product";
@@ -48,7 +49,7 @@ const App = () => {
           />
           <Route path="/account">
             <Route path="login" element={<Login />} />
-            <Route path="logout/:logoutStatus" element={<Home />} />
+            <Route path="logout/:logoutStatus" element={<LogOut />} />
             <Route path="signup" element={<SignUp />} />
           </Route>
           <Route path="/help">
