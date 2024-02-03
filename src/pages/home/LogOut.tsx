@@ -14,7 +14,7 @@ const LogOut: React.FC = () => {
     handleLogout();
   }, []);
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center sm:mx-0 mx-4">
       <div className="bg-white p-8 shadow-md rounded-md">
         <h1 className="text-2xl font-bold mb-4">Logout Successful</h1>
         <p className="text-gray-600">

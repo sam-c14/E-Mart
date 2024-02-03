@@ -46,10 +46,13 @@ export const userSlice = createSlice({
     setUserFormSubmissionStatus(state, action: PayloadAction<boolean>) {
       state.userFormSubmissionStatus = action.payload;
     },
+    clearStore(state, action: PayloadAction<boolean>) {
+      state = initialState;
+    },
   },
 });
 
-export const { setUser, setUserForm, setUserFormSubmissionStatus } =
+export const { setUser, setUserForm, setUserFormSubmissionStatus, clearStore } =
   userSlice.actions;
 
 export default userSlice.reducer;

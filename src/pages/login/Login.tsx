@@ -163,7 +163,7 @@ const Login = () => {
                     Forgot Password?
                   </Link>
                 </div>
-                <div className="focus:border-black border-gray-500 outline-none my-1 rounded-sm border-2 flex w-full">
+                <div className="focus:border-black border-gray-500 ring-transparent outline-none my-1 rounded-sm border-2 flex w-full">
                   <input
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter Password"

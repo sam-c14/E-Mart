@@ -38,6 +38,15 @@ export const productSlice = createSlice({
     setSingleProductSku: (state, action: PayloadAction<any>) => {
       state.singleProductSku = action.payload;
     },
+    clearStore: (state, action: PayloadAction<any>) => {
+      state = {
+        products: [],
+        tag: {},
+        sponsoredProducts: [],
+        singleProduct: {},
+        singleProductSku: "",
+      };
+    },
   },
 });
 
@@ -47,6 +56,7 @@ export const {
   setProductTag,
   setSingleProduct,
   setSingleProductSku,
+  clearStore,
 } = productSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

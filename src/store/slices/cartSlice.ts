@@ -127,6 +127,9 @@ export const cartSlice = createSlice({
     setItemToBeRemoved(state, action: PayloadAction<any>) {
       state.itemToBeRemoved = action.payload;
     },
+    clearStore(state, action: PayloadAction<any>) {
+      state = initialState;
+    },
   },
 });
 
@@ -139,6 +142,7 @@ export const {
   setCartDetails,
   setItemToBeRemoved,
   setItemQuantityToBeChanged,
+  clearStore,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

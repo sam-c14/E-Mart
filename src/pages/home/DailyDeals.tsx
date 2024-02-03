@@ -102,7 +102,7 @@ export default function DailyDeals() {
       <div>
         <HeaderComp htmlEle={header} headerText={"Daily Deals"} />
       </div>
-      <div className="lg:px-10 md:px-10 px-0 sm:grid md:grid-cols-2 xl:grid-cols-5 flex flex-wrap justify-center lg:grid-cols-3 gap-y-4 gap-x-4">
+      <div className="lg:px-10 md:px-10 px-0 sm:grid md:grid-cols-2 xl:grid-cols-5 flex flex-wrap justify-center lg:grid-cols-3 sm:mb-3 mb-20 gap-y-4 gap-x-4">
         {sliceProducts.map((item, index) => (
           <Card
             key={index}

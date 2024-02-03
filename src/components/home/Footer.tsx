@@ -163,7 +163,7 @@ const Footer = () => {
       </div>
       <div
         style={{ bottom: "0" }}
-        className="bg-white py-3 fixed sm:hidden px-10 w-full z-10 block"
+        className="bg-white py-3 fixed sm:hidden px-10 w-full z-10 mt-5 block"
       >
         <ul className="flex justify-between">
           {mobileLinks.map((link, index) => (

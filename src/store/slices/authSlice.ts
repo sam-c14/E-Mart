@@ -72,6 +72,9 @@ export const authSlice = createSlice({
     refreshToken: (state, action: PayloadAction<string>) => {
       //   state.value += action.payload;
     },
+    clearStore: (state, action: PayloadAction<string>) => {
+      state = initialState;
+    },
   },
 });
 
@@ -84,6 +87,7 @@ export const {
   setOtpEmail,
   setStatus,
   setReturnUrl,
+  clearStore,
 } = authSlice.actions;
 export const { status } = authSlice.getInitialState();
 

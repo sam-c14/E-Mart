@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
 import { getReservedProducts } from "../../store/asyncFns/postData";
 import { setProductTag } from "../../store/slices/productSlice";
 import { CircularProgress } from "@mui/material";
+import { Skeleton } from "@mui/material";
 import { getProducts as fetchCurProducts } from "../../store/asyncFns/postData";
 import { logout } from "../../store/asyncFns/postData";
 // import * as notify from "notifyjs";
@@ -26,6 +27,8 @@ import { history } from "../../utilities/routerFns";
 
 const Home = () => {
   const dispatch = useAppDispatch();
+  const documentWidth = document.documentElement.clientWidth;
+  const documentHeight = document.documentElement.clientHeight;
   const { logoutStatus } = useParams();
   const [loading, setLoading] = useState<boolean>(true);
   const handleLogout = async () => {
@@ -75,16 +78,19 @@ const Home = () => {
   useEffect(() => {
     // notify.requestPermission();
     getProducts();
-    // if (logoutStatus && user?.length !== 0) {
-    //   handleLogout();
-    // } else {
-    //   if (document.location.href !== "/") history.navigate("/");
+    console.log(documentWidth);
     // }
   }, []);
 
   return loading ? (
     <div className="grid h-screen place-items-center">
-      <CircularProgress />
+      <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+
+      {/* For other variants, adjust the size with `width` and `height` */}
+      <Skeleton variant="circular" width={210} height={210} />
+      <Skeleton variant="rectangular" width={documentWidth - 210} height={80} />
+      <Skeleton variant="rounded" width={documentWidth - 210} height={80} />
+      {/* <CircularProgress /> */}
     </div>
   ) : (
     <>

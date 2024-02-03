@@ -14,7 +14,7 @@ const Construction = () => {
   return (
     <div className="grid h-screen place-items-center">
       <div className="flex h-1/2 flex-wrap sm:flex-nowrap md:justify-between lg:justify-evenly">
-        <div className="pt-24 sm:block flex justify-center flex-wrap sm:w-auto w-full">
+        <div className="pt-24 sm:block flex justify-center flex-wrap sm:gap-0 gap-5 sm:w-auto w-full">
           <button
             onClick={goBack}
             className="border-2 border-pink-500 transition-all hover:text-white hover:bg-pink-500 text-pink-500 flex justify-between items-center font-semibold py-1 rounded-md px-3 mb-4"
@@ -26,12 +26,12 @@ const Construction = () => {
             <StoreLogo />
           </div>
           <div>
-            <h3 className="text-gray-600 w-9/12 font-bold text-2xl ">
+            <h3 className="text-gray-600 w-full sm:w-9/12 font-bold text-2xl sm:text-justify text-center sm:p-auto px-3">
               We are undergoing a bit of scheduled maintenance
             </h3>
           </div>
           <div>
-            <p className="text-gray-700 mt-2 w-9/12 text-sm">
+            <p className="text-gray-700 mt-2 w-full sm:w-9/12 sm:text-sm text-base sm:text-justify text-center sm:p-auto px-3">
               Sorry for the inconvenience.We will be back up and running as fast
               as possible.
             </p>

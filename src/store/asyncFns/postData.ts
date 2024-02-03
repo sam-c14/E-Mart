@@ -3,7 +3,12 @@ import { post, get, put } from "../../client/client";
 // import { loginForm } from "../../pages/login/Login";
 // import { RootState, AppDispatch } from "..";
 import { history } from "../../utilities/routerFns";
-import { setStatus, setUser, setReturnUrl } from "../slices/authSlice";
+import {
+  setStatus,
+  setUser,
+  setReturnUrl,
+  clearStore as clearAuthStore,
+} from "../slices/authSlice";
 import CryptoJS from "crypto-js";
 import toast from "react-hot-toast";
 
@@ -11,13 +16,18 @@ import {
   setProducts,
   setSponsoredProducts,
   setSingleProduct,
+  clearStore as clearProductStore,
 } from "../slices/productSlice";
 import {
   setUser as setUserSliceUser,
   setUserFormSubmissionStatus,
+  clearStore as clearUserStore,
 } from "../slices/userSlice";
 
-import { setCartDetails } from "../slices/cartSlice";
+import {
+  setCartDetails,
+  clearStore as clearCartStore,
+} from "../slices/cartSlice";
 
 const getUserFromLocalStorage = () => {
   const user = localStorage.getItem("user");
@@ -103,10 +113,11 @@ export const logout = async (dispatch: any, getState: any) => {
   // Make an async HTTP request
   const currentState = getState();
   await post("logout", currentState.authReducer.form)
-    .then((res) => {
-      // console.log(res);
-      localStorage.clear();
-      document.location.reload();
+    .then(async (res) => {
+      await dispatch(clearAuthStore);
+      await dispatch(clearUserStore);
+      await dispatch(clearProductStore);
+      await dispatch(clearCartStore);
       history.navigate(`/`);
       // Dispatch an action with the todos we received
     })
