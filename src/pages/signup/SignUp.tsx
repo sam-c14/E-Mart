@@ -133,7 +133,7 @@ const SignUp = () => {
                 <input
                   onChange={(e) => setFirstName(e)}
                   placeholder="Enter First Name"
-                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black focus:ring-black border-gray-500 w-full"
                   type="text"
                   required
                 />
@@ -145,7 +145,7 @@ const SignUp = () => {
                 <input
                   onChange={(e) => setLastName(e)}
                   placeholder="Enter Last Name"
-                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black focus:ring-black border-gray-500 w-full"
                   type="text"
                   required
                 />
@@ -157,7 +157,7 @@ const SignUp = () => {
                 <input
                   onChange={(e) => setEmail(e)}
                   placeholder="Enter Email Address"
-                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black focus:ring-black border-gray-500 w-full"
                   type="email"
                   required
                 />
@@ -169,7 +169,7 @@ const SignUp = () => {
                 <input
                   onChange={(e) => setPhoneNumber(e)}
                   placeholder="Enter Phone Number"
-                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black border-gray-500 w-full"
+                  className="py-2 outline-none my-1 rounded-sm pl-3 border-2 focus:border-black focus:ring-black border-gray-500 w-full"
                   type="text"
                   required
                 />
@@ -180,11 +180,11 @@ const SignUp = () => {
                     Password
                   </label>
                 </div>
-                <div className="focus:border-black border-gray-500 outline-none my-1 rounded-sm border-2 flex w-full">
+                <div className="focus:border-black border-gray-500  outline-none my-1 rounded-sm border-2 flex w-full">
                   <input
                     onChange={(e) => setPassword(e)}
                     placeholder="Enter Password"
-                    className="no-border-no-outline w-11/12"
+                    className="no-border-no-outline w-11/12 focus:ring-transparent"
                     type={showPassword ? "text" : "password"}
                     required
                   />

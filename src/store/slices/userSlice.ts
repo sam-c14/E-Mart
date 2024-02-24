@@ -7,12 +7,21 @@ export type T = {
   email: string;
   password: string;
 };
+export type CheckoutT = {
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  street_address: string;
+  state: string;
+  lga: string;
+};
 
 export interface userState {
   user: any;
   orders: Array<any>;
   userForm: T;
   userFormSubmissionStatus: boolean;
+  userCheckoutForm: CheckoutT;
 }
 
 const initialState: userState = {
@@ -26,11 +35,15 @@ const initialState: userState = {
     password: "",
   },
   userFormSubmissionStatus: false,
+  userCheckoutForm: {
+    first_name: "",
+    last_name: "",
+    phone_number: "",
+    street_address: "",
+    state: "",
+    lga: "",
+  },
 };
-
-// const setCartIsEmpty = (state: any) => {
-//   state.isEmpty = true;
-// };
 
 export const userSlice = createSlice({
   name: "user",
@@ -46,13 +59,21 @@ export const userSlice = createSlice({
     setUserFormSubmissionStatus(state, action: PayloadAction<boolean>) {
       state.userFormSubmissionStatus = action.payload;
     },
+    setUserCheckoutForm(state, action: PayloadAction<CheckoutT>) {
+      state.userCheckoutForm = action.payload;
+    },
     clearStore(state, action: PayloadAction<boolean>) {
       state = initialState;
     },
   },
 });
 
-export const { setUser, setUserForm, setUserFormSubmissionStatus, clearStore } =
-  userSlice.actions;
+export const {
+  setUser,
+  setUserForm,
+  setUserFormSubmissionStatus,
+  clearStore,
+  setUserCheckoutForm,
+} = userSlice.actions;
 
 export default userSlice.reducer;

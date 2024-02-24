@@ -7,3 +7,4 @@ declare module "crypto-js";
 declare module "notifyjs";
 declare module "sweetalert2";
 declare module "bcryptjs";
+declare module "naija-state-local-government";

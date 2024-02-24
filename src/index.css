@@ -36,3 +36,12 @@
   transition: all 0.5s;
 }
 /* .fade-out */
+@media screen and (max-width: 768px) {
+  .fixed-md {
+    position: fixed !important;
+  }
+}
+.test-input:focus {
+  outline: none !important;
+  border: none !important;
+}

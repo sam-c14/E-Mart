@@ -10,6 +10,7 @@ import Otp from "./pages/otp/Otp";
 import Construction from "./pages/stores/Construction";
 import Product from "./pages/home/Product";
 import Profile from "./pages/profile/Profile";
+import Checkout from "./pages/Checkout";
 import { useAppDispatch, useAppSelector } from "./store/hooks/hooks";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
@@ -56,12 +57,17 @@ const App = () => {
             <Route path="faqs" element={<Help helpComp="faqs" />} />
             <Route path="contact-us" element={<Help helpComp="contact-us" />} />
           </Route>
+          {/* Deals */}
           <Route path="/deals">
             <Route path="daily" element={<Deals dealType="daily-deals" />} />
           </Route>
           <Route path="/verify/:email" element={<Otp />} />
           <Route path="/product/:sku" element={<Product />} />
           <Route path="/account/profile" element={<Profile />} />
+          {/* Checkout  */}
+          <Route path="/checkout">
+            <Route path="complete-order" element={<Checkout />} />
+          </Route>
         </Routes>
       </div>
       <div>

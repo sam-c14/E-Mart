@@ -113,8 +113,15 @@ const Navbar = () => {
           <Link to="/stores">
             <HiMiniHomeModern className="text-2xl cursor-pointer" />
           </Link>
-          <Link className="" to="/cart/overview">
+          <Link className="relative" to="/cart/overview">
             <HiOutlineShoppingCart className="text-2xl cursor-pointer" />
+            {cartQuantity !== 0 ? (
+              <span className="bg-green-400 -top-2 left-4 absolute text-white text-sm rounded-full flex justify-center items-center w-4 h-4">
+                {cartQuantity}
+              </span>
+            ) : (
+              <span className=""></span>
+            )}
           </Link>
         </div>
       </div>
